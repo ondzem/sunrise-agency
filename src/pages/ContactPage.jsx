@@ -202,9 +202,6 @@ const ContactPage = () => {
                   <strong>Jana Palacha 1638</strong>
                   <span>Pardubice</span>
                 </div>
-                <a href="https://maps.google.com/?q=Jana+Palacha+1638,+Pardubice" target="_blank" rel="noreferrer" className="btn btn-outline map-btn">
-                  Otevřít v Maps →
-                </a>
               </div>
             </div>
 
@@ -219,13 +216,13 @@ const ContactPage = () => {
               <form className="contact-form" onSubmit={handleSubmit}>
                 <div className="form-group full-width">
                   <label>JMÉNO A PŘÍJMENÍ *</label>
-                  <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Jan Novák" required />
+                  <input type="text" name="name" value={formData.name} onChange={handleInputChange} placeholder="Jan Novák" required onInvalid={(e) => e.target.setCustomValidity('Vyplňte prosím toto pole.')} onInput={(e) => e.target.setCustomValidity('')} />
                 </div>
                 
                 <div className="form-row">
                   <div className="form-group">
                     <label>E-MAIL *</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="jan@email.cz" required />
+                    <input type="email" name="email" value={formData.email} onChange={handleInputChange} placeholder="jan@email.cz" required onInvalid={(e) => e.target.setCustomValidity('Vyplňte prosím platný e-mail.')} onInput={(e) => e.target.setCustomValidity('')} />
                   </div>
                   <div className="form-group">
                     <label>TELEFON</label>
@@ -235,12 +232,12 @@ const ContactPage = () => {
 
                 <div className="form-group full-width">
                   <label>VAŠE ZPRÁVA *</label>
-                  <textarea name="message" value={formData.message} onChange={handleInputChange} rows="6" placeholder="Jak vám můžeme pomoci?" required></textarea>
+                  <textarea name="message" value={formData.message} onChange={handleInputChange} rows="6" placeholder="Jak vám můžeme pomoci?" required onInvalid={(e) => e.target.setCustomValidity('Vyplňte prosím toto pole.')} onInput={(e) => e.target.setCustomValidity('')}></textarea>
                 </div>
 
                 <div className="form-group checkbox-group full-width" style={{ marginTop: '-8px', marginBottom: '24px' }}>
                   <label className="checkbox-label" style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                    <input type="checkbox" required className="custom-checkbox" />
+                    <input type="checkbox" required className="custom-checkbox" onInvalid={(e) => e.target.setCustomValidity('Zaškrtněte prosím toto pole, abyste mohli pokračovat.')} onInput={(e) => e.target.setCustomValidity('')} />
                     <span style={{ flex: 1 }}>Souhlasím s <Link to="/obchodni-podminky" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tp-pink)', textDecoration: 'underline' }}>Obchodními podmínkami</Link> a <Link to="/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tp-pink)', textDecoration: 'underline' }}>Zásadami ochrany osobních údajů</Link> *</span>
                   </label>
                 </div>
