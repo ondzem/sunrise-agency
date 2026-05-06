@@ -1,0 +1,234 @@
+/* SunriseOnline.css - The Flecto Clean Card Layout */
+
+.online-flecto-section {
+  position: relative;
+  background-color: var(--tw-surface);
+  padding: 7rem 1rem 0 1rem; /* Zvětšený spacing (o 3rem) plošně pod 768px */
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+@media (min-width: 768px) {
+  .online-flecto-section { padding: 6rem 2rem 0 2rem; } /* Původní spacing pro tablet */
+}
+@media (min-width: 1024px) {
+  .online-flecto-section { padding: 9rem 30px 0 30px; } /* Zvětšený spacing (o 3rem z původních 6rem) pro 1024+ */
+}
+
+.flecto-card-container {
+  max-width: none;
+  width: 100%;
+  background-color: var(--color-accent1); 
+  border-radius: 1.5rem; 
+  padding: 4rem 0; /* Vnitřní horizontální odsazení přeneseno na obsah pro zarovnání */
+  box-shadow: 0 25px 50px -12px rgba(16, 143, 102, 0.4);
+  overflow: hidden;
+  position: relative;
+  z-index: 1; /* Kontejner musí mít nadřazený stack kvůli blobu a textům */
+}
+@media (min-width: 768px) {
+  .flecto-card-container { padding: 6.5rem 0; }
+}
+@media (min-width: 1024px) {
+  .flecto-card-container { padding: 8rem 0; } /* Na desktopu text lícujeme centralizovaně Gridem */
+}
+
+/* Ultra-subtilní transparentní tvar pro dodání fyzické hloubky bez vizuálního smogu */
+.flecto-organic-blob-subtle {
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 55%;
+  height: 140%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 80%);
+  border: 1px solid rgba(255, 255, 255, 0.03); /* Na pomezí viditelnosti */
+  border-radius: 68% 32% 43% 57% / 42% 46% 54% 58%;
+  z-index: 0;
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+/* Jemné překrytí menšího tvaru uvnitř pro pocit, že se jedná o lístek rozevlátý větrem */
+.flecto-organic-blob-subtle::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  background-color: #ffffff;
+  opacity: 0.02; /* Pohybuje se pod hranicí vědomého vnímání */
+  border-radius: 41% 59% 43% 57% / 46% 38% 62% 54%;
+  transform: rotate(30deg);
+}
+
+@media (max-width: 1024px) {
+  .flecto-organic-blob-subtle {
+    width: 90%;
+    right: -25%;
+  }
+}
+
+.flecto-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+  position: relative;
+  z-index: 10; /* Drží text nad bloby v pozadí */
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .flecto-grid {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+@media (min-width: 1024px) {
+  .flecto-grid {
+    grid-template-columns: 1.2fr 0.8fr; 
+    gap: 6rem;
+    align-items: center; 
+  }
+}
+
+/* LEVÁ STRANA */
+.flecto-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.flecto-badge {
+  display: inline-flex;
+  padding: 0.35rem 1.15rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ffffff; /* Bílý obrys (kroužek) */
+  color: #ffffff; /* Bílý text uvnitř */
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 3rem;
+}
+
+.flecto-title {
+  font-family: var(--font-accent); /* Overused Grotesk pro eleganci */
+  font-size: clamp(2.2rem, 1.5rem + 4vw, 2.8rem); /* Větší plynulé zvětšování na mobilu */
+  font-weight: 500; /* Lehkost "Rethink" verze */
+  line-height: 1.1;
+  color: #ffffff;
+  letter-spacing: -0.03em;
+  margin-bottom: 2.5rem;
+}
+@media (min-width: 768px) {
+  .flecto-title { 
+    font-size: clamp(2.8rem, 2rem + 3.5vw, 3.4rem); /* Plynulé zvětšování pro tablety */
+  }
+}
+@media (min-width: 1024px) {
+  .flecto-title {
+    font-size: clamp(3.2rem, 2.3rem + 3.8vw, 4.2rem); /* Lehce zmenšeno pro desktop na přání */
+  }
+}
+
+.text-magenta-accent {
+  color: var(--color-primary); /* Sunrise Magenta akcent u KDEKOLIV */
+}
+
+.flecto-desc {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.95);
+  max-width: 32rem;
+  margin: 0;
+  font-weight: 400;
+}
+@media (min-width: 768px) {
+  .flecto-desc { font-size: 1.25rem; }
+}
+
+/* PRAVÁ STRANA (Až dolů pod střed jako u Flecto fotky) */
+.flecto-right {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+@media (min-width: 1024px) {
+  .flecto-right { 
+    justify-content: flex-end; 
+    padding-top: 5rem; /* Posunutí tlačítka níž jako v referenčním obrázku */
+  } 
+}
+
+.flecto-action-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  max-width: 22rem;
+}
+
+.flecto-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--color-primary); /* Magenta CTA místo limetkové z Flecto */
+  color: var(--color-bg); /* Bílý text tlačítka */
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.85rem 1.75rem;
+  border-radius: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 3.5rem;
+}
+.flecto-btn:hover {
+  transform: translateY(-2px);
+  background-color: #d85792;
+  box-shadow: 0 10px 20px rgba(239, 103, 165, 0.4);
+}
+.flecto-btn-icon { font-size: 1.1rem; }
+
+/* Drobný info textík s ikonou */
+.flecto-note-block {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+.flecto-note-icon {
+  color: #ffffff;
+  font-size: 1.4rem;
+  margin-top: 0.1rem;
+}
+.flecto-note-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-family: var(--font-main);
+}
+.note-title {
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+.note-body {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin-bottom: 0.5rem;
+  max-width: 16rem;
+}
+.note-link {
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+  text-underline-offset: 4px;
+  transition: all 0.2s ease;
+}
+.note-link:hover { text-decoration-color: #ffffff; }

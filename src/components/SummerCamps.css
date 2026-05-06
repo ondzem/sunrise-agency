@@ -1,0 +1,191 @@
+/* SummerCamps.css - The Gallery / Grid Concept */
+
+.camps-gallery-section {
+  padding: 4rem 0 0; /* Radikální snížení mobilního prázdna */
+  background-color: #f1f3f5; /* Uchováno šedé podloží pod celou sekcí - ladivý kontrast pod fotkami */
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .camps-gallery-section { padding: 8rem 0 0; } /* Zmenšeno z 12rem */
+}
+
+@media (min-width: 1024px) and (max-width: 1500px) {
+  .camps-gallery-section { padding: 9rem 0 0; } /* Zmenšeno z 12rem */
+}
+
+@media (min-width: 1501px) {
+  .camps-gallery-section { padding: 12rem 0 0; } /* Původní obří padding jen pro největší monitory */
+}
+
+.camps-gallery-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .camps-gallery-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+/* ================================ */
+/* CENTRÁLNÍ HLAVIČKA NAHORU */
+/* ================================ */
+.camps-gallery-header {
+  text-align: center;
+  margin-bottom: 4rem;
+  padding: 0 1rem; /* Aby se text nelepil na hrany na malých telefonech */
+  max-width: 50rem; /* Udržuje čtený sloupec textu pro přehlednost */
+}
+
+@media (min-width: 768px) {
+  .camps-gallery-header { margin-bottom: 6rem; padding: 0 2rem; }
+}
+
+.camps-gallery-header h2 {
+  font-family: var(--font-accent);
+  font-size: clamp(1.85rem, 1.2rem + 3.3vw, 2.4rem); /* Plynulé zvětšování do 768px */
+  font-weight: 700; /* Zvýšeno z 500 na 700 pro sjednocení s "Co nabízíme?" */
+  line-height: 1.1;
+  color: var(--tw-surface-content);
+  margin-bottom: 1rem;
+  letter-spacing: -0.04em;
+}
+
+@media (min-width: 768px) {
+  .camps-gallery-header h2 { 
+    font-size: clamp(2.4rem, 1.2rem + 3.3vw, 2.85rem); /* Plynulé zvětšování mezi 768 a 1024px, dál max 3.5rem */
+  }
+}
+
+.camps-gallery-header p {
+  font-family: var(--font-main);
+  font-size: 1.15rem;
+  line-height: 1.5;
+  color: #4A5568; 
+  font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  .camps-gallery-header p { font-size: 1.5rem; }
+}
+
+.text-highlight {
+  color: var(--color-primary); /* Využíváme vaši Sunrise Pink jako highlight podtématu zespodu */
+  font-weight: 600;
+}
+
+.btn-camps-action-center {
+  display: inline-flex;
+  margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 2.25rem;
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border-radius: 0.75rem;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 20px -5px rgba(239, 103, 165, 0.4);
+}
+
+.btn-camps-action-center:hover {
+  filter: brightness(0.9);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px -5px rgba(239, 103, 165, 0.5);
+}
+
+/* ================================ */
+/* FOTOGALERIE MŘÍŽKA - GALLERY GRID */
+/* ================================ */
+.camps-gallery-grid-wrapper {
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  .camps-gallery-grid-wrapper { 
+    max-width: 100%; 
+  }
+}
+
+.camps-gallery-grid {
+  display: grid;
+  /* Na malých telefonech zmenšený prostor (gap) pro plošné maximalizování samotných fotek */
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.4rem; 
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .camps-gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .camps-gallery-grid {
+    /* 5 sloupců za sebou přesně jako ve vaší reference fotce! */
+    grid-template-columns: repeat(5, 1fr); 
+    gap: 1.5rem;
+  }
+}
+
+.gallery-item {
+  width: 100%;
+  position: relative; /* Důležité pro sjednocující overlay filtr */
+  aspect-ratio: 3 / 4; /* Pěkný vertikální "karta" styl řezu fotky jako v grid fotkách v referenci */
+  overflow: hidden;
+  border-radius: 1rem; /* Jemnější proporční roh oproti desktopu na takto zahuštěném gridu */
+  background-color: #e2e8f0; /* Placeholder color, než načíte fotka */
+  box-shadow: 0 10px 25px rgba(0,0,0,0.04);
+}
+
+/* Agenturní vizuální sjednocka (Unification Filter Overlay) */
+.gallery-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: #0d2b1f; /* Tmavá teplá zeleň ze Sunrise identity */
+  opacity: 0.15; /* Zlatá střední cesta pro elegantní vodoznak */
+  mix-blend-mode: multiply; /* Filmové namapování tónů fotky na zeleň */
+  pointer-events: none;
+  z-index: 2;
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@media (min-width: 768px) {
+  .gallery-item {
+    border-radius: 1.5rem; /* Návrat k extra round prémiovému rohu na větším prostoru */
+  }
+}
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.6s ease;
+  filter: saturate(0.8) contrast(1.05) brightness(0.97); /* Vyvážený střed: mírná desaturace a zachování jasu, barva dýchá skrz */
+}
+
+/* Interakce - při hoveru si fotku krásně poctivě zvětšíme pro ten luxusní look a vrátíme pravé barvy! */
+.gallery-item:hover img {
+  transform: scale(1.06); 
+  filter: saturate(1) contrast(1); /* Původní zářivá barva fotky se projasní k uživateli */
+}
+
+.gallery-item:hover::after {
+  opacity: 0; /* Zvednutí toho jemného filtru při fokusování na fotku posílí hloubku interakce */
+}

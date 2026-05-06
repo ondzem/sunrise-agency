@@ -1,0 +1,1157 @@
+/* ─── CSS PROMĚNNÉ ─── */
+:root {
+  --tp-pink: var(--color-primary);
+  /* U Sunrise je --color-primary právě ta CTA Růžová (#EF67A5) */
+  --tp-pink-deep: #D4005A;
+  /* Tmavší růžová pro hover */
+  --tp-green: var(--color-accent2);
+  /* Sunrise Teal/Zelená (#1C9C73) */
+  --tp-green-light: rgba(28, 156, 115, 0.08);
+
+  --tp-dark: var(--color-text);
+  /* --color-text je černá, takže nadpisy budou konečně černé! */
+  --tp-dark-light: rgba(0, 0, 0, 0.05);
+  /* Světlé pozadí pro labely */
+
+  --tp-mid: #5A5A6A;
+  --tp-light: #9898A8;
+  --tp-bg: var(--color-bg);
+  --tp-bg-warm: #FAFAFA;
+  --tp-white: #FFFFFF;
+  --tp-border: rgba(14, 14, 22, 0.08);
+  --tp-border-strong: rgba(14, 14, 22, 0.14);
+  --tp-radius-sm: 0.5rem;
+  --tp-radius-md: 0.75rem;
+  /* Unifikované squircle tlačítka na Homepage */
+  --tp-radius-lg: 1.5rem;
+  /* Identické zaoblení karet jako Bento v Services (24px) */
+  --tp-radius-xl: 2rem;
+}
+
+/* ─── BASE ─── */
+.tpprofile-wrapper-new {
+  font-family: var(--font-primary), 'Montserrat', sans-serif;
+  background: var(--tp-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding-top: 130px;
+  /* Kompromisní odstup na mobilu proti Navbaru (z 110px) */
+}
+
+@media (min-width: 768px) {
+  .tpprofile-wrapper-new {
+    padding-top: 160px;
+    /* Větší odstup pouze na Desktopu */
+  }
+}
+
+.tpprofile-wrapper-new *,
+.tpprofile-wrapper-new *::before,
+.tpprofile-wrapper-new *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- tp-container - RESPONSIVITA SHODNÁ S ÚVODNÍ STRÁNKOU --- */
+.tp-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .tp-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+/* ─── HERO LINKEDIN BANNER --- */
+.tp-cover-banner {
+  width: 100%;
+  height: 220px;
+  /* Masivní zvětšená výška pro telefony */
+  background: linear-gradient(135deg, rgba(28, 156, 115, 0.1) 0%, rgba(239, 103, 165, 0.1) 100%);
+  /* Sunrise elegantní gradient */
+  border-bottom: 1px solid var(--tp-border);
+  border-radius: var(--tp-radius-lg);
+  /* Nyní je banner vsazený, musí mít zakulacené rohy! */
+  position: relative;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .tp-cover-banner {
+    height: 260px;
+  }
+}
+
+/* Odkaz Zpět na přehled */
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--tp-mid);
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color .2s;
+}
+
+.back-link:hover {
+  color: var(--tp-dark);
+}
+
+.back-link::before {
+  content: '←';
+}
+
+.cover-back-link {
+  position: absolute;
+  top: 16px;
+  left: 24px;
+}
+
+/* --- LINKEDIN STYLE PROFILE CARD --- */
+.tp-profile-card {
+  position: relative;
+  background: var(--tp-white);
+  border-radius: var(--tp-radius-lg);
+  border: 1px solid var(--tp-border);
+  padding: 0 24px 32px 24px;
+  margin-top: -60px;
+  /* Překryje banner */
+  margin-bottom: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+}
+
+@media (min-width: 768px) {
+  .tp-profile-card {
+    padding: 0 40px 40px 40px;
+    margin-top: -80px;
+    margin-bottom: 60px;
+  }
+}
+
+.tp-top-row {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+@media (min-width: 640px) {
+  .tp-top-row {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.tp-avatar-wrapper {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid var(--tp-bg);
+  background: var(--tp-bg);
+  margin-top: -30px;
+  /* Vykoukne o 30 nahoře */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 768px) {
+  .tp-avatar-wrapper {
+    width: 180px;
+    height: 180px;
+    border: 8px solid var(--tp-bg);
+    margin-top: -40px;
+  }
+}
+
+.tp-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tp-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.tp-actions.desktop-only {
+  display: none;
+}
+
+.tp-actions.mobile-only {
+  display: flex;
+  margin-top: 40px;
+  /* Masivní odskok úplně na dně profilové karty pro telefony */
+  border-top: 1px solid var(--tp-border);
+  padding-top: 32px;
+}
+
+@media (min-width: 640px) {
+  .tp-actions {
+    flex-direction: row;
+    margin-top: 0;
+    width: auto;
+    padding-bottom: 8px;
+  }
+
+  .tp-actions.desktop-only {
+    display: flex;
+  }
+
+  .tp-actions.mobile-only {
+    display: none;
+  }
+}
+
+.tp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--tp-radius-md);
+  /* Squircle místo oválu! */
+  padding: 10px 18px;
+  /* Jemnější padding pro mobil */
+  font-family: inherit;
+  font-size: 13px;
+  /* Menší font na mobil */
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  /* Zpomaleno na 0.3s z originálního navbar tlačítka */
+  flex: 1;
+  /* na mobilu roztažení */
+}
+
+@media (min-width: 640px) {
+  .tp-btn {
+    flex: initial;
+    padding: 12px 24px;
+    font-size: 14px;
+  }
+}
+
+.tp-btn.primary {
+  background: var(--tp-pink);
+  color: white;
+  border: 1px solid var(--tp-pink);
+  box-shadow: 0 4px 14px rgba(239, 103, 165, 0.4);
+  /* Stejné jako .btn-primary */
+}
+
+.tp-btn.primary:hover {
+  background: #d85792;
+  /* Identická barva jako v index.css u btn-primary */
+  border-color: #d85792;
+  transform: translateY(-2px);
+  /* Zvednutí tlačítka */
+  box-shadow: 0 6px 20px rgba(239, 103, 165, 0.5);
+  /* Vynesení stínu jako u Navbaru */
+}
+
+.tp-btn.secondary {
+  background: white;
+  color: var(--tp-dark);
+  border: 1px solid var(--tp-border-strong);
+}
+
+.tp-btn.secondary:hover {
+  background: var(--tp-bg-warm);
+}
+
+.tp-info-area {
+  margin-bottom: 40px;
+}
+
+.tp-name {
+  font-size: clamp(24px, 6vw, 42px);
+  /* Zmenšeno pro bezproblémové padnutí jména na mobil! */
+  font-weight: 900;
+  letter-spacing: -1px;
+  color: var(--tp-dark);
+  line-height: 1.1;
+  margin-bottom: 6px;
+}
+
+.tp-name span {
+  color: var(--tp-green);
+}
+
+.tp-headline {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--tp-mid);
+  margin-bottom: 12px;
+}
+
+.tp-motto {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--tp-light);
+  font-style: italic;
+  max-width: 600px;
+}
+
+/* --- INTEGRATED SPECS GRID --- */
+.tp-specs-grid {
+  background: var(--tp-bg-warm);
+  border-radius: var(--tp-radius-md);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  .tp-specs-grid {
+    grid-template-columns: repeat(3, 1fr);
+    padding: 32px;
+  }
+}
+
+.tp-spec-item {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--tp-border);
+}
+
+@media (min-width: 768px) {
+  .tp-spec-item {
+    border-bottom: none;
+    border-right: 1px solid var(--tp-border);
+    padding-bottom: 0;
+    padding-right: 16px;
+  }
+
+  .tp-spec-item:nth-child(3) {
+    border-right: none;
+  }
+
+  .tp-spec-full {
+    grid-column: 1 / -1;
+    border-right: none;
+    border-top: 1px solid var(--tp-border);
+    padding-top: 24px;
+    margin-top: 8px;
+  }
+}
+
+.tp-spec-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--tp-light);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.tp-spec-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--tp-dark);
+}
+
+.tp-spec-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.tp-spec-chip {
+  background: var(--tp-white);
+  border: 1px solid var(--tp-border-strong);
+  color: var(--tp-dark);
+  border-radius: var(--tp-radius-sm);
+  /* Zpět na moderní čtverečky (badges) */
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ─── ABOUT / EXPERIENCE TABS ─── */
+.tp-section {
+  margin-bottom: 120px;
+}
+
+.tp-experience-tabs {
+  display: flex;
+  flex-direction: column;
+  background: var(--tp-bg-warm);
+  /* Béžové pozadí na levé straně */
+  border-radius: var(--tp-radius-lg);
+  border: 1px solid var(--tp-border);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .tp-experience-tabs {
+    flex-direction: row;
+  }
+}
+
+.tp-exp-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 24px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .tp-exp-sidebar {
+    padding: 32px 32px 32px 24px;
+    width: 320px;
+    flex-shrink: 0;
+  }
+}
+
+.tp-exp-btn {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  padding: 20px 20px 20px 32px;
+  border-radius: var(--tp-radius-md);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tp-exp-btn::before {
+  content: '';
+  position: absolute;
+  left: 16px;
+  top: 24px;
+  bottom: 24px;
+  width: 2px;
+  background: var(--tp-mid);
+  opacity: 0.3;
+  transition: all 0.3s ease;
+}
+
+.tp-exp-btn:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.tp-exp-btn.active {
+  background: var(--tp-white);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+}
+
+.tp-exp-btn.active::before {
+  background: var(--tp-pink);
+  opacity: 1;
+}
+
+.tp-exp-label {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tp-exp-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--tp-dark);
+}
+
+.tp-exp-sub {
+  font-size: 12px;
+  color: var(--tp-light);
+  font-weight: 500;
+}
+
+.tp-exp-content-wrapper {
+  padding: 32px 24px;
+  background: var(--tp-white);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border-top-left-radius: var(--tp-radius-lg);
+}
+
+@media (min-width: 768px) {
+  .tp-exp-content-wrapper {
+    padding: 48px;
+    border-top-left-radius: 0;
+  }
+}
+
+.tp-exp-content {
+  animation: fadeUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  flex: 1;
+}
+
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tp-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--tp-green);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.tp-exp-content-title {
+  font-family: var(--font-primary), 'Montserrat', sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--tp-dark);
+  margin-bottom: 32px;
+  letter-spacing: -1px;
+  line-height: 1.15;
+}
+
+@media (min-width: 768px) {
+  .tp-exp-content-title {
+    font-size: 34px;
+    margin-bottom: 48px;
+  }
+}
+
+.tp-exp-text {
+  font-size: 16px;
+  line-height: 1.8;
+  color: var(--color-text);
+  white-space: pre-wrap;
+}
+
+.tp-exp-footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--tp-border);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+@media (min-width: 640px) {
+  .tp-exp-footer {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.tp-exp-footer-note {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--tp-light);
+}
+
+.tp-btn.small {
+  padding: 10px 24px;
+  font-size: 12px;
+}
+
+/* ─── SECTIONS ─── */
+.tpprofile-wrapper-new section {
+  padding-top: 80px;
+  /* Vertikální mezery zachovány, horizontální odsazení přenecháno třídě .tp-container */
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 20px;
+  margin-bottom: 60px;
+  /* Propast pod nadpisem sekce */
+}
+
+.section-num {
+  font-size: 14px;
+  font-weight: 800;
+  /* Zvýrazněné, ale ne křičící */
+  color: var(--tp-dark);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: .3;
+  /* Utlumeno */
+  min-width: 32px;
+}
+
+.section-title {
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--tp-dark);
+  line-height: 1.15;
+}
+
+.section-line {
+  flex: 1;
+  height: 1px;
+  background: var(--tp-border);
+}
+
+/* ─── ABOUT ─── */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+}
+
+.about-card {
+  background: var(--tp-white);
+  border-radius: var(--tp-radius-lg);
+  border: 1px solid var(--tp-border);
+  padding: 48px;
+  /* Tlustší blok */
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+  /* Slaboulinký ambient stín pro lepší separaci vizuálu od pozadí */
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  /* Širší okraj */
+  background: var(--tp-green);
+  /* Změněno okraji z růžové na Teal */
+  border-radius: 4px 0 0 4px;
+}
+
+.about-card-title {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--tp-dark);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+
+.about-card-text {
+  font-size: 16px;
+  font-weight: 400;
+  /* Klasický delší text */
+  color: var(--color-text);
+  line-height: 1.85;
+  /* Ještě vyšší line-height pro snazší čtení */
+}
+
+/* ─── SERVICES ─── */
+.services-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* Mnohem větší mezera mezi kartama služeb */
+.service-card {
+  background: var(--tp-white);
+  border-radius: var(--tp-radius-xl);
+  border: 1px solid var(--tp-border);
+  padding: 40px 24px;
+  /* Kompromis: vzdušnější vertikální padding pro odlehčení */
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 28px;
+  align-items: center;
+  transition: box-shadow .3s, transform .3s;
+}
+
+@media(min-width: 768px) {
+  .service-card {
+    grid-template-columns: 1fr auto;
+    padding: 40px 48px;
+    gap: 32px;
+  }
+}
+
+.service-card:hover {
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.06);
+  /* Soft lift hover efekt */
+  transform: translateY(-4px);
+}
+
+.service-card.free {
+  border: 2.5px solid var(--tp-green);
+}
+
+.service-badge {
+  display: inline-block;
+  margin-bottom: 12px;
+  border-radius: 50px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media(min-width: 768px) {
+  .service-badge {
+    padding: 6px 18px;
+    font-size: 12px;
+    margin-bottom: 16px;
+  }
+}
+
+.badge-free {
+  background: var(--tp-green-light);
+  color: var(--tp-green);
+}
+
+.badge-individual {
+  background: var(--tp-dark-light);
+  color: var(--tp-dark);
+}
+
+.service-title {
+  font-size: 20px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  margin-bottom: 8px;
+  color: var(--tp-dark);
+}
+
+@media(min-width: 768px) {
+  .service-title {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+}
+
+.service-desc {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--tp-mid);
+  line-height: 1.6;
+}
+
+@media(min-width: 768px) {
+  .service-desc {
+    font-size: 15px;
+    line-height: 1.8;
+  }
+}
+
+.service-desc strong {
+  font-weight: 700;
+  color: var(--tp-dark);
+}
+
+.service-meta {
+  font-size: 13px;
+  color: var(--tp-light);
+  margin-top: 12px;
+  font-weight: 500;
+}
+
+.service-right {
+  text-align: left;
+  white-space: nowrap;
+}
+
+@media(min-width: 768px) {
+  .service-right {
+    text-align: right;
+  }
+}
+
+.service-duration {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tp-light);
+  margin-bottom: 12px;
+}
+
+@media(min-width: 768px) {
+  .service-duration {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+}
+
+.service-price {
+  font-size: 34px;
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  color: var(--tp-dark);
+  line-height: 1;
+}
+
+@media(min-width: 768px) {
+  .service-price {
+    font-size: 46px;
+    letter-spacing: -2px;
+  }
+}
+
+.service-price small {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  vertical-align: top;
+  margin-top: 4px;
+  display: inline-block;
+}
+
+@media(min-width: 768px) {
+  .service-price small {
+    font-size: 17px;
+    margin-top: 6px;
+  }
+}
+
+.service-price.free-price {
+  color: var(--tp-green);
+}
+
+.service-reserve-btn {
+  display: inline-block;
+  margin-top: 16px;
+  background: var(--tp-pink);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+
+@media(min-width: 768px) {
+  .service-reserve-btn {
+    padding: 16px 28px;
+    margin-top: 20px;
+    font-size: 14px;
+  }
+}
+
+.service-reserve-btn:hover {
+  background: #d85792;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 103, 165, 0.5);
+}
+
+.service-reserve-btn.green-btn {
+  background: var(--tp-green);
+}
+
+.service-reserve-btn.green-btn:hover {
+  background: #0b805c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(11, 128, 92, 0.5);
+}
+
+/* ─── SCHEDULE ─── */
+.schedule-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Na mobilu striktně pod sebou pro maximální přehlednost */
+  gap: 24px;
+}
+
+@media(min-width: 500px) {
+  .schedule-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Na tabletech 2 sloupce */
+@media(min-width: 768px) {
+  .schedule-grid {
+    grid-template-columns: repeat(7, 1fr);
+    gap: 20px;
+  }
+}
+
+/* Na PC 7 sloupců */
+.day-col {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--tp-white);
+  border: 1px solid var(--tp-border);
+  border-radius: var(--tp-radius-md);
+  padding: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+}
+
+@media(min-width: 768px) {
+  .day-col {
+    background: transparent;
+    border: none;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+.day-name {
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tp-dark);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+@media(min-width: 768px) {
+  .day-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--tp-light);
+  }
+}
+
+.time-slot {
+  background: var(--tp-green);
+  color: #fff;
+  border-radius: var(--tp-radius-sm);
+  padding: 12px 10px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform .15s, background .15s, box-shadow .15s;
+}
+
+.ts-time {
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.ts-action {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+  margin-top: 4px;
+  letter-spacing: 0.05em;
+}
+
+.time-slot:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(11, 128, 92, 0.4);
+}
+
+.time-slot.unavailable {
+  background: var(--tp-bg-warm);
+  color: var(--tp-light);
+  cursor: default;
+}
+
+.time-slot.unavailable:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* ─── CONTACT ─── */
+.contact-wrapper {
+  width: 100%;
+}
+
+.contact-form-card {
+  width: 100%;
+  background: var(--tp-white);
+  border-radius: var(--tp-radius-xl);
+  border: 1px solid var(--tp-border);
+  padding: 56px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+}
+
+@media(max-width: 767px) {
+  .contact-form-card {
+    padding: 32px 24px;
+  }
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+@media(min-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.form-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--tp-light);
+  display: block;
+}
+
+.form-input,
+.form-textarea {
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  border: 1.5px solid var(--tp-border-strong);
+  border-radius: var(--tp-radius-md);
+  padding: 18px 20px;
+  background: #ffffff !important;
+  color: var(--color-text);
+  transition: border-color .2s, box-shadow .2s;
+  outline: none;
+  width: 100%;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--tp-light);
+  font-weight: 400;
+}
+
+.form-input:focus,
+.form-textarea:focus {
+  border-color: var(--tp-pink);
+  background: #ffffff !important;
+  box-shadow: 0 0 0 4px rgba(239, 103, 165, 0.15);
+}
+
+.form-textarea {
+  resize: vertical;
+  min-height: 160px;
+}
+
+.form-consent {
+  margin-bottom: 24px;
+}
+
+.consent-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--tp-mid);
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.consent-label input {
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.form-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  max-width: 100%;
+  background: var(--tp-pink);
+  color: #fff;
+  border: none;
+  border-radius: 14px;
+  padding: 22px 24px;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  margin: 8px auto 0;
+  transition: background .2s, transform .2s, box-shadow .2s;
+}
+
+@media (min-width: 768px) {
+  .form-submit {
+    max-width: 280px;
+    margin-left: 0;
+  }
+}
+
+.form-submit:hover {
+  background: #d85792;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(239, 103, 165, 0.5);
+}
+
+.form-trust-note {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--tp-light);
+  margin-top: 16px;
+}
+
+@media (min-width: 768px) {
+  .form-trust-note {
+    text-align: left;
+  }
+}
+
+/* ─── REVIEWS ─── */
+/* Zde bývaly původní lokální recenze - nyní se využívají globální karuselové styly z Testimonials.css */
+
+/* ─── ADD REVIEW ─── */
+
+/* ─── FOOTER PADDING ─── */
+.page-end {
+  height: 80px;
+}
+
+@media (min-width: 768px) {
+  .page-end {
+    height: 160px;
+  }
+}

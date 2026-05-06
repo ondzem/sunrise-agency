@@ -1,0 +1,439 @@
+.online-page-wrapper {
+  min-height: 100vh;
+  padding-top: 80px; /* offset pro fixní navbar, pokud by byl fixní */
+  background-color: var(--color-bg);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ============================ */
+/* Lektorská / Admin Hlavička   */
+/* ============================ */
+:root {
+  --navbar-offset: 65px;
+}
+
+.admin-floating-banner {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 99999;
+  background: var(--color-primary);
+  color: white;
+  padding: 0.8rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.afb-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.afb-info-role {
+  font-weight: bold;
+}
+
+.afb-info-email {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.afb-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.afb-btn-link, .afb-btn-logout {
+  background: rgba(255,255,255,0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid transparent;
+}
+.afb-btn-logout {
+  border: 1px solid rgba(255,255,255,0.5);
+  font-weight: bold;
+}
+
+@media (max-width: 768px) {
+  :root {
+    --navbar-offset: 140px; /* Posunutí navbaru dolů mnohem víc kvůli dvouřádkovému banneru! */
+  }
+  .admin-floating-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+    gap: 1rem;
+  }
+  .afb-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+  }
+  .afb-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  .afb-actions a, .afb-btn-logout {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* Mini Hero */
+.online-hero-section {
+  padding-top: 0;
+  padding-bottom: 4rem;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+}
+@media (min-width: 1024px) {
+  .online-hero-section { padding-bottom: 4rem; margin-top: 20px; } /* Původně 2rem, zvětšeno o dalších cca 30px na přání */
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .online-hero-section {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.online-organic-bg {
+  position: absolute;
+  top: 85%; /* Extrémní posun dolů na desktopu dle zadání */
+  left: -10%;
+  width: 700px;
+  height: 700px;
+  background-color: var(--color-accent1);
+  opacity: 0.05;
+  z-index: 0;
+  border-radius: 68% 32% 43% 57% / 42% 46% 54% 58%;
+  transform: rotate(-10deg);
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .online-organic-bg {
+    width: clamp(280px, 100vw, 550px); /* Plynulé zvětšování/zmenšování od cca 400px */
+    height: clamp(280px, 100vw, 550px);
+    left: 50%; /* Středění obrazovky */
+    top: 60%; /* Pro velmi malé telefony do 430px je toto fajn */
+    transform: translate(-50%, -50%) rotate(-10deg); /* Transform pro dokonalý střed */
+  }
+}
+@media (min-width: 431px) and (max-width: 768px) {
+  .online-organic-bg {
+    top: 85%; /* Pro větší telefony a tablety výrazně dolů */
+  }
+}
+@media (min-width: 769px) and (max-width: 1023px) {
+  .online-organic-bg {
+    top: 10%; /* Návrat zpět nahoru pro tablety, od 1024px už klesne dolů pod fotku */
+  }
+}
+
+.online-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.online-hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.online-hero-image-wrapper {
+  display: none; /* Na mobilu fotka nebude, viz požadavky */
+}
+
+.online-scroll-indicator {
+  display: none; /* Skryté na mobilu */
+}
+
+@media (min-width: 1024px) {
+  .online-hero-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 4rem;
+  }
+  .online-hero-text {
+    flex: 1;
+    align-items: flex-start; /* Text nalevo */
+  }
+  
+  .online-scroll-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-top: 2.5rem;
+    padding: 16px 36px; /* Zvětšená výška tlačítka na přání */
+    cursor: pointer;
+  }
+  .online-scroll-indicator .scroll-arrow {
+    display: inline-flex;
+  }
+
+  .online-hero-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .online-hero-shadow {
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    width: 100%;
+    height: 550px;
+    background-color: #F0F0F0;
+    border-radius: 40% 60% 55% 45% / 55% 45% 65% 35%;
+    transform: scale(1.05);
+    z-index: -1;
+  }
+  .online-hero-image-wrapper img {
+    max-width: 100%;
+    width: 100%;
+    height: 550px; /* Snížení výšky pro lepší proporce k textu */
+    border-radius: 40% 60% 55% 45% / 55% 45% 65% 35%; /* Podobný organický tvar, ale svébytný */
+    object-fit: cover;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  }
+}
+
+.back-home-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--color-text);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 2rem;
+  opacity: 0.6;
+  transition: opacity 0.3s;
+}
+.back-home-link:hover {
+  opacity: 1;
+}
+.back-home-link .material-symbols-outlined {
+  font-size: 1.2rem;
+}
+
+.online-hero-badge {
+  background-color: rgba(28, 156, 115, 0.1);
+  color: var(--color-accent1);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.online-hero-title {
+  font-family: var(--font-accent);
+  font-size: 4.0rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: var(--color-text);
+}
+
+.online-hero-desc {
+  font-family: var(--font-main);
+  max-width: 650px;
+  font-size: clamp(0.9rem, 0.75rem + 0.55vw, 1.1rem);
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Teachers Grid */
+.online-teachers-section {
+  padding-top: 2rem;
+  padding-bottom: 10rem;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+  margin-top: 20px;
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 1024px) {
+  .online-teachers-section { padding-top: 2rem; padding-bottom: 15rem; }
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .online-teachers-section {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.online-teachers-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.online-teacher-card {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .online-teacher-card { padding: 2rem; }
+}
+
+.otc-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.otc-photo-wrapper {
+  width: 100px;
+  height: 100px;
+  border-radius: 35% 65% 50% 50% / 50% 40% 60% 50%;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(239, 103, 165, 0.2);
+}
+
+.otc-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.otc-header-text {
+  flex-grow: 1;
+}
+
+.otc-name {
+  font-size: 1.6rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  color: var(--color-text);
+}
+
+.otc-price-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: rgba(239, 103, 165, 0.1);
+  color: var(--color-primary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.otc-badge-icon {
+  font-size: 1.1rem;
+}
+
+.otc-body {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 1.5rem;
+}
+
+.otc-why-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--color-accent1);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 0.6rem;
+}
+
+.otc-reason {
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.5;
+}
+
+.otc-footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 1rem;
+}
+
+.otc-times {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+.otc-time-icon {
+  font-size: 1.2rem;
+}
+
+.otc-profile-btn {
+  border-radius: 100px;
+  padding: 10px 24px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Mobile Adjustments */
+@media screen and (max-width: 768px) {
+  .online-hero-title {
+    font-size: clamp(2.5rem, 6vw + 0.5rem, 3.2rem); /* Plynulé zvětšování od 440px do 768px */
+  }
+  .otc-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .otc-profile-btn {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 439px) {
+  .online-hero-title {
+    font-size: 2.5rem; /* Fixní velikost na malých telefonech */
+  }
+  .online-hero-section {
+    padding-bottom: 6rem; /* Trochu větší prostor mezi hero sekcí a lektory na malých displejích */
+  }
+  .otc-header {
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 1rem;
+  }
+  .otc-header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+

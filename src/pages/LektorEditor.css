@@ -1,0 +1,278 @@
+.editor-wrapper {
+  background-color: #f7f9fa;
+  min-height: 100vh;
+  padding: 80px 1rem 3rem; /* Mobilní base odsazení pod fixní/absolute menu */
+}
+@media (min-width: 1024px) {
+  .editor-wrapper {
+    padding: 120px 2rem 3rem; /* Odsazení na velkém monitoru */
+  }
+}
+
+.editor-header {
+  max-width: 1300px;
+  margin: 0 auto 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+@media (min-width: 768px) {
+  .editor-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.editor-title h1 {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+@media (min-width: 768px) {
+  .editor-title h1 { font-size: 1.8rem; }
+}
+.editor-title p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.editor-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 2rem;
+  align-items: start;
+}
+
+/* FORMULÁŘ (Levá část) */
+.editor-form-col {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+@media (min-width: 768px) {
+  .editor-form-col { padding: 2.5rem; }
+}
+
+.editor-section-title {
+  font-size: 1.2rem;
+  font-family: var(--font-accent);
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr; /* Mobilní základ je pod sebou */
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .form-row { grid-template-columns: 1fr 1fr; }
+}
+
+.editor-form-col .form-group {
+  margin-bottom: 1.5rem;
+}
+.editor-form-col textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  min-height: 100px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.editor-form-col input[type="text"],
+.editor-form-col input[type="number"],
+.editor-form-col input[type="file"],
+.editor-form-col input[type="time"],
+.editor-form-col select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  box-sizing: border-box;
+  background-color: #fafafa;
+  max-width: 100%;
+}
+
+.editor-form-col textarea:focus,
+.editor-form-col input[type="text"]:focus,
+.editor-form-col input[type="number"]:focus,
+.editor-form-col input[type="time"]:focus,
+.editor-form-col select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  background-color: #fff;
+}
+
+.editor-action-bar {
+  margin-top: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .editor-action-bar {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.btn-save {
+  padding: 1rem 3rem;
+  border-radius: 100px;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .btn-save { width: auto; }
+}
+
+.btn-delete {
+  color: #e53e3e;
+  background: transparent;
+  border: 1px dashed #e53e3e;
+  padding: 0.8rem 1.5rem;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .btn-delete { width: auto; }
+}
+.btn-delete:hover {
+  background: #fff5f5;
+}
+
+/* NÁHLED (Pravá část) */
+.editor-preview-col {
+  position: sticky;
+  top: 2rem;
+}
+
+.preview-label {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  color: #888;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Ukázková vizualizace přímo uvnitř editoru pro kontrolu z OnlinePage */
+.preview-card {
+  background: #ffffff;
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(0,0,0,0.03);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  pointer-events: none; /* Náhled nelze proklikávat */
+}
+@media (min-width: 768px) {
+  .preview-card { padding: 2rem; }
+}
+.preview-card-h {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+.preview-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 35% 65% 50% 50% / 50% 40% 60% 50%;
+  background-color: #eee;
+  object-fit: cover;
+}
+.preview-name {
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+.preview-price {
+  background-color: rgba(239, 103, 165, 0.1);
+  color: var(--color-primary);
+  display: inline-block;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+.preview-body p {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+@media screen and (max-width: 1024px) {
+  .editor-container {
+    grid-template-columns: 1fr;
+  }
+  .editor-preview-col {
+    position: relative;
+    top: 0;
+    order: -1; /* Náhled dáme nahoře na mobilu */
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .editor-wrapper {
+    padding: 70px 1rem 3rem; /* Vrátíme zpět trochu horizontálního dýchání, 16px */
+  }
+  .editor-form-col {
+    padding: 2rem 1.25rem; /* 32px nahoře/dole, 20px po stranách. Zvýšený vertikální dýchací prostor */
+    border-radius: 1rem;
+    overflow-x: hidden; 
+  }
+  
+  .editor-form-col .form-group {
+    margin-bottom: 2rem; /* Výraznější oddělení jednotlivých bloků formluláře na obrazovce mobilu */
+  }
+
+  .editor-section-title {
+    margin-top: 5rem !important; /* Opravdu masivní předěl (cca 80px) mezerou */
+    margin-bottom: 2rem;
+    padding-top: 2rem;
+    border-top: 2px dashed #e5e5e5; /* Vizuální vodítko oddělující kategorie */
+  }
+
+  /* První sekce "1. Základní identifikace" nepotřebuje čáru nahoře */
+  .editor-section-title:first-of-type {
+    margin-top: 1rem !important;
+    padding-top: 0;
+    border-top: none;
+  }
+  
+  /* Na malém iPhonu musí dlouhý název přetejkajícího jména např. ze 'Super dlouhé jméno blabla' rovnou padat s break-word */
+  .editor-form-col * {
+    word-break: break-word; 
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .editor-title h1 {
+    font-size: 1.3rem; 
+  }
+}

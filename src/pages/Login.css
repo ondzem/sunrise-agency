@@ -1,0 +1,136 @@
+.login-wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #FAFAFA;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-blob-1 {
+  position: absolute;
+  top: -10%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(239, 103, 165, 0.15) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.login-blob-2 {
+  position: absolute;
+  bottom: -15%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(28, 156, 115, 0.1) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.login-container {
+  position: relative;
+  z-index: 1;
+  background: white;
+  padding: 2rem 1.5rem; /* Menší base padding pro mobily */
+  border-radius: 1.5rem;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0,0,0,0.03);
+  width: 100%;
+  max-width: 480px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .login-container {
+    padding: 4rem;
+    border-radius: 2rem;
+  }
+}
+
+.login-logo {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  margin-bottom: 2rem;
+}
+
+.login-title {
+  font-family: var(--font-main);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.login-subtitle {
+  color: #666;
+  margin-bottom: 2.5rem;
+  font-size: 1rem;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  text-align: left;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-group input {
+  padding: 1rem 1.2rem;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  background-color: #fafafa;
+  font-family: var(--font-main);
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(239, 103, 165, 0.1);
+  background-color: #ffffff;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  margin-top: 1rem;
+}
+
+/* DEMO LINKS ZÓNA */
+.demo-links {
+  margin-top: 3rem;
+  border-top: 1px dashed #ddd;
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.demo-links p {
+  font-size: 0.8rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+.demo-links a {
+  font-size: 0.85rem;
+  color: var(--color-accent1);
+  text-decoration: underline;
+}

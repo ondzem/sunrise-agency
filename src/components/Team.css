@@ -1,0 +1,251 @@
+.team-section {
+  padding: 10rem 0; /* Původní base (pro tablety) */
+  background-color: var(--color-bg); /* Obyčejná splynutá barva s pozadím */
+  position: relative;
+  overflow: hidden;
+}
+@media (min-width: 1024px) {
+  .team-section {
+    padding-top: 14rem; /* Zvětšeno o 4rem pro 1024+ */
+  }
+}
+
+.team-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .team-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.team-header {
+  text-align: left;
+  margin-bottom: 2rem; /* Sjednoceno se sekcí Služby pro mobily */
+}
+
+@media (min-width: 768px) {
+  .team-header {
+    margin-bottom: 3.5rem; /* Sjednoceno se sekcí Služby pro tablety a desktop */
+  }
+}
+
+.team-header-subtitle {
+  font-family: var(--font-accent); /* Pokud je Playfair - spíše Montserrat Medium dle vizuálu */
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.team-header-title {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: clamp(1.85rem, 1.2rem + 3.3vw, 2.4rem); /* Plynulé zvětšování do 768px */
+  color: var(--color-text);
+  line-height: 1.1;
+  max-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .team-header-title { 
+    font-size: clamp(2.4rem, 1.2rem + 3.3vw, 2.85rem); /* Plynulé zvětšování mezi 768 a 1024px, dál max 3.5rem */
+  }
+}
+
+/* Team Grid - Carousel Layout */
+.team-grid {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  gap: 2rem;
+  padding-bottom: 3rem; /* prostor pro stín karet */
+  width: 100%;
+}
+.team-grid::-webkit-scrollbar {
+  display: none;
+}
+
+/* Týmová Karta */
+.team-card {
+  scroll-snap-align: start;
+  flex: 0 0 calc((100% - 4rem) / 3); /* Zcela stejná šířka jako měly 3 karty ve flex gridu (100% mínus dvě 2rem mezery děleno třemi) */
+  min-width: 320px;
+  background-color: #fcfcfc;
+  border-radius: 2rem; /* hluboké zaoblení dle Bento */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  border: 1px solid rgba(0, 0, 0, 0.03);
+}
+
+.team-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.08);
+}
+
+/* Hlavička Karty: Fotka a Jméno */
+.team-card-header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Fotka Tvar masky */
+.team-photo-wrapper {
+  width: 90px;
+  height: 90px;
+  flex-shrink: 0;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; /* Organický nepravidelný Blob jako odkaz na Hero section */
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(239, 103, 165, 0.2);
+  background-color: var(--color-primary);
+}
+
+.team-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.5s ease;
+  transform: scale(var(--base-zoom, 1));
+}
+
+.team-card:hover .team-photo {
+  transform: scale(calc(var(--base-zoom, 1) + 0.08)); /* Jemný mikro-zoom při hoveru karty */
+}
+
+.team-name-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-name {
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--color-text);
+  margin-bottom: 0.2rem;
+}
+
+.team-education {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 0.85rem;
+  color: #777; /* Sytá šedá */
+}
+
+/* Popis Lektora */
+.team-bio {
+  font-family: var(--font-main);
+  font-weight: 400;
+  font-size: 1rem;
+  color: #4a4a4a;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  flex-grow: 1; /* Zatlačí subjects dolů */
+}
+
+/* Tagy s vyučovanými předměty */
+.team-subjects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: auto; /* vždy přitisknuté ke spodnímu okraji karty */
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  padding-top: 1.5rem;
+}
+
+.subject-tag {
+  background-color: rgba(239, 103, 165, 0.08);
+  color: var(--color-primary);
+  padding: 0.4rem 0.8rem;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* Dekorativní prvky do pozadí (stejně jako v ostatních oddílech) */
+.team-blob-1 {
+  position: absolute;
+  top: -10%;
+  right: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(239, 103, 165, 0.07) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.team-blob-2 {
+  position: absolute;
+  bottom: 10%;
+  left: -10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(28, 156, 115, 0.04) 0%, rgba(255,255,255,0) 70%);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Navigace lektorů */
+.team-nav-container {
+  display: flex;
+  justify-content: flex-start;
+  gap: 0.75rem;
+  margin-top: -1rem; /* Zrušíme vizuální mezeru z padding-bottom na team-grid a posuneme je těsně pod stíny karet */
+  position: relative;
+  z-index: 10;
+}
+.team-nav-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.75rem; 
+  background-color: var(--color-primary);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(239, 103, 165, 0.3);
+}
+.team-nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.team-nav-btn:hover {
+  background-color: #d1498b;
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px rgba(239, 103, 165, 0.4);
+}
+
+/* Mobile Responzivita */
+@media screen and (max-width: 768px) {
+  .team-section {
+    padding-top: 8rem; /* Zvětšený spacing plošně pod 768px */
+    padding-bottom: 4rem;
+  }
+
+  .team-card {
+    flex: 0 0 85vw;
+    scroll-snap-align: center;
+  }
+}

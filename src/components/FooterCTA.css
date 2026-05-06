@@ -1,0 +1,412 @@
+/* FooterCTA.css - Spojená masivní sekce CTA a Patičky z referenční fotky */
+
+.footer-cta-wrapper {
+  position: relative;
+  z-index: 5;
+  margin-top: 0; /* Na běžných podstránkách bez přesahu */
+  width: 100%;
+  overflow: hidden; /* Důležité: zabrání divokému zvětšování posuvníku na ose Y při odjezdu a horizontálnímu přesahu! */
+}
+.footer-cta-wrapper.is-home {
+  margin-top: -3rem; /* Překryv sekce nad Testimonials (pouze Index) */
+}
+@media (min-width: 1024px) {
+  .footer-cta-wrapper.is-home { margin-top: -5rem; }
+}
+
+/* SAMOTNÁ MASIVNÍ GIGANTICKÁ KŘIVKA */
+.footer-cta-arch {
+  position: absolute;
+  top: 0;
+  left: -25vw; /* Brutální úkrok o čtvrtinu obrazovky doleva do neviditelna přes hrany monitoru! */
+  width: 150vw; /* 150% šířky okna */
+  height: 6rem; /* Výška klenby */
+  background-color: #2D3748;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0; /* Perfektní půl-elipsa */
+}
+@media (min-width: 1024px) {
+  .footer-cta-arch {
+    height: 10rem;
+  }
+}
+
+.footer-cta-container {
+  position: relative;
+  background-color: #2D3748; /* Ocelově modro-šedá / Tmavá varianta ze Služeb */
+  color: #ffffff;
+  /* Klenbu dělá arch, kontejner je zespoda plochý */
+  border-radius: 0;
+  padding-top: 5rem;
+  padding-bottom: 1.5rem;
+  margin-top: 6rem; /* Navázání přesně *pod* klenbu */
+  overflow: visible; /* Umožní logu přesáhnout do klenby a neuseknout se */
+}
+@media (min-width: 1024px) {
+  .footer-cta-container {
+    padding-top: 7rem;
+    padding-bottom: 2rem;
+    margin-top: 10rem; /* Záchyt 10rem výšky archu na desktopu */
+  }
+}
+
+/* ================================== */
+/* WATERMARK LOGO NA POZADÍ (GHOST) */
+/* ================================== */
+.footer-watermark-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 135vw; /* Závěrečná doladěná exaktní velikost */
+  max-width: 750px; /* Nový středový strop s dostatečnou vůlí */
+  opacity: 0.03; /* Odsunutí do pozadí vnímání */
+  pointer-events: none;
+  z-index: -1; /* Pod texty v bloku */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer-watermark-logo img {
+  width: 100%;
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+@media (min-width: 1024px) {
+  .footer-watermark-logo {
+    max-width: 1100px; /* O 100px menší oproti původním 1200px */
+  }
+}
+
+/* ================================== */
+/* CTA BLOK - Nahoře usrostřed */
+/* ================================== */
+.footer-cta-content {
+  position: relative;
+  z-index: 2; /* Musí ležet nad abstraktními duchy */
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .footer-cta-content {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.cta-block {
+  position: relative; /* Nově drží watermark na svém středu */
+  text-align: center;
+  margin-bottom: 8rem; /* Responzivní sražení propastné díry k patičce samotné */
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .cta-block { margin-bottom: 10rem; }
+}
+@media (min-width: 1024px) {
+  .cta-block { margin-bottom: 12rem; }
+}
+
+.cta-title {
+  font-family: var(--font-accent);
+  font-size: clamp(1.85rem, 1.5rem + 3vw, 2.4rem); /* Plynulé zmenšování pod 460px, aby se text nerozpadl na víc řádků */
+  font-weight: 400; /* Lehká, prémiová váha dle Zeleného Horizontu */
+  line-height: 1.2;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+}
+@media (min-width: 768px) {
+  .cta-title {
+    font-size: 2.85rem;
+    margin-bottom: 3rem;
+  }
+}
+
+.cta-button {
+  display: inline-block;
+  background-color: #ffffff; /* Čistě bílé pill tlačítko z reference */
+  color: #2D3748; /* Text barvou pozadí pro dokonalý negativní reverz */
+  font-family: var(--font-main);
+  font-size: 0.75rem; /* Zmenšený font pro mobily */
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  padding: 0.85rem 1.75rem; /* Zmenšený padding pro mobily */
+  border-radius: 9999px; /* Tlačítko na referenci JE KULATÉ = plná pilulka kvůli designovému rozrušení CTA */
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+@media (min-width: 768px) {
+  .cta-button {
+    font-size: 0.85rem;
+    padding: 1.15rem 2.5rem; /* Původní velikost pro tablety */
+  }
+}
+
+@media (min-width: 1024px) {
+  .cta-button {
+    font-size: 0.95rem;
+    padding: 1.25rem 3rem; /* Zvětšené tlačítko pro velké displeje */
+  }
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+
+/* ================================== */
+/* FOOTER DATA GRID */
+/* ================================== */
+.footer-main-grid {
+  display: block;
+  width: 100%;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Linka bottom railu */
+  padding-bottom: 2rem;
+}
+
+.footer-brand-col {
+  display: none;
+}
+
+@media (min-width: 1300px) {
+  .footer-main-grid {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .footer-brand-col {
+    display: block;
+    flex: 0 0 auto;
+    margin-right: 5rem;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+  }
+  .footer-img-logo {
+    width: 130px;
+    height: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
+    margin-left: -14px;
+  }
+}
+
+/* TEXTOVÉ SLOUPCE */
+.footer-info-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .footer-info-grid {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3rem;
+  }
+}
+@media (min-width: 1024px) {
+  .footer-info-grid {
+    flex-wrap: nowrap;
+  }
+}
+@media (min-width: 1300px) {
+  .footer-info-grid {
+    flex: 1;
+    width: auto;
+  }
+}
+
+.info-col {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  .info-col {
+    width: max-content;
+    align-items: flex-start;
+    text-align: left;
+  }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .footer-info-grid {
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: center;
+    column-gap: 8rem;
+    row-gap: 4rem;
+  }
+  .info-col {
+    width: max-content;
+    max-width: none;
+    flex: none;
+  }
+  .footer-main-grid {
+    margin-top: 5rem; /* Více oddálit od CTA na tabletu */
+  }
+}
+@media (min-width: 1024px) {
+  .info-col.extra-gap {
+    margin-left: 5vw; /* Adds extra gap so the spacing between first and second column is naturally smaller */
+  }
+}
+.info-title {
+  font-family: var(--font-accent);
+  font-size: 1.15rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+.info-text {
+  font-family: var(--font-main);
+  font-size: 0.95rem;
+  line-height: 2.2; /* Výrazně zvětšený prostor mezi řádky pro lepší klikatelnost na mobilu */
+  color: #CBD5E0; /* Bleší šedobílá (Tailwind Gray-300) z fotky */
+}
+
+.footer-social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.footer-social-icon {
+  color: #CBD5E0;
+  transition: color 0.3s ease, transform 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-social-icon:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+}
+
+
+/* ================================== */
+/* BOTTOM RAIL (Úplný spodek patičky) */
+/* ================================== */
+.footer-bottom-rail {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+@media (min-width: 1024px) {
+  .footer-bottom-rail {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Odkazy (stejné jako "LOKALITA, VILY" atd) */
+.legal-link-hover {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+.legal-link-hover:hover {
+  color: #ffffff !important;
+}
+
+.copyright-text {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  color: #A0AEC0;
+}
+
+/* Kredity a Autorská Práva vrstva vlevo s COOKIES dle obrázku hrnce a pravo */
+.footer-credits-row {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .footer-credits-row {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+
+
+.cookie-settings {
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+}
+.footer-cookie-icon {
+  font-size: 1.1rem;
+}
+
+.credits-right {
+  font-family: var(--font-main);
+  font-size: 0.75rem;
+  color: #A0AEC0;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+@media (min-width: 768px) {
+  .credits-right { margin-left: auto; } /* Posune to úplně doprava */
+}
+
+.designed-by {
+  font-weight: 500;
+}
+.creator-link {
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+}
+.creator-link:hover {
+  text-decoration: underline;
+}
+
+/* --- ÚPRAVY PRO PATIČKU BEZ CTA --- */
+.footer-cta-wrapper.no-cta .footer-cta-arch {
+  height: 4rem;
+}
+.footer-cta-wrapper.no-cta .footer-cta-container {
+  margin-top: 4rem;
+  padding-top: 2rem;
+}
+
+@media (min-width: 768px) {
+  .footer-cta-wrapper.no-cta .footer-main-grid {
+    margin-top: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-cta-wrapper.no-cta .footer-cta-arch {
+    height: 5rem;
+  }
+  .footer-cta-wrapper.no-cta .footer-cta-container {
+    margin-top: 5rem;
+    padding-top: 2rem;
+  }
+}

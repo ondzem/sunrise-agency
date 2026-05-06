@@ -1,0 +1,304 @@
+/* Testimonials.css - The Clean Flat Editorial Layout */
+
+.testimonials-section {
+  background-color: #f1f3f5; /* Plynule navazuje na SummerCamps pod ním jako homogenní mega-blok */
+  padding: 12rem 0 12rem 0; /* Radikálně navýšeno o 6rem pro odlepšení klenby footeru */
+  overflow: hidden;
+  position: relative;
+}
+@media (min-width: 768px) {
+  .testimonials-section { padding: 16rem 0 18rem 0; } /* +10rem bublina pod kartami referencí pro zachycení masivní ocelové klenby */
+}
+
+/* ---------------------------------
+   ORGANIC BACKGROUND SHAPE
+----------------------------------- */
+.testimonials-organic-bg {
+  position: absolute;
+  top: 15%;
+  left: -15%;
+  width: 55vw;
+  height: 850px;
+  background-color: var(--color-primary); /* Růžový vodoznak namísto zeleného ze Služeb oživí šedou zónu */
+  opacity: 0.05; /* Odpovídá průsvitnosti v Service sekci */
+  z-index: 0;
+  border-radius: 43% 57% 68% 32% / 54% 58% 42% 46%; /* Tvar v převrácené ose vůči původnímu "pebble" */
+  transform: rotate(20deg);
+  pointer-events: none;
+}
+@media (max-width: 768px) {
+  .testimonials-organic-bg {
+    width: 120vw;
+    left: -40%;
+    top: 5%;
+    height: 600px;
+  }
+}
+
+.testimonials-header-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+@media (min-width: 768px) {
+  .testimonials-header-container {
+    /* Margin zrušen, protože by odsouval pouze navigační šipky dolů */
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .testimonials-header-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.testimonials-title {
+  font-family: var(--font-accent);
+  font-size: clamp(1.85rem, 1.2rem + 3.3vw, 2.4rem); /* Plynulé zvětšování do 768px */
+  font-weight: 700; /* Střední váha "Overused Grotesk" z reference změněna na masivní 700 "Camps" váhu */
+  color: var(--color-text);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  margin-bottom: 0;
+}
+@media (min-width: 768px) { 
+  .testimonials-title { 
+    font-size: clamp(2.4rem, 1.2rem + 3.3vw, 2.85rem); /* Plynulé zvětšování mezi 768 a 1024px, dál max 3.5rem */
+  } 
+}
+
+.testimonials-subtitle {
+  font-family: var(--font-main);
+  font-size: 1.1rem;
+  color: #6b7280;
+  max-width: 42rem;
+  line-height: 1.6;
+}
+@media (min-width: 768px) { .testimonials-subtitle { font-size: 1.25rem; } }
+
+/* CAROUSEL */
+.testimonials-carousel-wrapper {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* Firefox */
+  gap: 1.5rem; /* Rozteč z referenčního layoutu */
+  padding-top: 0;
+  padding-bottom: 1rem; /* Záchyt z vrchu a prevence uřezání shadow */
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+  margin-top: 2rem; /* Sjednoceno se sekcí Služby pro mobily */
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .testimonials-carousel-wrapper {
+    margin-top: 3.5rem; /* Sjednoceno se sekcí Služby pro tablety a desktop */
+  }
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .testimonials-carousel-wrapper {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.testimonials-carousel-wrapper::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* ================================== */
+/* KARTA - FLAT DESIGN */
+/* ================================== */
+.testimonial-card-item {
+  scroll-snap-align: center;
+  flex: 0 0 85vw; /* Na mobilech široká karta */
+  height: 380px; /* Fixní výška místo min-height */
+  background-color: #ffffff; /* Čistě bílé flat karty vystupující ze šedého sekčního pozadí */
+  border-radius: 1.5rem; /* Velký radius Squircle (24px) na karty! */
+  padding: 2.5rem 2rem; /* Velký horní padding dle fotky */
+  box-shadow: none; /* Skutečný Flat design, ŽÁDNÝ STÍN! */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Roztahuje text nahoru a autory úplně dolů */
+  position: relative;
+  transition: transform 0.4s ease;
+}
+
+@media (min-width: 640px) {
+  .testimonial-card-item {
+    flex: 0 0 320px; /* Tablet pevná šířka karty */
+    scroll-snap-align: start; 
+    height: 400px;
+  }
+}
+@media (min-width: 1024px) {
+  .testimonial-card-item {
+    flex: 0 0 310px; /* Perfektní fit pro 4 karty v 85rem bloku (z uživatelovy předlohy!) */
+    padding: 3.5rem 2.5rem 2.5rem 2.5rem;
+    height: 420px; /* Fixní výška na desktopu */
+  }
+}
+
+/* TEXT */
+.testimonial-text {
+  font-family: var(--font-main); /* Pro reference byl na fotce užit čistý grotesk bezpatkový text */
+  font-size: 1.05rem; /* Menší jemný text stísněný na levé straně */
+  line-height: 1.6;
+  color: #374151; /* Klidná tmavě šedá */
+  font-weight: 500;
+  text-align: left; /* Naprosto striktní dorovnání doleva! */
+  flex: 1; /* Umožní textu zabrat zbývající místo a scrollovat */
+  overflow-y: auto;
+  margin-bottom: 1.5rem;
+  padding-right: 0.5rem; /* Prostor pro budoucí scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent; /* Skrytý scrollbar na FF */
+}
+
+/* Kód pro zviditelnění scrollbaru POUZE když myš najede na kartu */
+.testimonial-card-item:hover .testimonial-text {
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent; /* Zviditelnění na FF */
+}
+
+/* Úprava Webkit scrollbaru (Chrome, Safari, Edge) */
+.testimonial-text::-webkit-scrollbar {
+  width: 4px;
+}
+.testimonial-text::-webkit-scrollbar-track {
+  background: transparent;
+}
+.testimonial-text::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+.testimonial-card-item:hover .testimonial-text::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.15); /* Zviditelnění thumbu */
+}
+
+/* AUTHOR BOX - Dole v kartě */
+.testimonial-author-block {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.testimonial-avatar {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background-color: rgba(239, 103, 165, 0.15); /* Hravý barevný prvek v Sunrise Pink přes alpha kanál */
+  color: var(--color-primary); /* Výrazná růžová na iniciály */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.testimonial-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.testimonial-author-name {
+  font-family: var(--font-accent);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #1b1b1b;
+}
+
+.testimonial-author-role {
+  font-family: var(--font-main);
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* ================================== */
+/* NAVIGAČNÍ TLAČÍTKA DOLE */
+/* ================================== */
+
+.testimonials-nav-container {
+  position: relative;
+  z-index: 2;
+  max-width: 1400px;
+  margin: 0 auto;
+  margin-top: calc(1.5rem + 30px); /* Odsazení šipek od karet na mobilech zvýšeno o 30px na žádost klienta */
+  padding-top: 0;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+  display: flex;
+  justify-content: flex-start; /* Šipky zarovnané pevně vlevo */
+}
+@media (min-width: 768px) {
+  .testimonials-nav-container { margin-top: 0; padding-top: 0.5rem; }
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .testimonials-nav-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.nav-buttons-group {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.testimonial-nav-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.75rem; 
+  background-color: var(--color-primary); /* Návrat živé Sunrise Pink barvy do navigace */
+  color: #ffffff; /* Bílé ikonky šipek */
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(239, 103, 165, 0.3); /* Jemný glow dodávající hravost UI prvku */
+}
+.testimonial-nav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+.testimonial-nav-btn:hover {
+  background-color: #d1498b; /* Tmavší hover */
+  transform: translateY(-2px) scale(1.05); /* Skok nahoru místo jen zvětšení */
+  box-shadow: 0 8px 25px rgba(239, 103, 165, 0.4);
+}
+
+/* ================================== */
+/* INVERT COLORS PRO LEKTORA */
+/* ================================== */
+.testimonials-section.inverted-colors {
+  background-color: #ffffff; /* Bílé pozadí sekce, navazuje čistě na Lektor profil */
+  padding-bottom: 0rem; /* Zcela odstraněno, spoléhá se na marginy sekce 6 */
+}
+@media (min-width: 768px) {
+  .testimonials-section.inverted-colors {
+    padding-bottom: 0rem;
+  }
+}
+
+.testimonial-card-item.inverted {
+  background-color: #fafafa; /* Výrazně jemnější světlá šedá, f1f3f5 byla příliš tmavá */
+  border: 1px solid #e5e7eb; /* Velmi jemný okraj, aby karty tvarově držely */
+  box-shadow: none; /* Stále flat design */
+}

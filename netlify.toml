@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Nastavení nezbytné pro to, aby v React aplikaci (SPA) fungovalo přesměrování stránek, 
+# když uživatel napíše rovnou adresu např. /kontakt do prohlížeče.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

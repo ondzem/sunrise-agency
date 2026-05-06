@@ -1,0 +1,460 @@
+/* Services.css - The Bento Layout Refactor */
+
+.services-section {
+  padding: 4rem 0 3rem;
+  background-color: var(--tw-surface);
+  position: relative;
+  overflow: hidden;
+  z-index: 2;
+}
+@media (min-width: 441px) and (max-width: 767px) { 
+  .services-section { 
+    padding-top: 9rem; /* Posunuto o dalších 15px (~1rem) dolů */
+  } 
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .services-section {
+    padding-top: 6.875rem; /* O dalších 20px výše (celkem 50px oproti 10rem výchozím) */
+    padding-bottom: 6rem;
+  }
+}
+@media (min-width: 1024px) { .services-section { padding: 5rem 0 6rem; } } /* Posunuto o dalších 40px (2.5rem) výše (celkem o 80px / 5rem z původních 10rem) */
+
+.services-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .services-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px); /* O 20px více doleva oproti +10px standardu */
+  }
+}
+
+/* ---------------------------------
+   ORGANIC BACKGROUND SHAPE
+----------------------------------- */
+.services-organic-bg {
+  position: absolute;
+  top: 5%;
+  right: -5%;
+  width: 55vw;
+  height: 850px;
+  background-color: var(--color-accent1); /* Svěží asociační Tmavozelená Barva Sunrise */
+  opacity: 0.06; /* Vyžádané zvýraznění vodoznaku na 6% */
+  z-index: 0;
+  border-radius: 68% 32% 43% 57% / 42% 46% 54% 58%; /* Asymetrický Pebble / Kámen jako v Hero sekci */
+  transform: rotate(-10deg);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .services-organic-bg {
+    width: 120vw;
+    right: -30%;
+    top: 2%;
+    height: 600px;
+    opacity: 0.05; /* Úměrné zvýraznění na mobilu (5%) */
+  }
+}
+@media (min-width: 441px) and (max-width: 767px) {
+  .services-organic-bg {
+    top: 35%; /* Posunuto výrazně níže, aby nekolidovalo s přesahem Hero pozadí zhora */
+  }
+}
+
+
+.services-header {
+  text-align: left;
+  margin-bottom: 2rem; /* Přiblíženo ke kartám na mobilních zařízeních (původně 3.5rem) */
+}
+@media (min-width: 768px) {
+  .services-header {
+    margin-bottom: 3.5rem; /* Obnovena původní vzdálenost pro desktop */
+  }
+}
+.services-title {
+  font-family: var(--font-accent);
+  font-size: clamp(1.85rem, 1.2rem + 3.3vw, 2.4rem); /* Plynulé zvětšování do 768px */
+  font-weight: 700;
+  color: var(--tw-surface-content);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+@media (min-width: 768px) {
+  .services-title { 
+    font-size: clamp(2.4rem, 1.2rem + 3.3vw, 2.85rem); /* Plynulé zvětšování mezi 768 a 1024px, dál max 3.5rem */
+  }
+}
+
+/* ---------------------------------
+   THE BENTO GRID SYSTEM
+----------------------------------- */
+.bento-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem; /* Zvětšená mezera na mobilu, aby to dýchalo */
+  margin-bottom: 2rem;
+}
+@media (min-width: 768px) {
+  .bento-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; /* Hustší původní bento grid layout na tabletu a desktopu */
+  }
+}
+
+/* Základní karta */
+.bento-card {
+  border-radius: 1.5rem;
+  padding: 1.75rem; /* Zmenšený prostor pro mobily */
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  min-height: 240px; /* Mnohem kompaktnější než 320px pro mobily */
+  box-shadow: 0 10px 40px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.bento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 50px rgba(0,0,0,0.08);
+}
+@media (min-width: 768px) {
+  .bento-card {
+    padding: 2.5rem; /* Návrat původního volného paddingu na tablet+ */
+    min-height: 320px; /* Návrat ke 320px kartám */
+  }
+}
+
+/* Span Chování */
+@media (min-width: 768px) {
+  .bento-col-2 { grid-column: span 2; }
+  .bento-col-1 { grid-column: span 1; }
+}
+
+/* Pozadí Kartiček */
+.bento-bg-white { background-color: #ffffff; }
+.bento-bg-magenta { background-color: var(--color-primary); }
+.bento-bg-gray { background-color: #f1f3f5; }
+.bento-bg-green { background-color: var(--color-accent1); }
+.bento-bg-light-tint { background-color: #F8F9FA; border: 1px solid rgba(0,0,0,0.05); }
+.bento-bg-dark { background-color: #2D3748; }
+
+/* Nástroje Layoutu */
+.flex-col-between {
+  justify-content: space-between;
+}
+.relative-overflow {
+  position: relative;
+  z-index: 1;
+}
+
+/* Typografie uvnitř karet */
+  .bento-title {
+    font-family: var(--font-accent);
+    font-size: 1.5rem; /* Zjemnění fontu pro mobile */
+    font-weight: 700;
+    margin-bottom: 0.75rem; /* Těsnější spojení s body textem na mobile */
+    line-height: 1.1;
+    color: var(--tw-surface-content);
+  }
+@media (min-width: 768px) {
+  .bento-title {
+    font-size: 1.85rem;
+    margin-bottom: 1rem;
+  }
+}
+.text-white { color: #ffffff !important; }
+.text-dark { color: #1a202c !important; }
+
+.bento-desc {
+  font-family: var(--font-main);
+  font-size: 0.95rem; /* Zmenšeno pro mobil */
+  line-height: 1.5;
+}
+@media (min-width: 768px) {
+  .bento-desc { font-size: 1.05rem; line-height: 1.6; }
+}
+.bento-desc-small {
+  font-family: var(--font-main);
+  font-size: 0.85rem; /* Drobnější sub-text na mobil */
+  line-height: 1.4;
+}
+@media (min-width: 768px) {
+  .bento-desc-small { font-size: 0.95rem; line-height: 1.5; }
+}
+
+.text-gray { color: #4A5568; }
+.text-gray-bold { color: #4A5568; font-weight: 500; }
+.text-white-70 { color: rgba(255, 255, 255, 0.7); }
+.text-white-80 { color: rgba(255, 255, 255, 0.8); }
+.text-secondary { color: var(--color-accent1); }
+
+/* Vzory Avatárů (HTML přesně kopírováno) */
+.bento-avatars {
+  display: flex;
+  margin-left: 0.5rem;
+  margin-top: 2rem;
+}
+.bento-avatar, .bento-avatar-badge {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  border: 4px solid #ffffff;
+  overflow: hidden;
+  margin-left: -1rem;
+  background-color: var(--tw-surface);
+}
+.bento-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.bento-avatar-badge {
+  background-color: var(--color-primary);
+  display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-family: var(--font-main);
+  }
+
+/* Modifikace pro menší vlajky a ikony */
+.bento-avatars-small {
+  margin-top: 1.5rem;
+}
+.bento-avatars-small .bento-avatar, 
+.bento-avatars-small .bento-avatar-badge {
+  width: 2.2rem;
+  height: 2.2rem;
+  border-width: 3px;
+  margin-left: -0.75rem;
+}
+.bento-avatar-flag {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f3f5;
+}
+.bento-avatar-badge-small {
+  font-size: 0.75rem !important;
+}
+
+/* Ostatní Mikroprvky */
+.bento-icon-large {
+  font-size: 2rem; /* Zmenšení z 2.5rem */
+  margin-bottom: 1.5rem; /* Těsnější prostor */
+  color: #ffffff;
+}
+@media (min-width: 768px) {
+  .bento-icon-large { font-size: 2.5rem; margin-bottom: 2rem; }
+}
+.bento-label {
+  font-family: var(--font-main);
+  font-weight: 900;
+  font-size: 0.75rem; /* Drobnější label nahoře */
+  letter-spacing: 0em;
+  display: block;
+  margin-bottom: 1.5rem;
+}
+@media (min-width: 768px) {
+  .bento-label { font-size: 0.85rem; margin-bottom: 2rem; }
+}
+
+/* Image Masking pro zelenou firemní kartu */
+.bento-overlay-content {
+  position: relative;
+  z-index: 10;
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start; /* Zabrání svislému flexboxu natahovat děti do plné šířky karty */
+  flex: 1; /* Flex-grow napne obsah k okrajům z vnitřku a justify-center to vystředí svisle */
+}
+@media (max-width: 767px) {
+  .bento-overlay-content { max-width: 100%; }
+}
+.bento-transparent-btn {
+  background-color: #ffffff;
+  color: var(--color-accent1);
+  padding: 0.75rem 2rem;
+  border-radius: 0.75rem;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-top: 1.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.bento-transparent-btn:hover { background-color: var(--color-primary); color: #fff;}
+
+.right-side {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 45%;
+  height: 100%;
+  opacity: 0.25; /* Styl z HTML přesně, ztlumené foto s blendem */
+}
+.right-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .right-side {
+    width: 100%;
+    height: 50%;
+    top: auto;
+    bottom: 0;
+    opacity: 0.15;
+  }
+}
+
+/* Jazykové štítky */
+.bento-tags-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+.bento-mini-tag {
+  background-color: rgba(255,255,255,0.1);
+  padding: 6px 14px;
+  border-radius: 0.5rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: inline-block;
+  width: fit-content;
+}
+
+/* Zlatý Spodek - Language Banner Remains */
+.languages-banner {
+  background-color: #ffffff;
+  border-radius: 1.5rem; /* Bylo 100px (pilulka), nyní sjednoceno na bento radius */
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+  box-shadow: 0 20px 40px -10px rgba(0,0,0,0.05);
+}
+  .languages-label {
+    font-family: var(--font-accent);
+    font-weight: 700;
+    color: #a0aec0;
+    font-size: 1.1rem;
+  }
+.languages-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+.lang-pill {
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #f7fafc;
+  color: #4a5568;
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  font-weight: 500;
+  border: 1px solid #e2e8f0;
+}
+.accent-lang {
+  background-color: rgba(239, 103, 165, 0.1);
+  color: var(--color-primary);
+  border-color: rgba(239, 103, 165, 0.2);
+}
+
+@media (max-width: 1024px) {
+  .languages-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+/* Akční Footer - Spodní tlačítko sekce */
+.services-action-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem; /* Posunuto blíž nahoru ke kartám / banneru */
+  padding-bottom: 2rem;
+}
+
+.btn-services-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  background-color: var(--color-primary); /* Výrazně růžová barva zadána uživatelem */
+  color: #ffffff;
+  border: none;
+  border-radius: 0.75rem; /* Opticky obdélníkový tvar */
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  cursor: pointer;
+  box-shadow: 0 10px 20px -5px rgba(239, 103, 165, 0.4); /* Typický sunrise-pink glow pod tlačítkem */
+}
+
+.btn-services-more:hover {
+  filter: brightness(0.9); /* Sjednocený hover efekt růžových buttonů */
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px -5px rgba(239, 103, 165, 0.5); /* Krásné optické vymrštění s glowefektem */
+}
+
+.services-btn-icon {
+  transition: transform 0.3s ease;
+}
+
+.btn-services-more:hover .services-btn-icon {
+  transform: translateX(4px);
+}
+
+/* Bento Card Text Links */
+.bento-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  width: max-content;
+  margin-top: auto;
+  padding-top: 1.5rem; /* Odsazení od okolního textu shora */
+}
+.bento-link-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+.bento-link:hover .bento-link-icon {
+  transform: translateX(4px);
+}
+
+.bento-link.text-magenta { color: var(--color-primary); }
+.bento-link.text-magenta:hover { color: #d64f8c; }
+.bento-link.text-white { color: #ffffff; }
+.bento-link.text-white:hover { color: rgba(255, 255, 255, 0.8); }
+.bento-link.text-dark { color: #1a202c; }
+.bento-link.text-dark:hover { color: var(--color-primary); }

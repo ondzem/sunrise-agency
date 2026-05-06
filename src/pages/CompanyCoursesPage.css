@@ -1,0 +1,1135 @@
+/* ================================== */
+/* FIREMNÍ KURZY - HLAVNÍ STYLY       */
+/* ================================== */
+
+.corp-page {
+  width: 100%;
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  padding-top: 80px; /* Odsunutí od navbaru, stejně jako na Online/Kurzy stránkách */
+  padding-bottom: 0;
+}
+
+.corp-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .corp-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.corp-section {
+  padding: 6rem 0;
+}
+
+.corp-section-header {
+  text-align: left;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .corp-section-header {
+    margin-bottom: 3.5rem;
+  }
+}
+
+.corp-section-header h2 {
+  font-family: var(--font-accent);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: 1.1;
+  /* Margin smazán, odsazení řídí rodič .corp-section-header */
+}
+
+.corp-section-header p {
+  font-size: clamp(0.95rem, 3vw, 1.1rem); /* Responzivní zmenšení na mobilu */
+  color: #666;
+  max-width: 600px;
+  margin: 0;
+}
+
+/* Pozadí sekcí */
+.corp-bg-mint {
+  background-color: #FAFAFA; /* Šedé pozadí změněno z mint na přání */
+}
+
+.corp-bg-dark {
+  background-color: #2D3748; /* Sladěno s barvou patičky */
+  color: #fff;
+  padding-bottom: 5rem; /* Zmenšené spodní odsazení na mobilu */
+}
+
+@media (min-width: 768px) {
+  .corp-bg-dark {
+    padding-bottom: 10rem; /* Původní zvětšené odsazení na desktopu */
+  }
+}
+
+.corp-dark-organic-bg {
+  position: absolute;
+  top: -10%;
+  right: -10%;
+  width: 55%;
+  height: 140%;
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 80%);
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  border-radius: 68% 32% 43% 57% / 42% 46% 54% 58%;
+  z-index: 0;
+  transform: rotate(-15deg);
+  pointer-events: none;
+}
+
+.corp-dark-organic-bg::after {
+  content: "";
+  position: absolute;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
+  background-color: rgba(255, 255, 255, 0.01);
+  border-radius: 41% 59% 43% 57% / 46% 38% 62% 54%;
+  transform: rotate(30deg);
+}
+
+@media (max-width: 1024px) {
+  .corp-dark-organic-bg {
+    width: 90vw;
+    height: 90vw;
+    top: -5%;
+    right: -30vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .corp-dark-organic-bg {
+    width: 140vw;
+    height: 140vw;
+    top: 0;
+    right: -50vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .corp-dark-organic-bg {
+    width: 180vw;
+    height: 180vw;
+    top: 2%;
+    right: -70vw;
+  }
+}
+
+/* ================================== */
+/* SEKCE 1 + 2 WRAPPER */
+/* ================================== */
+.corp-hero-steps-wrapper {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-bg);
+}
+
+/* ================================== */
+/* SEKCE 1 — HERO */
+/* ================================== */
+.corp-hero {
+  position: relative;
+  text-align: center;
+  padding-top: 0;
+  padding-bottom: 2rem;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px);
+  padding-right: clamp(15px, 3.5vw, 40px);
+  background: transparent;
+  margin-bottom: 1rem; /* Zmenšené z 2rem pro přiblížení další sekce */
+  max-width: 1400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (min-width: 1024px) {
+  .corp-hero {
+    padding-bottom: 2.5rem; /* Zmenšený spodní prostor z 4rem */
+    margin-top: 20px;
+  }
+}
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .corp-hero {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px);
+  }
+}
+
+.corp-organic-bg {
+  position: absolute;
+  top: 85%; /* Extrémní posun dolů na desktopu dle zadání */
+  left: -10%;
+  width: 700px;
+  height: 700px;
+  background-color: var(--color-accent1);
+  opacity: 0.05;
+  z-index: 0;
+  border-radius: 68% 32% 43% 57% / 42% 46% 54% 58%;
+  transform: rotate(-10deg);
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .corp-organic-bg {
+    width: clamp(280px, 100vw, 550px);
+    height: clamp(280px, 100vw, 550px);
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%) rotate(-10deg);
+  }
+}
+
+@media (min-width: 431px) and (max-width: 768px) {
+  .corp-organic-bg {
+    top: 85%;
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1023px) {
+  .corp-organic-bg {
+    top: 10%;
+  }
+}
+
+.corp-hero-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.corp-hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.corp-hero-image-wrapper {
+  display: none; /* Na mobilu fotka nebude */
+}
+
+@media (min-width: 1024px) {
+  .corp-hero-content {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    gap: 4rem;
+  }
+  .corp-hero-text {
+    flex: 1;
+    align-items: flex-start; /* Text nalevo */
+  }
+  .corp-hero-actions {
+    justify-content: flex-start !important; /* Na desktopu zarovnat doleva */
+  }
+  .corp-hero-image-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+    z-index: 1;
+  }
+  .corp-hero-shadow {
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    width: 100%;
+    height: 550px;
+    background-color: #F0F0F0;
+    border-radius: 40% 60% 55% 45% / 55% 45% 65% 35%;
+    transform: scale(1.05);
+    z-index: -1;
+  }
+  .corp-hero-image-wrapper img {
+    max-width: 100%;
+    width: 100%;
+    height: 550px;
+    border-radius: 40% 60% 55% 45% / 55% 45% 65% 35%; /* Stejný blob jako u OnlinePage */
+    object-fit: cover;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+  }
+}
+
+.corp-badge {
+  background-color: rgba(28, 156, 115, 0.1);
+  color: var(--color-accent1);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.corp-title {
+  font-family: var(--font-accent);
+  font-size: clamp(3.2rem, 1.5rem + 4vw, 4.0rem); /* Škáluje do 4.0rem na desktopu */
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+  text-align: center;
+  max-width: 650px;
+  width: 100%;
+}
+
+.corp-subtitle {
+  font-family: var(--font-main);
+  max-width: 650px;
+  font-size: clamp(0.9rem, 0.75rem + 0.55vw, 1.1rem);
+  line-height: 1.6;
+  color: #555;
+  margin: 0 auto 1.5rem;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .corp-title {
+    font-size: clamp(2.5rem, 1.5rem + 3.5vw, 3.2rem); /* Škáluje od 2.5rem do 3.2rem na tabletu */
+  }
+}
+
+@media screen and (max-width: 439px) {
+  .corp-title {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 550px) and (max-width: 900px) {
+  .corp-title {
+    max-width: 480px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .corp-title {
+    text-align: left;
+  }
+  .corp-subtitle {
+    text-align: left;
+    margin: 0 0 2.5rem 0 !important;
+  }
+}
+
+.corp-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.corp-hero-actions .btn {
+  padding: clamp(12px, 1.8vw, 16px) clamp(24px, 4vw, 36px); /* Responzivní zmenšování od 900px do 590px */
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-text-mobile {
+  display: none;
+}
+
+/* ================================== */
+/* HERO MEDIA QUERIES */
+/* ================================== */
+
+@media (max-width: 590px) {
+  .corp-hero-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  .corp-hero-actions .btn {
+    width: 100%;
+    max-width: 320px; /* Obě tlačítka budou na mobilu naprosto stejně široká a vysoká */
+    padding: 15px 34px; /* Zvětšení o cca 3px vertikálně a 10px horizontálně podle přání */
+    font-size: 0.95rem;
+  }
+  .btn-text-desktop {
+    display: none;
+  }
+  .btn-text-mobile {
+    display: inline;
+  }
+}
+
+
+
+.corp-outline-btn-dark {
+  background: transparent;
+  border: 1px solid #ccc;
+  color: var(--color-text);
+  box-shadow: none;
+}
+
+.corp-outline-btn-dark:hover {
+  border-color: var(--color-text);
+  background: rgba(0, 0, 0, 0.05);
+}
+
+
+/* ================================== */
+/* SEKCE 3 — JAK TO FUNGUJE */
+/* ================================== */
+.corp-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+}
+
+@media (min-width: 992px) {
+  .corp-steps {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+.corp-step {
+  flex: 1;
+  position: relative;
+  background: #fff;
+  padding: 1.5rem; /* Menší padding na mobilu */
+  border-radius: 20px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.04);
+  border: 1px solid #f0f0f0;
+  transition: transform 0.3s ease;
+}
+
+@media (min-width: 768px) {
+  .corp-step {
+    padding: 2.5rem; /* Původní velký padding na desktopu */
+  }
+}
+
+.corp-step:hover {
+  transform: translateY(-5px);
+}
+
+.corp-step-num {
+  font-family: var(--font-main);
+  font-size: clamp(2.5rem, 6vw, 3.5rem); /* Responzivní číslice */
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.05); /* Šedá barva jako u čísel v další sekci */
+  line-height: 1;
+  margin-bottom: 1rem;
+}
+
+.corp-step-title {
+  font-size: clamp(1.1rem, 3vw, 1.3rem); /* Responzivní nadpis karty */
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+
+.corp-step-text {
+  font-size: clamp(0.85rem, 2vw, 0.95rem); /* Responzivní text karty */
+  color: #666;
+  line-height: 1.6;
+}
+
+.corp-step-connector {
+  display: block; /* Vždy zapnuto */
+  width: 2px;
+  height: 24px;
+  background-color: var(--color-primary);
+  opacity: 0.3;
+  margin: -0.5rem auto -0.5rem; /* Negativní margin, protože flex container má gap: 2rem */
+  flex-shrink: 0;
+}
+
+@media (min-width: 992px) {
+  .corp-step-connector {
+    width: 40px;
+    height: 2px;
+    margin: 60px 0 0 0;
+  }
+}
+
+
+/* ================================== */
+/* SEKCE 4 — 6 KATEGORIÍ VÝUKY (ROZBALOVACÍ SEZNAM) */
+/* ================================== */
+.corp-list-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.corp-list-row {
+  display: flex;
+  align-items: center;
+  padding: 2.5rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  cursor: pointer;
+  transition: background-color 0.4s ease, border-bottom-color 0.4s ease;
+  position: relative;
+  background-color: transparent;
+}
+
+.corp-list-row:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+  border-bottom-color: transparent;
+}
+
+.corp-list-row.is-expanded {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  border-bottom-color: transparent;
+  padding: 3rem 2rem;
+  margin: 1rem 0;
+  align-items: flex-start;
+}
+
+.corp-list-number {
+  font-family: var(--font-main);
+  font-size: 0.9rem;
+  color: var(--color-primary);
+  font-weight: 700;
+  width: 60px;
+  flex-shrink: 0;
+  opacity: 0.8;
+  margin-top: 6px;
+}
+
+.corp-list-content {
+  flex-grow: 1;
+  padding-right: 2rem;
+}
+
+.corp-list-title {
+  font-family: var(--font-main);
+  font-size: 1.8rem;
+  font-weight: 600; /* Zpět na 600, Montserrat vypadá s 500 trochu tence oproti Grotesk */
+  color: var(--color-text);
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+.corp-list-desc-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.4, 0, 0.2, 1), margin-top 0.4s ease, opacity 0.4s ease;
+  opacity: 0;
+}
+
+.corp-list-row:hover .corp-list-desc-wrapper {
+  max-height: 120px;
+  margin-top: 0.8rem;
+  opacity: 1;
+}
+
+.corp-list-row.is-expanded .corp-list-desc-wrapper {
+  max-height: 1000px; /* Dostatečně velká hodnota pro plný obsah */
+  margin-top: 1rem;
+  opacity: 1;
+}
+
+.corp-list-desc {
+  font-size: clamp(0.9rem, 2.5vw, 1.05rem); /* Zmenšený font pro mobilní zobrazení */
+  color: #555;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.corp-list-details {
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: opacity 0.6s ease, transform 0.6s ease, max-height 0.6s ease, margin-top 0.6s ease;
+  margin-top: 0;
+}
+
+.corp-list-row.is-expanded .corp-list-details {
+  opacity: 1;
+  max-height: 500px;
+  transform: translateY(0);
+  margin-top: 1.5rem;
+}
+
+.corp-cat-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #eee;
+  padding-top: 1.5rem;
+}
+
+.corp-cat-list li {
+  font-size: clamp(0.85rem, 2.5vw, 0.95rem); /* Mírné zmenšení položek seznamu na mobilu */
+  color: #666;
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.corp-cat-list li::before {
+  content: '·';
+  position: absolute;
+  left: 0.5rem;
+  color: var(--color-accent1);
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.corp-list-action {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #999;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.4s ease;
+  margin-top: 6px;
+}
+
+.corp-list-row.is-expanded .corp-list-action {
+  align-self: flex-start;
+  margin-top: 0;
+}
+
+.action-text-hover {
+  display: none;
+}
+
+.corp-list-row:hover .corp-list-action,
+.corp-list-row.is-expanded .corp-list-action {
+  color: var(--color-primary);
+}
+
+.corp-list-row:hover .action-text-default,
+.corp-list-row.is-expanded .action-text-default {
+  display: none;
+}
+
+.corp-list-row:hover .action-text-hover,
+.corp-list-row.is-expanded .action-text-hover {
+  display: inline;
+}
+
+.action-icon {
+  font-size: 1.2rem;
+  transition: transform 0.4s ease;
+}
+
+.corp-list-row:hover:not(.is-expanded) .action-icon {
+  transform: translate(3px, -3px);
+}
+
+@media (max-width: 768px) {
+  .corp-list-row {
+    padding: 1.5rem 0.5rem;
+    align-items: flex-start;
+  }
+  .corp-list-row.is-expanded {
+    padding: 2rem 1rem;
+  }
+  .corp-list-number {
+    width: 30px;
+    margin-top: 4px;
+    font-size: 0.8rem;
+  }
+  .corp-list-title {
+    font-size: 1.3rem;
+  }
+  .corp-list-content {
+    padding-right: 0.5rem;
+  }
+  .corp-list-action {
+    display: none; /* Skryjeme text akce na mobilu */
+  }
+  .corp-list-row.is-expanded .corp-list-action {
+    display: flex;
+    position: absolute;
+    top: 2rem;
+    right: 1rem;
+  }
+  .corp-list-row.is-expanded .action-text-hover {
+    display: none; /* Na mobilu jen ikonka mínus */
+  }
+}
+
+
+/* ================================== */
+/* SEKCE 5 — FORMÁTY VÝUKY (PREMIUM)  */
+/* ================================== */
+.corp-formats-section {
+  padding-bottom: 10rem; /* Zvětšené odsazení pro oddělení od tmavé sekce */
+}
+
+.corp-premium-formats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+@media (min-width: 992px) {
+  .corp-premium-formats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.corp-premium-card {
+  background: #FAFAFA; /* Šedé profi pozadí změněno na #FAFAFA */
+  padding: 1.5rem; /* Menší padding na mobilu (stejně jako u sekce 'Jak to funguje') */
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 768px) {
+  .corp-premium-card {
+    padding: 2.5rem; /* Původní velký padding na desktopu */
+  }
+}
+
+.corp-premium-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.corp-premium-card-top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.corp-premium-number {
+  font-family: var(--font-main);
+  font-size: clamp(2.5rem, 6vw, 4rem); /* Zmenšené číslo na mobilu */
+  font-weight: 700;
+  line-height: 0.8;
+  color: rgba(0, 0, 0, 0.05); /* Bledé neutrální číslo */
+  margin-top: -5px;
+  margin-right: -5px;
+}
+
+.corp-premium-title {
+  font-family: var(--font-main);
+  font-size: clamp(1.2rem, 3vw, 1.5rem); /* Responzivní zmenšení nadpisu na mobilu */
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 0.75rem;
+}
+
+.corp-premium-text {
+  font-size: clamp(0.85rem, 2vw, 0.95rem); /* Responzivní zmenšení podtextu na mobilu */
+  color: #555;
+  line-height: 1.6;
+}
+
+
+/* ================================== */
+/* SEKCE 6 — MĚŘENÍ VÝSLEDKŮ */
+/* ================================== */
+.corp-results-title {
+  font-family: var(--font-accent);
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: left; /* Vráceno zpět doleva */
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+  .corp-results-title {
+    margin-bottom: 3.5rem;
+  }
+}
+
+.corp-results-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 576px) {
+  .corp-results-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .corp-results-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.corp-result-card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 1.25rem; /* Zmenšená výška a vnitřní okraje */
+  border-radius: 16px; /* Jemnější zaoblení vzhledem k menší kartě */
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.corp-result-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); /* Zvýraznění stínem namísto rámečku */
+}
+
+.corp-result-card-top {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.corp-result-number {
+  font-family: var(--font-main);
+  font-size: 4rem; /* Zmenšeno z 5rem */
+  font-weight: 700;
+  line-height: 0.8;
+  color: rgba(255, 255, 255, 0.05);
+  margin-top: 0;
+  margin-right: 0;
+}
+
+.corp-result-title {
+  font-family: var(--font-main);
+  font-size: 1.25rem; /* Zmenšeno z 1.5rem kvůli širšímu Montserratu */
+  font-weight: 600; /* Jemnější řez pro lepší čitelnost v bloku */
+  color: #fff;
+  margin-bottom: 0.5rem;
+  line-height: 1.3;
+}
+
+.corp-result-text {
+  font-size: 0.85rem; /* Zmenšeno z 0.95rem */
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.6;
+}
+
+
+/* ================================== */
+/* SEKCE 7 — REFERENCE */
+/* ================================== */
+.corp-testimonials-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .corp-testimonials-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.corp-testimonial-card {
+  background: #fff;
+  padding: 2.5rem 2rem;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+  position: relative;
+}
+
+.corp-quote-icon {
+  position: absolute;
+  top: -20px;
+  left: 30px;
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.corp-testimonial-text {
+  font-size: 1.05rem;
+  font-style: italic;
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+}
+
+.corp-testimonial-author {
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.corp-author-name {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.corp-author-role {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+
+/* ================================== */
+/* SEKCE 7 — REFERENCE FIREM (Wrapper Override) */
+/* ================================== */
+.corp-testimonials-wrapper .testimonials-section {
+  background-color: #ffffff;
+  padding: 8rem 0;
+  overflow: visible !important;
+}
+
+.corp-testimonials-wrapper .testimonials-header-container {
+  align-items: flex-start !important;
+  text-align: left !important;
+  max-width: 1400px !important;
+  margin: 0 auto 2rem auto !important;
+  padding-left: calc(clamp(15px, 3.5vw, 40px) + 10px) !important;
+  padding-right: clamp(15px, 3.5vw, 40px) !important;
+}
+
+@media (min-width: 768px) {
+  .corp-testimonials-wrapper .testimonials-header-container {
+    margin-bottom: 3.5rem !important;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1400px) {
+  .corp-testimonials-wrapper .testimonials-header-container {
+    padding-left: calc(clamp(15px, 3.5vw, 40px) - 10px) !important;
+  }
+}
+
+.corp-testimonials-wrapper .testimonials-title {
+  font-family: var(--font-accent);
+  font-size: 2.25rem;
+  font-weight: 700;
+  text-align: left !important;
+  color: var(--color-text);
+  margin-bottom: 1rem;
+}
+
+.corp-testimonials-wrapper .testimonials-subtitle {
+  text-align: left !important;
+  font-size: 1.15rem;
+  color: #666;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+/* Úprava karuselu: Přiblížení k nadpisu a prevence uříznutí při hoveru */
+.corp-testimonials-wrapper .testimonials-carousel-wrapper {
+  margin-top: 1rem !important; /* Polovina prostoru je margin */
+  padding-top: 1rem !important; /* Druhá polovina je padding, aby měla karta kam vyskočit */
+}
+
+/* Posunutí navigačních šipek blíže ke kartám globálně (na desktopu) */
+.corp-testimonials-wrapper .testimonials-nav-container {
+  margin-top: -1.2rem !important; /* Více přitažené ke kartám */
+  position: relative;
+  z-index: 10;
+}
+
+@media (max-width: 767px) {
+  .corp-testimonials-wrapper .testimonials-carousel-wrapper {
+    margin-top: 0.5rem !important; 
+    padding-top: 1rem !important;
+  }
+  
+  /* Posunutí navigačních šipek více nahoru ke kartám */
+  .corp-testimonials-wrapper .testimonials-nav-container {
+    margin-top: -1.5rem !important; /* Posun šipek nahoru */
+    position: relative;
+    z-index: 10;
+  }
+}
+
+/* Jemné šedé pozadí BEZ STÍNU s jemným ohraničením (stroke) */
+.corp-testimonials-wrapper .testimonial-card-item {
+  background-color: #FAFAFA !important;
+  border-radius: 16px !important;
+  box-shadow: none !important; /* Žádný stín */
+  border: 1px solid rgba(0, 0, 0, 0.04) !important; /* Extrémně jemný, téměř neviditelný stroke */
+  transition: transform 0.4s ease, border-color 0.4s ease !important;
+}
+
+.corp-testimonials-wrapper .testimonial-card-item:hover {
+  transform: translateY(-4px) !important; /* Mírnější povyskočení bez stínu */
+  box-shadow: none !important;
+  border-color: rgba(0, 0, 0, 0.08) !important; /* Při najetí mírně znatelnější */
+}
+
+/* ================================== */
+/* SEKCE 8 — FINÁLNÍ CTA */
+/* ================================== */
+.corp-cta-section {
+  padding: 0 0 12rem 0; /* Zvětšený prostor mezi sekcí a footerem na mobilu */
+}
+
+@media (min-width: 992px) {
+  .corp-cta-section {
+    padding-top: 5rem; /* Větší oddělení od sekce nad na desktopu */
+    padding-bottom: 16rem; /* Mnohem větší prostor před footerem na desktopu */
+  }
+}
+
+.corp-cta-inner {
+  text-align: left;
+  max-width: 100%;
+  background: #FAFAFA; /* Pozadí karty změněno na #FAFAFA */
+  padding: 4.5rem 4rem; /* Trochu zvýšeno oproti minulu */
+  border-radius: 30px;
+  box-shadow: none; /* Šedé pozadí nepotřebuje stín, splyne elegantně */
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end; /* Tlačítko bude zarovnané dolů */
+  gap: 3rem;
+  position: relative;
+  z-index: 2;
+}
+
+@media (max-width: 992px) {
+  .corp-cta-inner {
+    flex-direction: column;
+    text-align: left; /* Zarovnání textu doleva i na mobilu */
+    padding: 2.5rem 1.5rem; /* Zmenšený prostor uvnitř CTA pro mobily */
+    align-items: flex-start; /* Zarovnání prvků doleva */
+    gap: 1.5rem;
+  }
+}
+
+.corp-cta-left {
+  flex: 1;
+}
+
+.corp-cta-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+@media (max-width: 992px) {
+  .corp-cta-right {
+    align-items: flex-start; /* Zarovnání tlačítka a textíku doleva */
+    width: 100%;
+  }
+}
+
+.corp-cta-title {
+  font-family: var(--font-accent);
+  font-size: 2.25rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+.corp-cta-text {
+  font-size: 1.15rem; /* Stejná velikost jako podnadpisy sekcí */
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 0;
+  max-width: 600px;
+}
+
+.corp-cta-simple-text {
+  font-size: 0.9rem;
+  color: #666;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.corp-cta-simple-text .dot {
+  color: #aaa;
+}
+
+.corp-cta-btn {
+  font-size: 1.1rem;
+  padding: 16px 40px;
+  white-space: nowrap;
+}
+
+@media (max-width: 767px) {
+  .corp-cta-btn {
+    width: 100% !important; /* Na mobilu vyplní prostor tlačítka, nepřeteče */
+    padding: 16px 20px; /* Menší vnitřní okraj */
+    white-space: normal; /* Dovolit zalomení dlouhého textu v případě nutnosti */
+    text-align: center;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Pod 480px poskládat "Odpovídáme do 24 hodin" a "Pardubice" pod sebe jako odrážkový seznam */
+  .corp-cta-simple-text {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem; /* Nepatrně větší rozestup pro odrážky */
+  }
+  
+  .corp-cta-simple-text .dot {
+    display: none; /* Skrýt původní oddělovací tečku vprostřed */
+  }
+  
+  /* Vytvořit odrážky před každým textem */
+  .corp-cta-simple-text span:not(.dot) {
+    display: flex;
+    align-items: center;
+  }
+  
+  .corp-cta-simple-text span:not(.dot)::before {
+    content: "•";
+    color: #aaa;
+    margin-right: 0.5rem;
+    font-size: 1.2em; /* Aby byla tečka lépe vidět */
+    line-height: 1;
+  }
+}
+
+/* ================================== */
+/* RESPONZIVNÍ NADPISY (Sjednoceno s Homepage) */
+/* ================================== */
+.corp-section-header h2,
+.corp-results-title,
+.corp-testimonials-wrapper .testimonials-title,
+.corp-cta-title {
+  font-size: clamp(1.85rem, 1.2rem + 3.3vw, 2.4rem) !important; /* Plynulé zvětšování do 768px */
+}
+
+@media (min-width: 768px) {
+  .corp-section-header h2,
+  .corp-results-title,
+  .corp-testimonials-wrapper .testimonials-title,
+  .corp-cta-title {
+    font-size: clamp(2.4rem, 1.2rem + 3.3vw, 2.85rem) !important; /* Plynulé zvětšování mezi 768 a 1024px */
+  }
+}
+
+
+  
+@media (max-width: 767px) {
+  /* Doladění mezer v CTA na mobilu */
+  .corp-cta-title {
+    margin-bottom: 2rem !important; /* Větší prostor mezi nadpisem a textem */
+  }
+  .corp-cta-inner {
+    gap: 3rem !important; /* Větší prostor mezi odstavcem a spodní sekcí (Odpovídáme + Tlačítko) */
+  }
+}

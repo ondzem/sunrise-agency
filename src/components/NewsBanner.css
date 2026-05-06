@@ -1,0 +1,54 @@
+.news-banner {
+  background-color: var(--color-primary); /* Růžová lišta */
+  color: white;
+  padding: 12px 20px;
+  width: 100%;
+  position: relative; /* nad navbarem */
+  z-index: 1001; /* nad vším */
+  display: flex;
+  justify-content: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.news-banner-content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.news-banner-text {
+  font-family: var(--font-main);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: center;
+}
+
+.news-banner-btn {
+  background-color: white;
+  color: var(--color-primary);
+  border: none;
+  padding: 6px 18px;
+  border-radius: 20px;
+  font-family: var(--font-main);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.news-banner-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+@media (max-width: 768px) {
+  .news-banner-content {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
