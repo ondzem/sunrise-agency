@@ -184,7 +184,6 @@ const TutorProfilePage = () => {
       { tutor_id: profileData.id, name: contactName, email: contactEmail, message: contactMessage }
     ]);
     
-    setIsSubmittingContact(false);
     if (!error) {
       try {
         const response = await fetch('/api/send-lektor-order', {
@@ -218,6 +217,7 @@ const TutorProfilePage = () => {
       // Pokud tabulka ještě neexistuje
       setModal({ isOpen: true, title: 'Chyba odeslání', message: `Databáze (tabulka contact_leads) zřejmě ještě není v Supabase připravena.\n\nVáš vzkaz:\n${contactMessage}`, type: 'danger' });
     }
+    setIsSubmittingContact(false);
   };
 
   const handleReviewSubmit = async (e) => {
