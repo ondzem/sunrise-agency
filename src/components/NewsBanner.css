@@ -47,8 +47,29 @@
 }
 
 @media (max-width: 768px) {
-  .news-banner-content {
-    flex-direction: column;
-    gap: 10px;
+  .news-banner {
+    overflow: hidden;
+    padding: 10px 0;
+    justify-content: flex-start;
   }
+  .news-banner-content {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    width: max-content;
+    gap: 15px;
+    animation: marquee 12s linear infinite;
+  }
+  .news-banner-text {
+    font-size: 0.85rem;
+  }
+  .news-banner-btn {
+    padding: 4px 12px;
+    font-size: 0.75rem;
+  }
+}
+
+@keyframes marquee {
+  0% { transform: translateX(100vw); }
+  100% { transform: translateX(-100%); }
 }

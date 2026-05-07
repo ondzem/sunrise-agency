@@ -61,7 +61,7 @@ const NewsPage = () => {
               {hasImage ? (
                 <div className="news-layout-split">
                   <div className="news-text-content">
-                    <h2 style={{ fontSize: '2.5rem', marginBottom: '25px', color: 'var(--color-primary)' }}>{news.title}</h2>
+                    <h2 className="news-page-title">{news.title}</h2>
                     <div className="news-body" dangerouslySetInnerHTML={{ __html: formatTextWithLinks(news.content) }} />
                   </div>
                   <div className="news-image-content">
@@ -70,7 +70,7 @@ const NewsPage = () => {
                 </div>
               ) : (
                 <div className="news-layout-centered">
-                  <h2 style={{ fontSize: '2.5rem', marginBottom: '25px', color: 'var(--color-primary)' }}>{news.title}</h2>
+                  <h2 className="news-page-title">{news.title}</h2>
                   <div className="news-body" dangerouslySetInnerHTML={{ __html: formatTextWithLinks(news.content) }} />
                 </div>
               )}

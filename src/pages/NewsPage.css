@@ -1,5 +1,5 @@
 .news-page-container {
-  padding: 220px 5% 120px 5%; /* Větší prostor nahoře pod navbarem a dole nad footrem */
+  padding: 280px 5% 120px 5%; /* Zvětšený prostor nahoře */
   max-width: 1200px;
   margin: 0 auto;
   min-height: 60vh;
@@ -18,14 +18,24 @@
   text-align: center;
 }
 
-.news-page-container h1 {
-  font-family: var(--font-main);
+/* Stejné formátování jako sekce "Pro děti a teens" (category-title) */
+.news-page-title {
+  font-family: var(--font-accent);
+  font-size: clamp(1.85rem, 1.2rem + 3.3vw, 2.4rem);
   font-weight: 700;
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
-  color: var(--color-primary);
-  margin-bottom: 30px;
+  color: var(--tp-dark);
+  margin-bottom: 2rem;
+  position: relative;
+  display: inline-block;
   line-height: 1.1;
   letter-spacing: -0.02em;
+}
+
+@media (min-width: 768px) {
+  .news-page-title { 
+    font-size: clamp(2.4rem, 1.2rem + 3.3vw, 2.85rem);
+    margin-bottom: 2rem; /* nebo 3.5rem jako na Kurzech, necháme 2rem pro Aktuality */
+  }
 }
 
 .news-body {
@@ -50,10 +60,6 @@
   }
   
   .news-page-container {
-    padding-top: 120px;
-  }
-  
-  .news-page-container h1 {
-    font-size: 2.2rem;
+    padding-top: 180px; /* Zvětšený prostor nahoře na mobilu */
   }
 }

@@ -762,6 +762,14 @@
     align-items: center;
     width: 100%;
     padding-top: 1.5rem;
+    gap: 1rem;
+  }
+  .summer-term-ticket .ticket-action .ticket-price {
+    flex: 1;
+    min-width: 0; /* Umožní textu přetékat a nezabírat celý prostor */
+  }
+  .summer-term-ticket .ticket-action .btn {
+    flex-shrink: 0;
   }
   .summer-term-ticket .ticket-action::before {
     content: "";
@@ -798,8 +806,9 @@
 }
 
 .ticket-price span {
-  font-size: 0.85rem;
+  font-size: 0.75rem; /* Zmenšeno z 0.85rem kvůli šířce tlačítka */
   color: #888;
+  line-height: 1.2;
 }
 
 .ticket-action .btn {

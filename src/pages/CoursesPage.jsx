@@ -994,7 +994,7 @@ const CoursesPage = () => {
           <div className="container">
             <div className="course-cta-inner">
               <div className="course-cta-left">
-                <h2 className="course-cta-title">Nenašli jste kurz podle svých představ?</h2>
+                <h2 className="course-cta-title">Nenašli jste kurz?</h2>
                 <p className="course-cta-text">
                   Jsme tu pro vás. Napište nám své požadavky a společně vymyslíme individuální plán výuky na míru.
                 </p>
