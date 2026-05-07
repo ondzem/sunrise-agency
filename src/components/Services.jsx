@@ -72,7 +72,7 @@ const Services = () => {
             <span className="material-symbols-outlined bento-icon-large">rocket_launch</span>
             <div>
               <h3 className="bento-title text-white">Online výuka</h3>
-              <p className="bento-desc-small text-white-70">Žádné dojíždění, žádné kompromisy. Stejní lektoři, stejná kvalita — odkudkoliv v ČR.</p>
+              <p className="bento-desc-small text-white-70">Bydlíte daleko, nebo vás už nebaví zdlouhavé dojíždění? Máme pro vás řešení.</p>
               <span className="bento-link text-white" style={{ marginTop: '0.5rem', display: 'inline-block', fontWeight: '600', opacity: 0.9 }}>Zjistit více &rarr;</span>
             </div>
           </Link>
@@ -91,7 +91,7 @@ const Services = () => {
           <Link to="/firemni-kurzy" className="bento-card bento-col-2 bento-bg-green relative-overflow" style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="bento-overlay-content">
               <h3 className="bento-title text-white">Firemní kurzy na míru</h3>
-              <p className="bento-desc text-white-80 max-left">Nejdřív zjistíme co váš tým potřebuje. Pak ho to naučíme — u vás, u nás nebo online.</p>
+              <p className="bento-desc text-white-80 max-left">Potřebujete, aby váš tým uměl lépe anglicky? Rádi vás to naučíme. U vás, u nás nebo online.</p>
               <span className="bento-link text-white" style={{ marginTop: '1rem', display: 'inline-block', fontWeight: '600', opacity: 0.9 }}>Zjistit více &rarr;</span>
             </div>
             {/* Obrázek v pozadí vpravo přes vzor HTML */}
