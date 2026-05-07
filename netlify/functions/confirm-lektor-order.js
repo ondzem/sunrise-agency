@@ -22,15 +22,18 @@ export default async (req, context) => {
     // --- BLOKACE TERMÍNU V SUPABASE ---
     let blockMessage = '';
     if (tutorId && date && date !== 'Neurčeno' && time && time !== 'Neurčeno' && time !== 'Dle textu zprávy') {
-      const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-      const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+      const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL || 'https://xzuevidfbeihrunoqhao.supabase.co';
+      const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inh6dWV2aWRmYmVpaHJ1bm9xaGFvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU4MTE1NzAsImV4cCI6MjA5MTM4NzU3MH0.ZhT7-Z4J0_YMCnINQkSaTxRYmFjReMbh-Dm0MR5lRSA';
       
       if (supabaseUrl && supabaseKey) {
         try {
           const supabase = createClient(supabaseUrl, supabaseKey);
-          const { data: tutor } = await supabase.from('tutors').select('schedule').eq('id', tutorId).single();
+          const { data: tutor, error: fetchError } = await supabase.from('tutors').select('schedule').eq('id', tutorId).single();
           
-          if (tutor && tutor.schedule) {
+          if (fetchError) {
+             console.error("Fetch error:", fetchError);
+             blockMessage = `<p style="margin-top: 10px; color: red; font-weight: bold;">Chyba při hledání lektora v databázi: ${fetchError.message}</p>`;
+          } else if (tutor && tutor.schedule) {
             let updated = false;
             const newSchedule = tutor.schedule.map(dayObj => {
               // Hledáme konkrétní den podle formátu, date může být např. "12. 5. 2026"
@@ -51,14 +54,26 @@ export default async (req, context) => {
             });
 
             if (updated) {
-              await supabase.from('tutors').update({ schedule: newSchedule }).eq('id', tutorId);
-              blockMessage = `<p style="margin-top: 10px; color: #1C9C73; font-weight: bold;">Vybraný termín (${date} v ${time}) byl v kalendáři úspěšně zablokován!</p>`;
+              const { error: updateError } = await supabase.from('tutors').update({ schedule: newSchedule }).eq('id', tutorId);
+              if (updateError) {
+                 console.error("Update error:", updateError);
+                 blockMessage = `<p style="margin-top: 10px; color: red; font-weight: bold;">Termín se nepodařilo zablokovat (Chyba RLS/Práv databáze): ${updateError.message}</p>`;
+              } else {
+                 blockMessage = `<p style="margin-top: 10px; color: #1C9C73; font-weight: bold;">Vybraný termín (${date} v ${time}) byl v kalendáři úspěšně zablokován!</p>`;
+              }
+            } else {
+              blockMessage = `<p style="margin-top: 10px; color: orange; font-weight: bold;">Termín (${date} v ${time}) se v kalendáři lektora nenašel, takže nebyl zablokován.</p>`;
             }
+          } else {
+            blockMessage = `<p style="margin-top: 10px; color: orange; font-weight: bold;">Lektor v databázi nemá nastavený žádný kalendář.</p>`;
           }
         } catch (dbError) {
           console.error("Chyba při blokaci termínu v Supabase:", dbError);
+          blockMessage = `<p style="margin-top: 10px; color: red; font-weight: bold;">Kritická chyba spojení s databází.</p>`;
         }
       }
+    } else {
+      blockMessage = `<p style="margin-top: 10px; color: orange; font-weight: bold;">Nebyly dodány údaje pro zablokování termínu (tutorId: ${tutorId}, date: ${date}, time: ${time}).</p>`;
     }
     // -----------------------------------
 
