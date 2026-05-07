@@ -34,11 +34,20 @@ const NewsBanner = () => {
 
   return (
     <div className="news-banner">
-      <div className="news-banner-content">
-        <span className="news-banner-text">{news.banner_text}</span>
-        <button className="news-banner-btn" onClick={() => navigate('/aktuality')}>
-          Zjistit více
-        </button>
+      <div className="news-banner-track">
+        <div className="news-banner-content">
+          <span className="news-banner-text">{news.banner_text}</span>
+          <button className="news-banner-btn" onClick={() => navigate('/aktuality')}>
+            Zjistit více
+          </button>
+        </div>
+        {/* Duplikát pro bezešvý (seamless) infinite loop na mobilu */}
+        <div className="news-banner-content" aria-hidden="true">
+          <span className="news-banner-text">{news.banner_text}</span>
+          <button className="news-banner-btn" onClick={() => navigate('/aktuality')} tabIndex="-1">
+            Zjistit více
+          </button>
+        </div>
       </div>
     </div>
   );
