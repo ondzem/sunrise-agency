@@ -83,6 +83,7 @@ const AdminGeneratorPage = () => {
         { 
           id: userId, 
           name: emailPrefix, // Jako výchozí jméno dáme prefix
+          email: fullEmail,  // Zásadní: musíme uložit e-mail, aby lektorovi chodily notifikace!
           is_visible: false // Nový lektor je zpočátku skrytý
         }
       ]);
