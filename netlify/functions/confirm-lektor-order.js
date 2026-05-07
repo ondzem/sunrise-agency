@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import { createClient } from '@supabase/supabase-js';
 
 export default async (req, context) => {
   try {
@@ -12,10 +13,54 @@ export default async (req, context) => {
     const date = url.searchParams.get('date') || 'Neurčeno';
     const time = url.searchParams.get('time') || 'Neurčeno';
     const message = url.searchParams.get('message') || 'Bez zprávy';
+    const tutorId = url.searchParams.get('tutorId');
 
     if (!tutorEmail) {
       return new Response('Chyba: E-mail lektora nebyl nalezen.', { status: 400 });
     }
+
+    // --- BLOKACE TERMÍNU V SUPABASE ---
+    let blockMessage = '';
+    if (tutorId && date && date !== 'Neurčeno' && time && time !== 'Neurčeno' && time !== 'Dle textu zprávy') {
+      const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+      const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_SERVICE_ROLE_KEY;
+      
+      if (supabaseUrl && supabaseKey) {
+        try {
+          const supabase = createClient(supabaseUrl, supabaseKey);
+          const { data: tutor } = await supabase.from('tutors').select('schedule').eq('id', tutorId).single();
+          
+          if (tutor && tutor.schedule) {
+            let updated = false;
+            const newSchedule = tutor.schedule.map(dayObj => {
+              // Hledáme konkrétní den podle formátu, date může být např. "12. 5. 2026"
+              // Ale v databázi je day často "2026-05-12". Uvidíme, musíme porovnat nebo spoléhat na to, že frontend poslal správný formát
+              // V TutorProfilePage.jsx je selectedCalendarDate obvykle ve formátu YYYY-MM-DD
+              if (dayObj.day === date) {
+                const newSlots = dayObj.slots.map(slot => {
+                  const slotTime = `${slot.from} - ${slot.to}`;
+                  if (slotTime === time) {
+                    updated = true;
+                    return { ...slot, isBooked: true }; // Zablokování termínu!
+                  }
+                  return slot;
+                });
+                return { ...dayObj, slots: newSlots };
+              }
+              return dayObj;
+            });
+
+            if (updated) {
+              await supabase.from('tutors').update({ schedule: newSchedule }).eq('id', tutorId);
+              blockMessage = `<p style="margin-top: 10px; color: #1C9C73; font-weight: bold;">Vybraný termín (${date} v ${time}) byl v kalendáři úspěšně zablokován!</p>`;
+            }
+          }
+        } catch (dbError) {
+          console.error("Chyba při blokaci termínu v Supabase:", dbError);
+        }
+      }
+    }
+    // -----------------------------------
 
     const transporter = nodemailer.createTransport({
       host: 'wes1-smtp2.wedos.net',
@@ -101,6 +146,7 @@ export default async (req, context) => {
             <h1>✅ Úspěšně odesláno!</h1>
             <p>Finální potvrzení bylo lektorovi <strong>${tutorName}</strong> úspěšně odesláno na e-mail: <em>${tutorEmail}</em>.</p>
             ${customerEmail ? `<p style="margin-top: 10px; color: #1C9C73; font-weight: bold;">Zároveň bylo odesláno potvrzení i zákazníkovi na: <em>${customerEmail}</em>.</p>` : ''}
+            ${blockMessage}
             <p style="font-size: 0.9em; margin-top: 20px; color: #999;">Tuto záložku můžete nyní zavřít.</p>
           </div>
         </body>

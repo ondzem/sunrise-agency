@@ -8,6 +8,7 @@ export default async (req, context) => {
   try {
     const body = await req.json();
     const {
+      lektorId,
       lektorEmail,
       lektorName,
       serviceName,
@@ -34,7 +35,7 @@ export default async (req, context) => {
     const paymentInfoUrl = `${baseUrl}/api/send-payment-info?customerEmail=${encodeURIComponent(customerEmail || '')}&customerName=${encodeURIComponent(customerName || '')}&serviceName=${encodeURIComponent(serviceName || '')}&tutorName=${encodeURIComponent(lektorName || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}`;
 
     // Odkaz pro tlačítko "Potvrdit termín lektorovi" volající novou funkci (Krok 2)
-    const confirmUrl = `${baseUrl}/api/confirm-lektor-order?tutorEmail=${encodeURIComponent(lektorEmail || '')}&tutorName=${encodeURIComponent(lektorName || '')}&customerName=${encodeURIComponent(customerName || '')}&customerEmail=${encodeURIComponent(customerEmail || '')}&customerPhone=${encodeURIComponent(customerPhone || '')}&serviceName=${encodeURIComponent(serviceName || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}&message=${encodeURIComponent(message || '')}`;
+    const confirmUrl = `${baseUrl}/api/confirm-lektor-order?tutorId=${encodeURIComponent(lektorId || '')}&tutorEmail=${encodeURIComponent(lektorEmail || '')}&tutorName=${encodeURIComponent(lektorName || '')}&customerName=${encodeURIComponent(customerName || '')}&customerEmail=${encodeURIComponent(customerEmail || '')}&customerPhone=${encodeURIComponent(customerPhone || '')}&serviceName=${encodeURIComponent(serviceName || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}&message=${encodeURIComponent(message || '')}`;
 
     // 1. E-MAIL PRO MAJITELKU (Kompletní údaje + Výzva k odeslání QR kódu)
     await transporter.sendMail({

@@ -193,6 +193,7 @@ const TutorProfilePage = () => {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
+            lektorId: profileData.id,
             lektorEmail: profileData.email || null,
             lektorName: profileData.name || 'Lektor',
             serviceName: selectedService ? selectedService.title : 'Individuální domluva',
