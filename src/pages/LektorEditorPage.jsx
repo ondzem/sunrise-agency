@@ -361,13 +361,15 @@ const LektorEditorPage = () => {
               <label style={{ color: 'white', fontSize: '1.1rem', marginBottom: '1rem', display: 'block' }}>Viditelnost vaší karty na webu</label>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '1.1rem' }}>
-                  <input 
-                    type="checkbox" 
-                    checked={formData.is_visible} 
-                    onChange={e => setFormData({...formData, is_visible: e.target.checked})} 
-                    style={{ width: '28px', height: '28px', cursor: 'pointer', accentColor: 'var(--color-magenta)' }}
-                  />
-                  {formData.is_visible ? 'Karta je ZAPNUTÁ (Viditelná všem)' : 'Karta je SKRYTÁ'}
+                  <div className="toggle-switch">
+                    <input 
+                      type="checkbox" 
+                      checked={formData.is_visible} 
+                      onChange={e => setFormData({...formData, is_visible: e.target.checked})} 
+                    />
+                    <span className="toggle-slider"></span>
+                  </div>
+                  {formData.is_visible ? 'Karta je ZAPNUTÁ (Viditelná všem)' : 'Karta je SKRYTÁ (Vidíte ji jen vy)'}
                 </label>
               </div>
               <p style={{ fontSize: '0.85rem', opacity: 0.85, marginTop: '0.8rem', marginBottom: 0, lineHeight: 1.4 }}>

@@ -186,8 +186,34 @@ const TutorProfilePage = () => {
     
     setIsSubmittingContact(false);
     if (!error) {
-      setModal({ isOpen: true, title: 'Úspěšně odesláno', message: 'Váš vzkaz byl úspěšně odeslán lektorovi! Brzy se vám ozve.', type: 'success' });
-      setContactMessage(''); setContactName(''); setContactEmail('');
+      try {
+        const response = await fetch('/api/send-lektor-order', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            lektorEmail: profileData.email || null,
+            lektorName: profileData.name || 'Lektor',
+            serviceName: selectedService ? selectedService.title : 'Individuální domluva',
+            date: selectedCalendarDate || 'Neurčeno',
+            time: 'Dle textu zprávy',
+            customerName: contactName,
+            customerEmail: contactEmail,
+            customerPhone: '',
+            message: contactMessage
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('E-mailový server vrátil chybu.');
+        }
+
+        setModal({ isOpen: true, title: 'Úspěšně odesláno', message: 'Váš vzkaz byl úspěšně odeslán lektorovi! Brzy se vám ozve.', type: 'success' });
+        setContactMessage(''); setContactName(''); setContactEmail('');
+      } catch (err) {
+        console.error("Failed to send email", err);
+        setModal({ isOpen: true, title: 'Úspěšně uloženo, ale...', message: 'Zpráva byla uložena do systému, ale odeslání e-mailového upozornění selhalo. Pravděpodobně je problém se spojením na WEDOS e-mailový server.', type: 'warning' });
+        setContactMessage(''); setContactName(''); setContactEmail('');
+      }
     } else {
       // Pokud tabulka ještě neexistuje
       setModal({ isOpen: true, title: 'Chyba odeslání', message: `Databáze (tabulka contact_leads) zřejmě ještě není v Supabase připravena.\n\nVáš vzkaz:\n${contactMessage}`, type: 'danger' });

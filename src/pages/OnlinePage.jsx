@@ -116,6 +116,7 @@ const OnlinePage = () => {
     const { error } = await supabase.from('tutors').insert([
         {
           id: sessionUser.id,
+          email: sessionUser.email,
           name: '',
           price: 'Nezadáno',
           short_reason: 'Lektor zatím nevyplnil biokartu.',

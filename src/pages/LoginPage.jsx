@@ -71,7 +71,7 @@ const LoginPage = () => {
             <input 
               type="text" 
               id="email" 
-              placeholder="jmeno@sunrise-agency.cz" 
+              placeholder="jmeno@sunrise-la.cz" 
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required

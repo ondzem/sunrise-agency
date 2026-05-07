@@ -63,7 +63,7 @@ const AdminGeneratorPage = () => {
     setLoading(true);
     setStatusMsg({ text: '', type: '' });
 
-    const fullEmail = `${emailPrefix}@sunrise-agency.cz`;
+    const fullEmail = `${emailPrefix}@sunrise-la.cz`;
 
     try {
       const { data: authData, error: authError } = await supabase.auth.signUp({
@@ -92,7 +92,8 @@ const AdminGeneratorPage = () => {
           message: `Lektor ${fullEmail} byl úspěšně zaevidován v databázi! Z bezpečnostních důvodů proběhlo odhlášení. Pro tvorbu dalšího lektora se prosím přihlaste znovu jako Master Admin.`,
           type: 'success',
           confirmText: 'Zpět na přihlášení',
-          onConfirm: () => navigate('/portal')
+          onConfirm: () => navigate('/portal'),
+          onClose: () => navigate('/portal')
         });
       }, 1500);
 
@@ -211,7 +212,7 @@ const AdminGeneratorPage = () => {
               <label>Přihlašovací E-mail (Identifikátor)</label>
               <div className="email-input-group">
                 <input type="text" value={emailPrefix} onChange={e => setEmailPrefix(e.target.value.toLowerCase().replace(/\s+/g, ''))} placeholder="jan.novak" required />
-                <span className="email-addon">@sunrise-agency.cz</span>
+                <span className="email-addon">@sunrise-la.cz</span>
               </div>
             </div>
 
@@ -267,7 +268,10 @@ const AdminGeneratorPage = () => {
         confirmText={modal.confirmText}
         cancelText={modal.cancelText}
         onConfirm={modal.onConfirm}
-        onClose={() => setModal({ ...modal, isOpen: false })}
+        onClose={() => {
+          setModal({ ...modal, isOpen: false });
+          if(modal.onClose) modal.onClose();
+        }}
       />
     </div>
   );
