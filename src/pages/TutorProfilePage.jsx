@@ -209,7 +209,7 @@ const TutorProfilePage = () => {
           throw new Error('E-mailový server vrátil chybu.');
         }
 
-        setModal({ isOpen: true, title: 'Úspěšně odesláno', message: 'Váš vzkaz byl úspěšně odeslán lektorovi! Brzy se vám ozve.', type: 'success' });
+        setModal({ isOpen: true, title: 'Úspěšně odesláno', message: 'Váš vzkaz byl úspěšně odeslán! Brzy se vám ozveme.', type: 'success' });
         setContactMessage(''); setContactName(''); setContactEmail(''); setContactPhone('');
       } catch (err) {
         console.error("Failed to send email", err);

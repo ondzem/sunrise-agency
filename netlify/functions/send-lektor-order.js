@@ -29,12 +29,11 @@ export default async (req, context) => {
       },
     });
 
-    // Odkaz pro odpověď zákazníkovi (Krok 1)
-    const customerMailtoBody = encodeURIComponent(`Dobrý den, ${customerName},\n\nděkujeme za Váš zájem o službu "${serviceName}".\n\nVáš preferovaný termín (${date} v ${time}) jsme předběžně rezervovali u lektora (${lektorName}).\n\nPro závazné potvrzení rezervace prosím proveďte platbu na náš bankovní účet:\nČíslo účtu: [DOPLŇTE ČÍSLO ÚČTU]\nČástka: [DOPLŇTE ČÁSTKU]\nDo poznámky prosím uveďte své jméno.\n\n[ZDE MŮŽETE VLOŽIT QR KÓD]\n\nJakmile platba dorazí, zašleme Vám finální potvrzení.\n\nS pozdravem,\nLucie Tomková\nSUNRISE`);
-    const customerMailtoLink = `mailto:${customerEmail || ''}?subject=${encodeURIComponent(`Platební údaje k rezervaci: ${serviceName}`)}&body=${customerMailtoBody}`;
+    // Odkaz pro odpověď zákazníkovi (Krok 1) - otevírá webový formulář pro admina
+    const baseUrl = process.env.URL || 'https://sunrise-la.cz'; // Netlify automaticky doplňuje process.env.URL
+    const paymentInfoUrl = `${baseUrl}/api/send-payment-info?customerEmail=${encodeURIComponent(customerEmail || '')}&customerName=${encodeURIComponent(customerName || '')}&serviceName=${encodeURIComponent(serviceName || '')}&tutorName=${encodeURIComponent(lektorName || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}`;
 
     // Odkaz pro tlačítko "Potvrdit termín lektorovi" volající novou funkci (Krok 2)
-    const baseUrl = process.env.URL || 'https://sunrise-la.cz'; // Netlify automaticky doplňuje process.env.URL
     const confirmUrl = `${baseUrl}/api/confirm-lektor-order?tutorEmail=${encodeURIComponent(lektorEmail || '')}&tutorName=${encodeURIComponent(lektorName || '')}&customerName=${encodeURIComponent(customerName || '')}&customerEmail=${encodeURIComponent(customerEmail || '')}&customerPhone=${encodeURIComponent(customerPhone || '')}&serviceName=${encodeURIComponent(serviceName || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}&message=${encodeURIComponent(message || '')}`;
 
     // 1. E-MAIL PRO MAJITELKU (Kompletní údaje + Výzva k odeslání QR kódu)
@@ -63,7 +62,7 @@ export default async (req, context) => {
             <p style="margin: 0 0 15px 0;"><strong>⚠️ Krok 1: Odeslat platební údaje zákazníkovi</strong><br/>
             Kliknutím na modré tlačítko se vám otevře předepsaný e-mail pro zákazníka. Nezapomeňte do něj vložit částku a QR kód!</p>
             
-            <a href="${customerMailtoLink}" style="display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">📧 Odeslat pokyny k platbě zákazníkovi</a>
+            <a href="${paymentInfoUrl}" style="display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">📧 Odeslat pokyny k platbě zákazníkovi</a>
 
             <p style="margin: 0 0 15px 0; border-top: 1px solid #ffe69c; padding-top: 15px;"><strong>⚠️ Krok 2: Potvrdit rezervaci</strong><br/>
             Až peníze dorazí, klikněte na zelené tlačítko. Systém <strong>automaticky odešle finální potvrzení lektorovi i zákazníkovi!</strong></p>
