@@ -78,6 +78,20 @@ const AdminGeneratorPage = () => {
         throw new Error('Nepodařilo se získat ID nového uživatele.');
       }
 
+      // Explicitně vytvoříme záznam v tabulce tutors pro tohoto nového uživatele
+      const { error: insertError } = await supabase.from('tutors').insert([
+        { 
+          id: userId, 
+          name: emailPrefix, // Jako výchozí jméno dáme prefix
+          is_visible: false // Nový lektor je zpočátku skrytý
+        }
+      ]);
+
+      if (insertError) {
+        console.error("Nepodařilo se vytvořit veřejný profil lektora:", insertError);
+        // Nechceme vyhodit chybu, abychom nezablokovali flow, ale zalogujeme to.
+      }
+
       setStatusMsg({ text: `Účet ${fullEmail} úspěšně vytvořen! Systém vás z bezpečnostních důvodů odhlašuje...`, type: 'success' });
       setEmailPrefix('');
       setPassword('');
