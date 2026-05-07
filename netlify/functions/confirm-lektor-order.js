@@ -78,6 +78,9 @@ export default async (req, context) => {
     }
     // -----------------------------------
 
+    const baseUrl = process.env.URL || 'https://sunrise-la.cz';
+    const sendZoomUrl = `${baseUrl}/api/send-zoom-link?customerEmail=${encodeURIComponent(customerEmail || '')}&customerName=${encodeURIComponent(customerName || '')}&serviceName=${encodeURIComponent(serviceName || '')}&tutorName=${encodeURIComponent(tutorName || '')}&tutorEmail=${encodeURIComponent(tutorEmail || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}`;
+
     const transporter = nodemailer.createTransport({
       host: 'wes1-smtp2.wedos.net',
       port: 465,
@@ -88,7 +91,7 @@ export default async (req, context) => {
       },
     });
 
-    // Odeslání e-mailu lektorovi
+    // Odeslání e-mailu pouze lektorovi (s výzvou k vytvoření Zoom linku)
     await transporter.sendMail({
       from: `"Rezervace SUNRISE" <${process.env.SMTP_USER}>`,
       to: tutorEmail,
@@ -114,36 +117,16 @@ export default async (req, context) => {
           <h3 style="border-bottom: 1px solid #eaeaea; padding-bottom: 5px;">Zpráva od zákazníka:</h3>
           <p style="background: #fafafa; padding: 10px; border-radius: 6px;">${message}</p>
           
+          <div style="text-align: center; margin: 35px 0; padding: 25px; background: #e6fcf5; border-radius: 12px; border: 2px dashed #1C9C73;">
+            <h3 style="margin-top: 0; color: #107a51;">Vytvoř a odešli odkaz na schůzku</h3>
+            <p style="margin-bottom: 20px; font-size: 14px;">Zákazník zatím nedostal finální potvrzení. Vygeneruj prosím odkaz (Zoom/Meet), klikni na tlačítko a pošli ho zákazníkovi.</p>
+            <a href="${sendZoomUrl}" style="background-color: #EF67A5; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; display: inline-block;">KROK 3: Odeslat odkaz na schůzku</a>
+          </div>
+
           <p style="margin-top: 30px; font-weight: bold;">Ať se lekce daří!<br/>Lucie Tomková</p>
         </div>
       `,
     });
-
-    // Odeslání e-mailu zákazníkovi
-    if (customerEmail && customerEmail.includes('@')) {
-      await transporter.sendMail({
-        from: `"Jazyková škola SUNRISE" <${process.env.SMTP_USER}>`,
-        to: customerEmail,
-        subject: `Potvrzení rezervace: ${serviceName}`,
-        html: `
-          <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
-            <h2 style="color: #1C9C73;">Dobrý den, ${customerName},</h2>
-            <p>dáváme Vám vědět, že Vaše platba za kurz <strong>${serviceName}</strong> úspěšně dorazila na náš účet. Vaše rezervace u lektora (${tutorName}) je tímto <strong>plně závazná a potvrzená</strong>!</p>
-            
-            <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
-              <h3 style="margin-top: 0; color: #EF67A5;">Shrnutí potvrzeného termínu:</h3>
-              <p style="margin: 0 0 5px 0;"><strong>Služba:</strong> ${serviceName}</p>
-              <p style="margin: 0 0 5px 0;"><strong>Datum:</strong> ${date}</p>
-              <p style="margin: 0;"><strong>Čas:</strong> ${time}</p>
-            </div>
-            
-            <p>Lektor s Vámi pro tento čas plně počítá. Pokud budete potřebovat termín změnit nebo zrušit, ozvěte se nám prosím včas s předstihem.</p>
-            
-            <p style="margin-top: 30px;">Budeme se na Vás těšit!<br/>S pozdravem,<br/><strong>Lucie Tomková</strong><br/>SUNRISE Agency</p>
-          </div>
-        `,
-      });
-    }
 
     return new Response(`
       <html>
@@ -160,8 +143,7 @@ export default async (req, context) => {
         <body>
           <div class="card">
             <h1>✅ Úspěšně odesláno!</h1>
-            <p>Finální potvrzení bylo lektorovi <strong>${tutorName}</strong> úspěšně odesláno na e-mail: <em>${tutorEmail}</em>.</p>
-            ${customerEmail ? `<p style="margin-top: 10px; color: #1C9C73; font-weight: bold;">Zároveň bylo odesláno potvrzení i zákazníkovi na: <em>${customerEmail}</em>.</p>` : ''}
+            <p>Finální potvrzení bylo lektorovi <strong>${tutorName}</strong> úspěšně odesláno. Lektor byl zároveň vyzván k zaslání Zoom odkazu zákazníkovi.</p>
             ${blockMessage}
             <p style="font-size: 0.9em; margin-top: 20px; color: #999;">Tuto záložku můžete nyní zavřít.</p>
           </div>
