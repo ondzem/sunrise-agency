@@ -29,8 +29,9 @@ export default async (req, context) => {
       },
     });
 
-    const mailtoBody = encodeURIComponent(`Ahoj ${lektorName},\n\nplatba za kurz od ${customerName} právě dorazila na náš účet. Tímto ti závazně potvrzujeme termín!\n\n--- SHRNUTÍ ---\nSlužba: ${serviceName}\nTermín: ${date} v ${time}\n\nKontaktní údaje zákazníka:\nJméno: ${customerName}\nE-mail: ${customerEmail}\nTelefon: ${customerPhone || 'Neuveden'}\nZpráva: ${message || 'Bez zprávy'}\n\nAť se lekce daří!\nSUNRISE`);
-    const mailtoLink = `mailto:${lektorEmail || ''}?subject=${encodeURIComponent(`Potvrzení termínu: ${serviceName}`)}&body=${mailtoBody}`;
+    // Odkaz pro tlačítko "Potvrdit termín lektorovi" volající novou funkci
+    const baseUrl = process.env.URL || 'https://sunrise-la.cz'; // Netlify automaticky doplňuje process.env.URL
+    const confirmUrl = `${baseUrl}/api/confirm-lektor-order?tutorEmail=${encodeURIComponent(lektorEmail || '')}&tutorName=${encodeURIComponent(lektorName || '')}&customerName=${encodeURIComponent(customerName || '')}&customerEmail=${encodeURIComponent(customerEmail || '')}&customerPhone=${encodeURIComponent(customerPhone || '')}&serviceName=${encodeURIComponent(serviceName || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}&message=${encodeURIComponent(message || '')}`;
 
     // 1. E-MAIL PRO MAJITELKU (Kompletní údaje + Výzva k odeslání QR kódu)
     await transporter.sendMail({
@@ -58,7 +59,7 @@ export default async (req, context) => {
             <p style="margin: 0 0 15px 0;"><strong>⚠️ Další krok (Manuální platba):</strong><br/>
             Nyní je potřeba zákazníkovi zaslat e-mail s platebními údaji. Až peníze dorazí, klikněte na tlačítko níže pro odeslání potvrzení lektorovi.</p>
             
-            ${lektorEmail ? `<a href="${mailtoLink}" style="display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">✅ Potvrdit termín lektorovi</a>` : '<p><em>E-mail lektora není v systému zadán.</em></p>'}
+            ${lektorEmail ? `<a href="${confirmUrl}" style="display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">✅ Potvrdit termín lektorovi</a>` : '<p><em>E-mail lektora není v systému zadán.</em></p>'}
           </div>
         </div>
       `,
