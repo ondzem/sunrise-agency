@@ -32,6 +32,7 @@ const TutorProfilePage = () => {
   const [modal, setModal] = useState({ isOpen: false });
   const [selectedService, setSelectedService] = useState(null);
   const [selectedCalendarDate, setSelectedCalendarDate] = useState(null);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState(null);
   const container = useRef(null);
 
   useEffect(() => {
@@ -145,6 +146,7 @@ const TutorProfilePage = () => {
     }
 
     setContactMessage(prefill);
+    setSelectedTimeSlot(`${from} - ${to}`);
     scrollToId(e, 'kontakt');
   };
 
@@ -195,7 +197,7 @@ const TutorProfilePage = () => {
             lektorName: profileData.name || 'Lektor',
             serviceName: selectedService ? selectedService.title : 'Individuální domluva',
             date: selectedCalendarDate || 'Neurčeno',
-            time: 'Dle textu zprávy',
+            time: selectedTimeSlot || 'Dle textu zprávy',
             customerName: contactName,
             customerEmail: contactEmail,
             customerPhone: contactPhone,
