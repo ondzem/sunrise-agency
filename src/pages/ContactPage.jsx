@@ -144,7 +144,7 @@ const ContactPage = () => {
                   </div>
                   <div className="info-content">
                     <span className="info-label">E-mail</span>
-                    <strong className="info-value"><a href="mailto:sunrise@sunrise-la.cz">sunrise@sunrise-la.cz</a></strong>
+                    <strong className="info-value"><a href="mailto:info@sunrise-la.cz">info@sunrise-la.cz</a></strong>
                   </div>
                 </div>
 

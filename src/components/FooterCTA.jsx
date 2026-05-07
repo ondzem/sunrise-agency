@@ -68,7 +68,7 @@ const FooterCTA = () => {
                 <h4 className="info-title">Kontakt a podpora</h4>
                 <p className="info-text">
                   tel.: <a href="tel:+420608221625" style={{ color: 'inherit', textDecoration: 'none' }}>+420 608 22 16 25</a><br />
-                  <a href="mailto:sunrise@sunrise-la.cz" style={{ color: 'inherit', textDecoration: 'none' }}>sunrise@sunrise-la.cz</a>
+                  <a href="mailto:info@sunrise-la.cz" style={{ color: 'inherit', textDecoration: 'none' }}>info@sunrise-la.cz</a>
                 </p>
                 <div className="footer-social-icons">
                   <a href="https://www.instagram.com/sunriselanguageagency" target="_blank" rel="noopener noreferrer" className="footer-social-icon" aria-label="Instagram">
