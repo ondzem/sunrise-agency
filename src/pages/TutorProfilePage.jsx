@@ -18,6 +18,7 @@ const TutorProfilePage = () => {
   const [activePhilosophyId, setActivePhilosophyId] = useState(null);
   const [contactName, setContactName] = useState('');
   const [contactEmail, setContactEmail] = useState('');
+  const [contactPhone, setContactPhone] = useState('');
   const [contactMessage, setContactMessage] = useState('');
   const [contactConsent, setContactConsent] = useState(false);
   const [isSubmittingContact, setIsSubmittingContact] = useState(false);
@@ -181,7 +182,7 @@ const TutorProfilePage = () => {
     setIsSubmittingContact(true);
     // Standardní zápis do nové supabse tabulky contact_leads
     const { error } = await supabase.from('contact_leads').insert([
-      { tutor_id: profileData.id, name: contactName, email: contactEmail, message: contactMessage }
+      { tutor_id: profileData.id, name: contactName, email: contactEmail, phone: contactPhone, message: contactMessage }
     ]);
     
     if (!error) {
@@ -197,7 +198,7 @@ const TutorProfilePage = () => {
             time: 'Dle textu zprávy',
             customerName: contactName,
             customerEmail: contactEmail,
-            customerPhone: '',
+            customerPhone: contactPhone,
             message: contactMessage
           })
         });
@@ -207,11 +208,11 @@ const TutorProfilePage = () => {
         }
 
         setModal({ isOpen: true, title: 'Úspěšně odesláno', message: 'Váš vzkaz byl úspěšně odeslán lektorovi! Brzy se vám ozve.', type: 'success' });
-        setContactMessage(''); setContactName(''); setContactEmail('');
+        setContactMessage(''); setContactName(''); setContactEmail(''); setContactPhone('');
       } catch (err) {
         console.error("Failed to send email", err);
         setModal({ isOpen: true, title: 'Úspěšně uloženo, ale...', message: 'Zpráva byla uložena do systému, ale odeslání e-mailového upozornění selhalo. Pravděpodobně je problém se spojením na WEDOS e-mailový server.', type: 'warning' });
-        setContactMessage(''); setContactName(''); setContactEmail('');
+        setContactMessage(''); setContactName(''); setContactEmail(''); setContactPhone('');
       }
     } else {
       // Pokud tabulka ještě neexistuje
@@ -585,6 +586,10 @@ const TutorProfilePage = () => {
                     <label className="form-label">E-mail *</label>
                     <input className={`form-input ${contactErrors.contactEmail ? 'input-error' : ''}`} type="email" placeholder="vas.email@gmail.com" value={contactEmail} onChange={e => {setContactEmail(e.target.value); if(contactErrors.contactEmail) setContactErrors({...contactErrors, contactEmail: null});}} />
                     {contactErrors.contactEmail && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{contactErrors.contactEmail}</div>}
+                  </div>
+                  <div className="form-group" style={{ marginBottom: 0 }}>
+                    <label className="form-label">Telefon (Nepovinné)</label>
+                    <input className="form-input" type="tel" placeholder="např. 777 123 456" value={contactPhone} onChange={e => setContactPhone(e.target.value)} />
                   </div>
                 </div>
                 <div className="form-group">

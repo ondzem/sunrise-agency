@@ -76,7 +76,7 @@ export default async (req, context) => {
             
             <div style="border-left: 4px solid #EF67A5; padding-left: 15px; margin-top: 20px;">
               <p style="margin: 0;"><strong>DŮLEŽITÉ:</strong><br/>
-              Zapiš si tento termín zatím jen "tužkou". Nyní zákazník dostane platební údaje od vedení. Jakmile peníze dorazí, dostaneš finální potvrzení a můžeš termín potvrdit i zákazníkovi.</p>
+              Prosím, s tímto termínem zatím předběžně počítej. Vedení školy nyní se zákazníkem řeší platbu. Jakmile bude rezervace úspěšně uhrazena, obdržíš od nás finální potvrzení a termín se stane plně závazným.</p>
             </div>
           </div>
         `,
