@@ -29,6 +29,9 @@ export default async (req, context) => {
       },
     });
 
+    const mailtoBody = encodeURIComponent(`Ahoj ${lektorName},\n\nplatba za kurz od ${customerName} právě dorazila na náš účet. Tímto ti závazně potvrzujeme termín!\n\n--- SHRNUTÍ ---\nSlužba: ${serviceName}\nTermín: ${date} v ${time}\n\nKontaktní údaje zákazníka:\nJméno: ${customerName}\nE-mail: ${customerEmail}\nTelefon: ${customerPhone || 'Neuveden'}\nZpráva: ${message || 'Bez zprávy'}\n\nAť se lekce daří!\nSUNRISE`);
+    const mailtoLink = `mailto:${lektorEmail || ''}?subject=${encodeURIComponent(`Potvrzení termínu: ${serviceName}`)}&body=${mailtoBody}`;
+
     // 1. E-MAIL PRO MAJITELKU (Kompletní údaje + Výzva k odeslání QR kódu)
     await transporter.sendMail({
       from: `"Nová objednávka Lektora" <${process.env.SMTP_USER}>`,
@@ -46,13 +49,16 @@ export default async (req, context) => {
           </div>
 
           <h3 style="border-bottom: 1px solid #eaeaea; padding-bottom: 5px;">Kontaktní údaje zákazníka</h3>
+          <p><strong>Jméno:</strong> ${customerName}</p>
           <p><strong>E-mail:</strong> <a href="mailto:${customerEmail}">${customerEmail}</a></p>
           <p><strong>Telefon:</strong> ${customerPhone || 'Neuveden'}</p>
           <p><strong>Zpráva od zákazníka:</strong><br /> ${message || 'Žádná zpráva'}</p>
           
           <div style="background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-top: 30px;">
-            <p style="margin: 0;"><strong>⚠️ Další krok (Manuální platba):</strong><br/>
-            Lektor dostal pouze zkrácené info. Nyní je potřeba zákazníkovi zaslat e-mail s QR kódem a platebními údaji. Až peníze dorazí, potvrďte termín lektorovi.</p>
+            <p style="margin: 0 0 15px 0;"><strong>⚠️ Další krok (Manuální platba):</strong><br/>
+            Nyní je potřeba zákazníkovi zaslat e-mail s platebními údaji. Až peníze dorazí, klikněte na tlačítko níže pro odeslání potvrzení lektorovi.</p>
+            
+            ${lektorEmail ? `<a href="${mailtoLink}" style="display: inline-block; background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold;">✅ Potvrdit termín lektorovi</a>` : '<p><em>E-mail lektora není v systému zadán.</em></p>'}
           </div>
         </div>
       `,

@@ -85,9 +85,9 @@ const TutorProfilePage = () => {
 
     // Animace horní profilové karty po načtení
     gsap.to('.tp-profile-card', {
-      opacity: 1, 
-      y: 0, 
-      duration: 1.2, 
+      opacity: 1,
+      y: 0,
+      duration: 1.2,
       ease: 'power4.out',
       delay: 0.1
     });
@@ -97,10 +97,10 @@ const TutorProfilePage = () => {
       start: 'top 70%', // Aktivuje se později, až když je sekce výš na obrazovce
       once: true,
       onEnter: batch => gsap.to(batch, {
-        opacity: 1, 
-        y: 0, 
+        opacity: 1,
+        y: 0,
         duration: 1.8, // Zpomaleno
-        stagger: 0.2, 
+        stagger: 0.2,
         ease: 'power3.out',
         overwrite: true
       })
@@ -129,12 +129,12 @@ const TutorProfilePage = () => {
 
   const handleSlotClick = (e, day, from, to) => {
     e.preventDefault();
-    
+
     let prefill = '';
-    
+
     if (selectedService) {
       const isPackage = parseInt(selectedService.lessons_count || '1', 10) > 1;
-      
+
       if (isPackage) {
         prefill = `Dobrý den,\nobjednávám si výhodný balíček ${selectedService.lessons_count} lekcí ("${selectedService.title}") v ceně ${selectedService.price}.\n\nNíže uvádím mnou vybraný termín pro naši PRVNÍ lekci:\n🕒 ${day} od ${from} do ${to}\n\nBeru na vědomí, že na zbylých termínech se společně domluvíme v rámci naší první hodiny a že pro závazné potvrzení této první lekce je nutné vyčkat na e-mail s platebními údaji a provést platbu. Děkuji a těším se na spolupráci.`;
       } else {
@@ -143,7 +143,7 @@ const TutorProfilePage = () => {
     } else {
       prefill = `Dobrý den,\nměl(a) bych zájem o lekci ve Vašem volném termínu:\n🕒 ${day} od ${from} do ${to}\n\nBeru na vědomí, že pro závazné potvrzení termínu je nutné vyčkat na e-mail s platebními údaji a provést platbu. Děkuji a těším se na odpověď.`;
     }
-    
+
     setContactMessage(prefill);
     scrollToId(e, 'kontakt');
   };
@@ -163,7 +163,7 @@ const TutorProfilePage = () => {
 
   const handleContactSubmit = async (e) => {
     e.preventDefault();
-    
+
     const errors = {};
     if (!contactName.trim()) errors.contactName = 'Prosím vyplňte své jméno.';
     if (!contactEmail.trim()) {
@@ -184,7 +184,7 @@ const TutorProfilePage = () => {
     const { error } = await supabase.from('contact_leads').insert([
       { tutor_id: profileData.id, name: contactName, email: contactEmail, phone: contactPhone, message: contactMessage }
     ]);
-    
+
     if (!error) {
       try {
         const response = await fetch('/api/send-lektor-order', {
@@ -202,7 +202,7 @@ const TutorProfilePage = () => {
             message: contactMessage
           })
         });
-        
+
         if (!response.ok) {
           throw new Error('E-mailový server vrátil chybu.');
         }
@@ -223,7 +223,7 @@ const TutorProfilePage = () => {
 
   const handleReviewSubmit = async (e) => {
     e.preventDefault();
-    
+
     const errors = {};
     if (!reviewName.trim()) errors.reviewName = 'Prosím vyplňte své jméno.';
     if (!reviewSummary.trim()) errors.reviewSummary = 'Prosím zadejte rychlé shrnutí.';
@@ -235,14 +235,14 @@ const TutorProfilePage = () => {
     }
     setReviewErrors({});
     setIsSubmittingReview(true);
-    
-    const initials = reviewName.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+
+    const initials = reviewName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
     const newReview = { id: Date.now(), author: reviewName, role: reviewSummary, text: reviewText, initials: initials };
-    
+
     // Pokusíme se updatovat lektorovo "reviews" pole. 
     // Pokud je aktivní tvrdé RLS zamezující zápis nepřihlášeným uživatelům, tohle spadne.
     const updatedReviews = [...(profileData.reviews || []), newReview];
-    
+
     const { error } = await supabase
       .from('tutors')
       .update({ reviews: updatedReviews })
@@ -317,7 +317,7 @@ const TutorProfilePage = () => {
               <h1 className="tp-name">{profileData.name || 'Neznámé jméno'}</h1>
               <p className="tp-headline">
                 {profileData.location || 'Online výuka'}
-                &nbsp;&bull;&nbsp; {profileData.accepting_students !== false 
+                &nbsp;&bull;&nbsp; {profileData.accepting_students !== false
                   ? <span style={{ color: 'var(--tp-green)' }}>Přijímá nové studenty</span>
                   : <span style={{ color: '#e74c3c' }}>Nepřijímá nové studenty</span>
                 }
@@ -380,13 +380,13 @@ const TutorProfilePage = () => {
                     onClick={() => setActivePhilosophyId(sect.id)}
                   >
                     <div className="tp-exp-label">
-                      <span className="tp-exp-title" dangerouslySetInnerHTML={{__html: sect.heading}} />
+                      <span className="tp-exp-title" dangerouslySetInnerHTML={{ __html: sect.heading }} />
                       <span className="tp-exp-sub">{sect.categoryName.substring(0, 30)}</span>
                     </div>
                   </button>
                 ))
               ) : (
-                <div style={{color: '#888'}}>Zatím nebyly přidány žádné bloky textu.</div>
+                <div style={{ color: '#888' }}>Zatím nebyly přidány žádné bloky textu.</div>
               )}
             </div>
 
@@ -398,7 +398,7 @@ const TutorProfilePage = () => {
                       return (
                         <div key={sect.id}>
                           <span className="tp-kicker">• {sect.categoryName.toUpperCase()}</span>
-                          <h3 className="tp-exp-content-title" dangerouslySetInnerHTML={{__html: sect.heading}} />
+                          <h3 className="tp-exp-content-title" dangerouslySetInnerHTML={{ __html: sect.heading }} />
                           <div className="tp-exp-text">
                             {sect.body.split('\n').map((para, i) => <p key={i}>{para}</p>)}
                           </div>
@@ -433,8 +433,8 @@ const TutorProfilePage = () => {
                 <div key={svc.id} className={`service-card ${svc.price.toLowerCase().includes('zdarma') ? 'free' : ''}`}>
                   <div>
                     <span className={`service-badge ${svc.price.toLowerCase().includes('zdarma') ? 'badge-free' : 'badge-individual'}`}>
-                      {svc.price.toLowerCase().includes('zdarma') 
-                        ? 'Setkání zdarma' 
+                      {svc.price.toLowerCase().includes('zdarma')
+                        ? 'Setkání zdarma'
                         : (parseInt(svc.lessons_count || '1', 10) > 1 ? `Výhodný balíček (${svc.lessons_count} lekcí)` : 'Individuální lekce')
                       }
                     </span>
@@ -449,12 +449,12 @@ const TutorProfilePage = () => {
                         }
                       `}</style>
                       <p className="service-price">
-                        {svc.price} {svc.minutes ? <span style={{fontSize:'0.65em', color:'#888', fontWeight:'500'}}>/ {svc.minutes} min.</span> : ''}
+                        {svc.price} {svc.minutes ? <span style={{ fontSize: '0.65em', color: '#888', fontWeight: '500' }}>/ {svc.minutes} min.</span> : ''}
                       </p>
-                      
+
                       {parseInt(svc.lessons_count || '1', 10) > 1 && (
-                        <div style={{fontSize: '0.85rem', color: 'var(--tp-mid)', marginTop: '4px', marginBottom: '8px'}}>
-                          Celková cena za {svc.lessons_count} lekcí<br/>(1 lekce trvá {svc.minutes || '60'} minut)
+                        <div style={{ fontSize: '0.85rem', color: 'var(--tp-mid)', marginTop: '4px', marginBottom: '8px' }}>
+                          Celková cena za {svc.lessons_count} lekcí<br />(1 lekce trvá {svc.minutes || '60'} minut)
                         </div>
                       )}
 
@@ -466,23 +466,23 @@ const TutorProfilePage = () => {
                 </div>
               ))
             ) : (
-              <div style={{gridColumn: '1/-1', textAlign: 'center', padding: '3rem', color: '#888'}}>Zatím nebyly přidány žádné služby.</div>
+              <div style={{ gridColumn: '1/-1', textAlign: 'center', padding: '3rem', color: '#888' }}>Zatím nebyly přidány žádné služby.</div>
             )}
           </div>
-          
-          <div style={{marginTop: '40px', padding: '40px 24px', background: 'var(--tp-bg-warm)', borderRadius: 'var(--tp-radius-lg)', textAlign: 'center', border: '1px dashed var(--tp-border-strong)'}}>
-            <h3 style={{fontSize: '20px', fontWeight: '800', color: 'var(--tp-dark)', marginBottom: '12px'}}>Nevybrali jste si z nabídky?</h3>
-            <p style={{fontSize: '15px', color: 'var(--tp-mid)', marginBottom: '24px', maxWidth: '600px', margin: '0 auto 24px auto', lineHeight: '1.6'}}>
+
+          <div style={{ marginTop: '40px', padding: '40px 24px', background: 'var(--tp-bg-warm)', borderRadius: 'var(--tp-radius-lg)', textAlign: 'center', border: '1px dashed var(--tp-border-strong)' }}>
+            <h3 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--tp-dark)', marginBottom: '12px' }}>Nevybrali jste si z nabídky?</h3>
+            <p style={{ fontSize: '15px', color: 'var(--tp-mid)', marginBottom: '24px', maxWidth: '600px', margin: '0 auto 24px auto', lineHeight: '1.6' }}>
               Máte zájem o jiný počet lekcí, specifický formát výuky nebo individuální domluvu? Neváhejte mi napsat, rádi Vám vyjdeme vstříc.
             </p>
-            <button 
-              className="tp-btn secondary" 
+            <button
+              className="tp-btn secondary"
               onClick={(e) => {
                 e.preventDefault();
                 setContactMessage('Dobrý den, nevybral/a jsem si z aktuální nabídky balíčků, ale měl/a bych zájem o individuální domluvu ohledně formátu a počtu lekcí. Můžeme společně probrat možnosti?');
                 scrollToId(e, 'kontakt');
               }}
-              style={{background: 'white', color: 'var(--tp-dark)', padding: '12px 28px', fontSize: '14px', margin: '0 auto', display: 'inline-block'}}
+              style={{ background: 'white', color: 'var(--tp-dark)', padding: '12px 28px', fontSize: '14px', margin: '0 auto', display: 'inline-block' }}
             >
               Domluvit se individuálně
             </button>
@@ -496,69 +496,69 @@ const TutorProfilePage = () => {
             <h2 className="section-title">Volné termíny</h2>
             <span className="section-line"></span>
           </div>
-          
+
           {selectedService && (
-            <div style={{background: 'var(--tp-green-light)', color: 'var(--tp-green)', padding: '16px 24px', borderRadius: 'var(--tp-radius-md)', marginBottom: '32px', fontWeight: '700', fontSize: '15px', border: '1px solid #b7e4d5', display: 'flex', alignItems: 'center', gap: '12px'}}>
-              <span style={{fontSize: '20px'}}>✓</span> 
+            <div style={{ background: 'var(--tp-green-light)', color: 'var(--tp-green)', padding: '16px 24px', borderRadius: 'var(--tp-radius-md)', marginBottom: '32px', fontWeight: '700', fontSize: '15px', border: '1px solid #b7e4d5', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span style={{ fontSize: '20px' }}>✓</span>
               {parseInt(selectedService.lessons_count || '1', 10) > 1 ? (
-                <span>Vybrali jste výhodný balíček ({selectedService.lessons_count} lekcí): <strong>{selectedService.title}</strong>.<br/><span style={{display: 'inline-block', marginTop: '6px', color: '#107a51'}}>Nyní si prosím z kalendáře vyberte datum a čas <strong>POUZE pro naši první lekci</strong>. Na termínech pro zbývající lekce se domluvíme osobně na našem prvním setkání.</span></span>
+                <span>Vybrali jste výhodný balíček ({selectedService.lessons_count} lekcí): <strong>{selectedService.title}</strong>.<br /><span style={{ display: 'inline-block', marginTop: '6px', color: '#107a51' }}>Nyní si prosím z kalendáře vyberte datum a čas <strong>POUZE pro naši první lekci</strong>. Na termínech pro zbývající lekce se domluvíme osobně na našem prvním setkání.</span></span>
               ) : (
                 <span>Vybrali jste službu: <strong>{selectedService.title}</strong>. Nyní prosím klikněte na termín, který se Vám hodí nejvíce.</span>
               )}
             </div>
           )}
 
-          <div style={{display: 'flex', gap: '40px', flexWrap: 'wrap', alignItems: 'flex-start'}}>
-            <div style={{flex: '1 1 400px', maxWidth: '450px'}}>
-              <CalendarPicker 
-                selectedDate={selectedCalendarDate} 
-                onDateSelect={setSelectedCalendarDate} 
+          <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', alignItems: 'flex-start' }}>
+            <div style={{ flex: '1 1 400px', maxWidth: '450px' }}>
+              <CalendarPicker
+                selectedDate={selectedCalendarDate}
+                onDateSelect={setSelectedCalendarDate}
                 highlightedDates={(profileData.schedule || []).filter(d => d.slots && d.slots.length > 0).map(d => d.day)}
                 disablePastDates={true}
                 disablePastMonths={true}
                 fullWidth={true}
               />
             </div>
-            
-            <div style={{flex: '1 1 350px'}}>
+
+            <div style={{ flex: '1 1 350px' }}>
               {selectedCalendarDate ? (() => {
                 const selectedScheduleDay = profileData.schedule?.find(s => s.day === selectedCalendarDate);
                 const [y, m, d] = selectedCalendarDate.split('-');
                 const displayDateStr = `${parseInt(d)}. ${parseInt(m)}. ${y}`;
                 return (
-                  <div style={{background: 'white', borderRadius: '16px', padding: '24px', border: '1px solid var(--tp-border)', boxShadow: '0 4px 20px rgba(0,0,0,0.05)'}}>
-                    <h3 style={{fontSize: '18px', marginBottom: '16px', borderBottom: '1px solid #eee', paddingBottom: '12px'}}>
-                      Termíny pro: <strong style={{color: 'var(--tp-pink)'}}>{displayDateStr}</strong>
+                  <div style={{ background: 'white', borderRadius: '16px', padding: '24px', border: '1px solid var(--tp-border)', boxShadow: '0 4px 20px rgba(0,0,0,0.05)' }}>
+                    <h3 style={{ fontSize: '18px', marginBottom: '16px', borderBottom: '1px solid #eee', paddingBottom: '12px' }}>
+                      Termíny pro: <strong style={{ color: 'var(--tp-pink)' }}>{displayDateStr}</strong>
                     </h3>
-                    
+
                     {selectedScheduleDay && selectedScheduleDay.slots && selectedScheduleDay.slots.length > 0 ? (
-                      <div style={{display: 'flex', flexDirection: 'column', gap: '10px'}}>
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
                         {selectedScheduleDay.slots.map((slot, i) => {
                           if (slot.isBooked) {
                             return (
-                              <div key={slot.id || i} style={{display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f5f5f5', borderRadius: '8px', opacity: 0.5, cursor: 'not-allowed'}} title="Tento termín je již obsazen">
-                                <span style={{textDecoration: 'line-through'}}>{slot.from} - {slot.to}</span>
-                                <span style={{color: 'red', fontWeight: 'bold'}}>Obsazeno</span>
+                              <div key={slot.id || i} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f5f5f5', borderRadius: '8px', opacity: 0.5, cursor: 'not-allowed' }} title="Tento termín je již obsazen">
+                                <span style={{ textDecoration: 'line-through' }}>{slot.from} - {slot.to}</span>
+                                <span style={{ color: 'red', fontWeight: 'bold' }}>Obsazeno</span>
                               </div>
                             );
                           }
                           return (
-                            <div key={slot.id || i} onClick={(e) => handleSlotClick(e, displayDateStr, slot.from, slot.to)} style={{display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--tp-bg-warm)', borderRadius: '8px', cursor: 'pointer', border: '1px solid var(--tp-border-strong)', transition: 'all 0.2s ease'}} onMouseEnter={e => { e.currentTarget.style.background='var(--tp-pink)'; e.currentTarget.style.color='white'; e.currentTarget.querySelector('.ts-action').style.color='white'; }} onMouseLeave={e => { e.currentTarget.style.background='var(--tp-bg-warm)'; e.currentTarget.style.color='var(--tp-dark)'; e.currentTarget.querySelector('.ts-action').style.color='var(--tp-pink)'; }}>
-                              <span style={{fontWeight: 'bold'}}>{slot.from} - {slot.to}</span>
-                              <span className="ts-action" style={{color: 'var(--tp-pink)', fontWeight: 'bold'}}>Vybrat termín</span>
+                            <div key={slot.id || i} onClick={(e) => handleSlotClick(e, displayDateStr, slot.from, slot.to)} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--tp-bg-warm)', borderRadius: '8px', cursor: 'pointer', border: '1px solid var(--tp-border-strong)', transition: 'all 0.2s ease' }} onMouseEnter={e => { e.currentTarget.style.background = 'var(--tp-pink)'; e.currentTarget.style.color = 'white'; e.currentTarget.querySelector('.ts-action').style.color = 'white'; }} onMouseLeave={e => { e.currentTarget.style.background = 'var(--tp-bg-warm)'; e.currentTarget.style.color = 'var(--tp-dark)'; e.currentTarget.querySelector('.ts-action').style.color = 'var(--tp-pink)'; }}>
+                              <span style={{ fontWeight: 'bold' }}>{slot.from} - {slot.to}</span>
+                              <span className="ts-action" style={{ color: 'var(--tp-pink)', fontWeight: 'bold' }}>Vybrat termín</span>
                             </div>
                           );
                         })}
                       </div>
                     ) : (
-                      <div style={{textAlign: 'center', padding: '2rem 0', color: '#888'}}>
+                      <div style={{ textAlign: 'center', padding: '2rem 0', color: '#888' }}>
                         Pro tento den nejsou vypsány žádné volné termíny. Zkuste vybrat jiný den (dny s růžovou/zelenou tečkou).
                       </div>
                     )}
                   </div>
                 );
               })() : (
-                <div style={{height: '100%', minHeight: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem', border: '2px dashed #ddd', borderRadius: '16px', color: '#888', textAlign: 'center'}}>
+                <div style={{ height: '100%', minHeight: '300px', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '3rem', border: '2px dashed #ddd', borderRadius: '16px', color: '#888', textAlign: 'center' }}>
                   Klikněte na jakékoliv datum v kalendáři pro zobrazení dostupných časů.
                 </div>
               )}
@@ -579,36 +579,36 @@ const TutorProfilePage = () => {
                 <div className="form-row">
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Jméno *</label>
-                    <input className={`form-input ${contactErrors.contactName ? 'input-error' : ''}`} type="text" placeholder="Vaše jméno" value={contactName} onChange={e => {setContactName(e.target.value); if(contactErrors.contactName) setContactErrors({...contactErrors, contactName: null});}} />
-                    {contactErrors.contactName && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{contactErrors.contactName}</div>}
+                    <input className={`form-input ${contactErrors.contactName ? 'input-error' : ''}`} type="text" placeholder="Vaše jméno" value={contactName} onChange={e => { setContactName(e.target.value); if (contactErrors.contactName) setContactErrors({ ...contactErrors, contactName: null }); }} />
+                    {contactErrors.contactName && <div className="custom-form-error"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>{contactErrors.contactName}</div>}
                   </div>
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">E-mail *</label>
-                    <input className={`form-input ${contactErrors.contactEmail ? 'input-error' : ''}`} type="email" placeholder="vas.email@gmail.com" value={contactEmail} onChange={e => {setContactEmail(e.target.value); if(contactErrors.contactEmail) setContactErrors({...contactErrors, contactEmail: null});}} />
-                    {contactErrors.contactEmail && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{contactErrors.contactEmail}</div>}
+                    <input className={`form-input ${contactErrors.contactEmail ? 'input-error' : ''}`} type="email" placeholder="vas.email@gmail.com" value={contactEmail} onChange={e => { setContactEmail(e.target.value); if (contactErrors.contactEmail) setContactErrors({ ...contactErrors, contactEmail: null }); }} />
+                    {contactErrors.contactEmail && <div className="custom-form-error"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>{contactErrors.contactEmail}</div>}
                   </div>
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Telefon (Nepovinné)</label>
-                    <input className="form-input" type="tel" placeholder="např. 777 123 456" value={contactPhone} onChange={e => setContactPhone(e.target.value)} />
+                    <input className="form-input" type="tel" placeholder="např. 777 888 999" value={contactPhone} onChange={e => setContactPhone(e.target.value)} />
                   </div>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Zpráva *</label>
-                  <textarea 
-                    className={`form-textarea ${contactErrors.contactMessage ? 'input-error' : ''}`} 
-                    placeholder="Např. kdy se vám hodí lekce nebo co se chcete naučit..." 
+                  <textarea
+                    className={`form-textarea ${contactErrors.contactMessage ? 'input-error' : ''}`}
+                    placeholder="Např. kdy se vám hodí lekce nebo co se chcete naučit..."
                     value={contactMessage}
-                    onChange={(e) => {setContactMessage(e.target.value); if(contactErrors.contactMessage) setContactErrors({...contactErrors, contactMessage: null});}}
+                    onChange={(e) => { setContactMessage(e.target.value); if (contactErrors.contactMessage) setContactErrors({ ...contactErrors, contactMessage: null }); }}
                   ></textarea>
-                  {contactErrors.contactMessage && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{contactErrors.contactMessage}</div>}
+                  {contactErrors.contactMessage && <div className="custom-form-error"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>{contactErrors.contactMessage}</div>}
                 </div>
                 <div className="form-consent">
                   <label className="consent-label" style={{ display: 'flex', flexDirection: 'column' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-                      <input type="checkbox" checked={contactConsent} onChange={e => {setContactConsent(e.target.checked); if(contactErrors.contactConsent) setContactErrors({...contactErrors, contactConsent: null});}} />
+                      <input type="checkbox" checked={contactConsent} onChange={e => { setContactConsent(e.target.checked); if (contactErrors.contactConsent) setContactErrors({ ...contactErrors, contactConsent: null }); }} />
                       <span>Souhlasím s <Link to="/obchodni-podminky" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tp-pink)', textDecoration: 'underline' }}>Obchodními podmínkami</Link> a <Link to="/ochrana-osobnich-udaju" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--tp-pink)', textDecoration: 'underline' }}>Zásadami ochrany osobních údajů</Link> *</span>
                     </div>
-                    {contactErrors.contactConsent && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{contactErrors.contactConsent}</div>}
+                    {contactErrors.contactConsent && <div className="custom-form-error"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>{contactErrors.contactConsent}</div>}
                   </label>
                 </div>
                 <button type="submit" className="form-submit" disabled={isSubmittingContact}>
@@ -646,19 +646,19 @@ const TutorProfilePage = () => {
                 <div className="form-row">
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Jméno a příjmení *</label>
-                    <input className={`form-input ${reviewErrors.reviewName ? 'input-error' : ''}`} type="text" placeholder="Např. Pavel Dvořák" value={reviewName} onChange={e=>{setReviewName(e.target.value); if(reviewErrors.reviewName) setReviewErrors({...reviewErrors, reviewName: null});}} />
-                    {reviewErrors.reviewName && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{reviewErrors.reviewName}</div>}
+                    <input className={`form-input ${reviewErrors.reviewName ? 'input-error' : ''}`} type="text" placeholder="Např. Pavel Dvořák" value={reviewName} onChange={e => { setReviewName(e.target.value); if (reviewErrors.reviewName) setReviewErrors({ ...reviewErrors, reviewName: null }); }} />
+                    {reviewErrors.reviewName && <div className="custom-form-error"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>{reviewErrors.reviewName}</div>}
                   </div>
                   <div className="form-group" style={{ marginBottom: 0 }}>
                     <label className="form-label">Rychlé shrnutí (Podtext) *</label>
-                    <input className={`form-input ${reviewErrors.reviewSummary ? 'input-error' : ''}`} type="text" placeholder="Např. Příprava k maturitě" value={reviewSummary} onChange={e=>{setReviewSummary(e.target.value); if(reviewErrors.reviewSummary) setReviewErrors({...reviewErrors, reviewSummary: null});}} />
-                    {reviewErrors.reviewSummary && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{reviewErrors.reviewSummary}</div>}
+                    <input className={`form-input ${reviewErrors.reviewSummary ? 'input-error' : ''}`} type="text" placeholder="Např. Příprava k maturitě" value={reviewSummary} onChange={e => { setReviewSummary(e.target.value); if (reviewErrors.reviewSummary) setReviewErrors({ ...reviewErrors, reviewSummary: null }); }} />
+                    {reviewErrors.reviewSummary && <div className="custom-form-error"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>{reviewErrors.reviewSummary}</div>}
                   </div>
                 </div>
                 <div className="form-group">
                   <label className="form-label">Vaše recenze *</label>
-                  <textarea className={`form-textarea ${reviewErrors.reviewText ? 'input-error' : ''}`} placeholder="Napište, jak se Vám se mnou spolupracovalo..." value={reviewText} onChange={e=>{setReviewText(e.target.value); if(reviewErrors.reviewText) setReviewErrors({...reviewErrors, reviewText: null});}} ></textarea>
-                  {reviewErrors.reviewText && <div className="custom-form-error"><span className="material-symbols-outlined" style={{fontSize: '16px'}}>error</span>{reviewErrors.reviewText}</div>}
+                  <textarea className={`form-textarea ${reviewErrors.reviewText ? 'input-error' : ''}`} placeholder="Napište, jak se Vám se mnou spolupracovalo..." value={reviewText} onChange={e => { setReviewText(e.target.value); if (reviewErrors.reviewText) setReviewErrors({ ...reviewErrors, reviewText: null }); }} ></textarea>
+                  {reviewErrors.reviewText && <div className="custom-form-error"><span className="material-symbols-outlined" style={{ fontSize: '16px' }}>error</span>{reviewErrors.reviewText}</div>}
                 </div>
                 <button type="submit" className="form-submit" disabled={isSubmittingReview}>
                   {isSubmittingReview ? 'Odesílám recenzi...' : 'Odeslat recenzi →'}
@@ -670,13 +670,13 @@ const TutorProfilePage = () => {
 
         <div className="page-end"></div>
       </div>
-      
-      <CustomModal 
-        isOpen={modal.isOpen} 
-        onClose={() => setModal({ ...modal, isOpen: false })} 
-        title={modal.title} 
-        message={modal.message} 
-        type={modal.type} 
+
+      <CustomModal
+        isOpen={modal.isOpen}
+        onClose={() => setModal({ ...modal, isOpen: false })}
+        title={modal.title}
+        message={modal.message}
+        type={modal.type}
       />
     </>
   );
