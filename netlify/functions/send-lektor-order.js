@@ -34,7 +34,7 @@ export default async (req, context) => {
       from: `"Nová objednávka Lektora" <${process.env.SMTP_USER}>`,
       to: 'info@sunrise-la.cz', 
       replyTo: customerEmail,
-      subject: `Nová objednávka online kurzu: ${serviceName} (${lektorName})`,
+      subject: `Nová objednávka online kurzů`,
       html: `
         <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
           <h2 style="color: #EF67A5;">Nová objednávka od: ${customerName}</h2>
@@ -63,7 +63,7 @@ export default async (req, context) => {
       await transporter.sendMail({
         from: `"Rezervace SUNRISE" <${process.env.SMTP_USER}>`,
         to: lektorEmail,
-        subject: `Nová předběžná rezervace: ${serviceName}`,
+        subject: `Nová objednávka online kurzů`,
         html: `
           <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
             <h2 style="color: #1C9C73;">Ahoj ${lektorName},</h2>
@@ -71,8 +71,13 @@ export default async (req, context) => {
             
             <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
               <p style="margin: 0 0 5px 0;"><strong>Zákazník:</strong> ${customerName}</p>
+              <p style="margin: 0 0 5px 0;"><strong>E-mail:</strong> <a href="mailto:${customerEmail}">${customerEmail}</a></p>
+              <p style="margin: 0 0 5px 0;"><strong>Telefon:</strong> ${customerPhone || 'Neuveden'}</p>
               <p style="margin: 0;"><strong>Preferovaný termín:</strong> ${date} v ${time}</p>
             </div>
+
+            <h3 style="border-bottom: 1px solid #eaeaea; padding-bottom: 5px;">Zpráva od zákazníka:</h3>
+            <p>${message || 'Žádná zpráva'}</p>
             
             <div style="border-left: 4px solid #EF67A5; padding-left: 15px; margin-top: 20px;">
               <p style="margin: 0;"><strong>DŮLEŽITÉ:</strong><br/>
