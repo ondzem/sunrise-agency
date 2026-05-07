@@ -34,7 +34,7 @@ export default async (req, context) => {
       html: `
         <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
           <h2 style="color: #1C9C73;">Ahoj ${tutorName},</h2>
-          <p>platba za kurz od zákazníka <strong>${customerName}</strong> právě dorazila na náš účet. Tímto ti <strong>závazně potvrzujeme termín!</strong></p>
+          <p>platba za kurz od zákazníka <strong>${customerName}</strong> právě dorazila na náš účet. Tímto ti <strong>závazně potvrzuji termín!</strong></p>
           
           <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
             <h3 style="margin-top: 0; color: #EF67A5;">Shrnutí termínu:</h3>
@@ -52,7 +52,7 @@ export default async (req, context) => {
           <h3 style="border-bottom: 1px solid #eaeaea; padding-bottom: 5px;">Zpráva od zákazníka:</h3>
           <p style="background: #fafafa; padding: 10px; border-radius: 6px;">${message}</p>
           
-          <p style="margin-top: 30px; font-weight: bold;">Ať se lekce daří!<br/>Tým SUNRISE</p>
+          <p style="margin-top: 30px; font-weight: bold;">Ať se lekce daří!<br/>Lucie Tomková</p>
         </div>
       `,
     });

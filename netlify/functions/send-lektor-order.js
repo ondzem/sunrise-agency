@@ -7,16 +7,16 @@ export default async (req, context) => {
 
   try {
     const body = await req.json();
-    const { 
-      lektorEmail, 
-      lektorName, 
-      serviceName, 
-      date, 
-      time, 
-      customerName, 
-      customerEmail, 
-      customerPhone, 
-      message 
+    const {
+      lektorEmail,
+      lektorName,
+      serviceName,
+      date,
+      time,
+      customerName,
+      customerEmail,
+      customerPhone,
+      message
     } = body;
 
     const transporter = nodemailer.createTransport({
@@ -36,7 +36,7 @@ export default async (req, context) => {
     // 1. E-MAIL PRO MAJITELKU (Kompletní údaje + Výzva k odeslání QR kódu)
     await transporter.sendMail({
       from: `"Nová objednávka Lektora" <${process.env.SMTP_USER}>`,
-      to: 'info@sunrise-la.cz', 
+      to: 'info@sunrise-la.cz',
       replyTo: customerEmail,
       subject: `Nová objednávka online kurzů`,
       html: `
@@ -88,7 +88,7 @@ export default async (req, context) => {
             
             <div style="border-left: 4px solid #EF67A5; padding-left: 15px; margin-top: 20px;">
               <p style="margin: 0;"><strong>DŮLEŽITÉ:</strong><br/>
-              Prosím, s tímto termínem zatím předběžně počítej. Vedení školy nyní se zákazníkem řeší platbu. Jakmile bude rezervace úspěšně uhrazena, obdržíš od nás finální potvrzení a termín se stane plně závazným.</p>
+              Prosím, s tímto termínem zatím předběžně počítej. Nyní se zákazníkem řeším platbu. Jakmile bude rezervace úspěšně uhrazena, obdržíš finální potvrzení a termín se stane plně závazným.</p>
             </div>
           </div>
         `,
