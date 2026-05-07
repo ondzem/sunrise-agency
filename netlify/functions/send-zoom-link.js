@@ -90,37 +90,37 @@ export default async (req, context) => {
       });
 
       await transporter.sendMail({
-        from: \`"Jazyková škola SUNRISE" <\${process.env.SMTP_USER}>\`,
+        from: `"Jazyková škola SUNRISE" <${process.env.SMTP_USER}>`,
         to: customerEmail,
         replyTo: tutorEmail,
-        subject: \`Potvrzení rezervace a odkaz na připojení: \${serviceName}\`,
-        html: \`
+        subject: `Potvrzení rezervace a odkaz na připojení: ${serviceName}`,
+        html: `
           <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
-            <h2 style="color: #1C9C73;">Dobrý den, \${customerName},</h2>
-            <p>dáváme Vám vědět, že Vaše platba za kurz <strong>\${serviceName}</strong> úspěšně dorazila. Vaše rezervace u lektora (\${tutorName}) je tímto plně závazná!</p>
+            <h2 style="color: #1C9C73;">Dobrý den, ${customerName},</h2>
+            <p>dáváme Vám vědět, že Vaše platba za kurz <strong>${serviceName}</strong> úspěšně dorazila. Vaše rezervace u lektora (${tutorName}) je tímto plně závazná!</p>
             
             <div style="background-color: #f9f9f9; padding: 20px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
               <h3 style="margin-top: 0; color: #EF67A5;">Detaily Vaší lekce:</h3>
-              <p style="margin: 0 0 8px 0;"><strong>Datum:</strong> \${date}</p>
-              <p style="margin: 0 0 8px 0;"><strong>Čas:</strong> \${time}</p>
-              <p style="margin: 0;"><strong>Lektor:</strong> \${tutorName} (<a href="mailto:\${tutorEmail}" style="color: #1C9C73; text-decoration: none;">\${tutorEmail}</a>)</p>
+              <p style="margin: 0 0 8px 0;"><strong>Datum:</strong> ${date}</p>
+              <p style="margin: 0 0 8px 0;"><strong>Čas:</strong> ${time}</p>
+              <p style="margin: 0;"><strong>Lektor:</strong> ${tutorName} (<a href="mailto:${tutorEmail}" style="color: #1C9C73; text-decoration: none;">${tutorEmail}</a>)</p>
             </div>
             
             <div style="background-color: #e6fcf5; padding: 25px; border-radius: 12px; margin: 25px 0; text-align: center; border: 2px dashed #1C9C73;">
               <h3 style="margin-top: 0; color: #107a51;">Odkaz na videohovor</h3>
               <p style="margin-bottom: 20px; color: #333;">Lektor pro Vás připravil odkaz na spojení. Až přijde čas lekce, jednoduše klikněte na tlačítko níže:</p>
-              <a href="\${zoomLink}" style="background-color: #1C9C73; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">Připojit se ke schůzce</a>
-              <p style="margin-top: 20px; font-size: 12px; color: #666;">nebo zkopírujte tento odkaz:<br><a href="\${zoomLink}" style="color: #1C9C73;">\${zoomLink}</a></p>
+              <a href="${zoomLink}" style="background-color: #1C9C73; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; font-size: 16px; display: inline-block;">Připojit se ke schůzce</a>
+              <p style="margin-top: 20px; font-size: 12px; color: #666;">nebo zkopírujte tento odkaz:<br><a href="${zoomLink}" style="color: #1C9C73;">${zoomLink}</a></p>
             </div>
             
             <p>Pokud budete potřebovat termín změnit nebo se před lekcí na cokoliv zeptat, napište přímo lektorovi na e-mail uvedený výše.</p>
             
-            <p style="margin-top: 30px;">Budeme se na Vás těšit!<br/>S pozdravem,<br/><strong>\${tutorName}</strong> & SUNRISE Agency</p>
+            <p style="margin-top: 30px;">Budeme se na Vás těšit!<br/>S pozdravem,<br/><strong>${tutorName}</strong> & SUNRISE Agency</p>
           </div>
-        \`,
+        `,
       });
 
-      return new Response(\`
+      return new Response(`
         <html>
           <head>
             <meta charset="utf-8">
@@ -135,12 +135,12 @@ export default async (req, context) => {
           <body>
             <div class="card">
               <h1>✅ Odesláno zákazníkovi!</h1>
-              <p>Zákazník <strong>\${customerName}</strong> právě obdržel e-mail se všemi detaily, odkazem na Zoom a Vaším kontaktem.</p>
+              <p>Zákazník <strong>${customerName}</strong> právě obdržel e-mail se všemi detaily, odkazem na Zoom a Vaším kontaktem.</p>
               <p style="font-size: 0.9em; margin-top: 20px; color: #999;">Tuto záložku můžete nyní zavřít a začít se připravovat na lekci.</p>
             </div>
           </body>
         </html>
-      \`, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
+      `, { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 
     } catch (error) {
       console.error('Chyba při odesílání Zoom linku:', error);
