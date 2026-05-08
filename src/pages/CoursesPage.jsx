@@ -265,15 +265,15 @@ const coursesData = [
     options: [
       { id: 'opt_31', title: 'Začátečníci', time: 'Po 19:00–20:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz pro ty</span>, kteří s češtinou začínají od nuly.</>,
-        'Postupně se učíte základní fráze, výslovnost a jednoduchou gramatiku, kterou ihned používáte v praxi.',
-        ['představit se a komunikovat v základních situacích', 'orientovat se v běžném životě (obchod, doprava, práce)', 'porozumět jednoduché mluvené češtině'],
-        null
+        'Výuka je systematická a opírá se o kvalitní materiály a učebnice. Krok za krokem si osvojíte základy – učíte se mluvit, poslouchat, číst i psát, s důrazem na budování nové slovní zásoby a pochopení gramatiky.',
+        ['představit se a komunikovat v základních situacích', 'orientovat se v běžném životě (obchod, doprava, práce)', 'porozumět jednoduché mluvené češtině', 'číst a psát na základní úrovni'],
+        'Získáte pevné základy jazyka, domluvíte se v každodenních situacích a získáte sebevědomí pro další studium.'
       ) },
       { id: 'opt_32', title: 'Pokročilí', time: 'Po 20:00–21:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz pro studenty</span>, kteří už mají základ a chtějí se posunout dál.</>,
-        null,
-        ['složitější gramatika', 'plynulejší vyjadřování', 'delší konverzace a diskuse', 'práce s texty a poslechy'],
-        'Budete komunikovat přirozeněji a s větší jistotou.'
+        'Lekce mají jasnou strukturu podloženou moderní učebnicí. Výuka plynule kombinuje pokročilejší gramatiku s poslechem, čtením, psaním a především rozšiřováním slovní zásoby a aktivním mluvením.',
+        ['složitější gramatika a její praktické využití', 'plynulejší vyjadřování a bohatší slovní zásoba', 'delší konverzace a diskuse na zajímavá témata', 'práce s komplexními texty a poslechy'],
+        'Budete komunikovat přirozeněji, s větší jistotou a dokážete reagovat ve složitějších situacích bez zbytečných chyb.'
       ) }
     ]
   },
@@ -287,15 +287,15 @@ const coursesData = [
     options: [
       { id: 'opt_25', title: 'Mírně pokročilí', time: 'Út 18:00–19:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz pro studenty</span>, kteří už znají základy a chtějí jazyk rozvíjet komplexně.</>,
-        null,
-        ['gramatika vysvětlená v souvislostech', 'rozšiřování slovní zásoby', 'poslech, čtení i psaní', 'konverzace jako součást lekce'],
-        'Jazyk začnete lépe chápat a aktivně používat.'
+        'Lekce probíhají na bázi učebnice, která udává jasnou strukturu a směr. Komplexně rozvíjíme všechny dovednosti – učíte se správně mluvit, poslouchat, číst i psát. Důraz je kladen na rozšiřování slovní zásoby a gramatiku v souvislostech.',
+        ['gramatika vysvětlená v reálných souvislostech', 'systematické rozšiřování slovní zásoby', 'poslech, čtení, psaní a konverzace', 'samostatné vyjádření vlastních myšlenek'],
+        'Jazyk začnete lépe chápat, aktivně používat ve všech formách a výrazně se posunete v plynulosti.'
       ) },
       { id: 'opt_26', title: 'Konverzace', time: 'Út 19:00–20:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz zaměřený čistě na praxi.</span></>,
-        null,
-        ['mluvení na různá témata', 'reakce na běžné situace', 'spontánní komunikace', 'rozšiřování aktivní slovní zásoby'],
-        'Zlepšíte se hlavně v tom, co většina lidí potřebuje nejvíc – mluvení.'
+        'Odkládáme učebnice s tvrdou gramatikou a soustředíme se výhradně na komunikaci. Výuka je interaktivní a zaměřuje se na to hlavní – schopnost mluvit, pohotově reagovat na otázky, diskutovat a aktivně si rozšiřovat slovní zásobu.',
+        ['mluvení a diskuse na různá aktuální témata', 'pohotové reakce na běžné i nečekané situace', 'spontánní komunikace a odbourání strachu', 'rychlé a efektivní rozšiřování aktivní slovní zásoby'],
+        'Zlepšíte se hlavně v tom, co potřebujete nejvíc – získáte sebejistotu při mluvení a přestanete v hlavě překládat.'
       ) }
     ]
   },
@@ -309,15 +309,15 @@ const coursesData = [
     options: [
       { id: 'opt_23', title: 'Mírně pokročilí', time: 'Po 17:00–18:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz pro studenty</span>, kteří už znají základy a chtějí jazyk rozvíjet komplexně.</>,
-        null,
-        ['gramatika vysvětlená v souvislostech', 'rozšiřování slovní zásoby', 'poslech, čtení i psaní', 'konverzace jako součást lekce'],
-        'Jazyk začnete lépe chápat a aktivně používat.'
+        'Lekce probíhají na bázi učebnice, která udává jasnou strukturu a směr. Komplexně rozvíjíme všechny dovednosti – učíte se správně mluvit, poslouchat, číst i psát. Důraz je kladen na rozšiřování slovní zásoby a gramatiku v souvislostech.',
+        ['gramatika vysvětlená v reálných souvislostech', 'systematické rozšiřování slovní zásoby', 'poslech, čtení, psaní a konverzace', 'samostatné vyjádření vlastních myšlenek'],
+        'Jazyk začnete lépe chápat, aktivně používat ve všech formách a výrazně se posunete v plynulosti.'
       ) },
       { id: 'opt_24', title: 'Konverzace', time: 'Po 18:00–19:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz zaměřený čistě na praxi.</span></>,
-        null,
-        ['mluvení na různá témata', 'reakce na běžné situace', 'spontánní komunikace', 'rozšiřování aktivní slovní zásoby'],
-        'Zlepšíte se hlavně v tom, co většina lidí potřebuje nejvíc – mluvení.'
+        'Odkládáme učebnice s tvrdou gramatikou a soustředíme se výhradně na komunikaci. Výuka je interaktivní a zaměřuje se na to hlavní – schopnost mluvit, pohotově reagovat na otázky, diskutovat a aktivně si rozšiřovat slovní zásobu.',
+        ['mluvení a diskuse na různá aktuální témata', 'pohotové reakce na běžné i nečekané situace', 'spontánní komunikace a odbourání strachu', 'rychlé a efektivní rozšiřování aktivní slovní zásoby'],
+        'Zlepšíte se hlavně v tom, co potřebujete nejvíc – získáte sebejistotu při mluvení a přestanete v hlavě překládat.'
       ) }
     ]
   },
@@ -331,15 +331,15 @@ const coursesData = [
     options: [
       { id: 'opt_29', title: 'Mírně pokročilí', time: 'Po 17:00–18:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz pro studenty</span>, kteří už znají základy a chtějí jazyk rozvíjet komplexně.</>,
-        null,
-        ['gramatika vysvětlená v souvislostech', 'rozšiřování slovní zásoby', 'poslech, čtení i psaní', 'konverzace jako součást lekce'],
-        'Jazyk začnete lépe chápat a aktivně používat.'
+        'Lekce probíhají na bázi učebnice, která udává jasnou strukturu a směr. Komplexně rozvíjíme všechny dovednosti – učíte se správně mluvit, poslouchat, číst i psát. Důraz je kladen na rozšiřování slovní zásoby a gramatiku v souvislostech.',
+        ['gramatika vysvětlená v reálných souvislostech', 'systematické rozšiřování slovní zásoby', 'poslech, čtení, psaní a konverzace', 'samostatné vyjádření vlastních myšlenek'],
+        'Jazyk začnete lépe chápat, aktivně používat ve všech formách a výrazně se posunete v plynulosti.'
       ) },
       { id: 'opt_30', title: 'Konverzace', time: 'Po 18:00–19:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz zaměřený čistě na praxi.</span></>,
-        null,
-        ['mluvení na různá témata', 'reakce na běžné situace', 'spontánní komunikace', 'rozšiřování aktivní slovní zásoby'],
-        'Zlepšíte se hlavně v tom, co většina lidí potřebuje nejvíc – mluvení.'
+        'Odkládáme učebnice s tvrdou gramatikou a soustředíme se výhradně na komunikaci. Výuka je interaktivní a zaměřuje se na to hlavní – schopnost mluvit, pohotově reagovat na otázky, diskutovat a aktivně si rozšiřovat slovní zásobu.',
+        ['mluvení a diskuse na různá aktuální témata', 'pohotové reakce na běžné i nečekané situace', 'spontánní komunikace a odbourání strachu', 'rychlé a efektivní rozšiřování aktivní slovní zásoby'],
+        'Zlepšíte se hlavně v tom, co potřebujete nejvíc – získáte sebejistotu při mluvení a přestanete v hlavě překládat.'
       ) }
     ]
   },
@@ -353,15 +353,15 @@ const coursesData = [
     options: [
       { id: 'opt_28', title: 'Pokročilí', time: 'Čt 18:00–19:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz pro ty, kteří už španělštinu znají.</span></>,
-        null,
-        ['pokročilejší gramatika', 'plynulé vyjadřování', 'konverzace na různá témata'],
-        'Budete schopni komunikovat přirozeně a bez větších omezení.'
+        'Lekce mají jasnou strukturu podloženou moderní učebnicí. Výuka plynule kombinuje pokročilejší gramatiku s poslechem, čtením, psaním a především rozšiřováním slovní zásoby a aktivním mluvením.',
+        ['složitější gramatika a její praktické využití', 'plynulejší vyjadřování a bohatší slovní zásoba', 'delší konverzace a diskuse na zajímavá témata', 'práce s komplexními texty a poslechy'],
+        'Budete komunikovat přirozeněji, s větší jistotou a dokážete reagovat ve složitějších situacích bez zbytečných chyb.'
       ) },
       { id: 'opt_27', title: 'Začátečníci', time: 'Čt 19:00–20:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
         <><span style={{fontWeight:'700'}}>Kurz pro úplné začátečníky.</span></>,
-        null,
-        ['základní slovní zásoba a fráze', 'jednoduchá gramatika', 'první konverzace'],
-        'Začnete se domluvit v základních situacích.'
+        'Výuka je systematická a opírá se o kvalitní materiály a učebnice. Krok za krokem si osvojíte základy – učíte se mluvit, poslouchat, číst i psát, s důrazem na budování nové slovní zásoby a pochopení gramatiky.',
+        ['představit se a komunikovat v základních situacích', 'orientovat se v běžném životě', 'porozumět jednoduché mluvené španělštině', 'číst a psát na základní úrovni'],
+        'Získáte pevné základy jazyka, domluvíte se v každodenních situacích a získáte sebevědomí pro další studium.'
       ) }
     ]
   }

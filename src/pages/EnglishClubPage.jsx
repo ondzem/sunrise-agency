@@ -30,7 +30,7 @@ const clubsData = [
             Zjistit, co klub obsahuje a jak probíhá
           </summary>
           <div style={{ padding: '0 16px 16px 16px', borderTop: '1px solid rgba(30, 58, 138, 0.1)', marginTop: '4px', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '24px', cursor: 'auto' }}>
-            
+
             {/* Jak výuka probíhá */}
             <div>
               <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Jak výuka probíhá</h4>
@@ -61,7 +61,7 @@ const clubsData = [
             <div>
               <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Náš přístup</h4>
               <div style={{ background: '#ffffff', padding: '16px', borderRadius: '10px', fontSize: '0.9rem', color: '#334155', lineHeight: '1.5', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.04)' }}>
-                Nikdo děti do ničeho nenutí. Pokud dítě nechce aktivně mluvit, může klidně jen sedět, pozorovat a poslouchat.<br/><br/>
+                Nikdo děti do ničeho nenutí. Pokud dítě nechce aktivně mluvit, může klidně jen sedět, pozorovat a poslouchat.<br /><br />
                 <strong style={{ color: '#1E3A8A' }}>👉 I tímto způsobem se jazyk přirozeně učí a vstřebává.</strong>
               </div>
             </div>
@@ -114,12 +114,12 @@ const clubsData = [
             Zjistit, co klub obsahuje a jak probíhá
           </summary>
           <div style={{ padding: '0 16px 16px 16px', borderTop: '1px solid rgba(28, 156, 115, 0.1)', marginTop: '4px', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '24px', cursor: 'auto' }}>
-            
+
             {/* Jak výuka probíhá */}
             <div>
               <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Jak výuka probíhá</h4>
               <div style={{ background: '#ffffff', padding: '16px', borderRadius: '10px', fontSize: '0.9rem', color: '#334155', lineHeight: '1.5', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.04)' }}>
-                Každá lekce začíná hravým rituálem – děti musí nejdříve najít svou knížku (např. vyluštit rébus, podle kterého knížku najdou).<br/><br/>
+                Každá lekce začíná hravým rituálem – děti musí nejdříve najít svou knížku (např. vyluštit rébus, podle kterého knížku najdou).<br /><br />
                 <strong style={{ color: '#1C9C73' }}>👉 Už tímto způsobem se učí jazyk přirozeně a zábavně hned od začátku.</strong>
               </div>
             </div>
@@ -197,7 +197,7 @@ const clubsData = [
     accent: 'sky',
     title: 'English Club for Older Pupils',
     age: '10–14 let',
-    time: 'každý čtvrtek, 14:00–16:00 h',
+    time: 'každý čtvrtek a pátek, 14:00–16:00 h',
     price: '700 Kč / den',
     desc: 'Navazující program pro starší děti, kde se jazyk rozvíjí do větší hloubky, ale stále přirozeně a hravě.',
     fullDesc: (
@@ -212,7 +212,7 @@ const clubsData = [
             Zjistit, co klub obsahuje a jak probíhá
           </summary>
           <div style={{ padding: '0 16px 16px 16px', borderTop: '1px solid rgba(2, 132, 199, 0.1)', marginTop: '4px', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '24px', cursor: 'auto' }}>
-            
+
             {/* Jak výuka probíhá */}
             <div>
               <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Jak výuka probíhá</h4>
@@ -275,7 +275,7 @@ const clubsData = [
       </div>
     ),
     bring: ['Sešit a tužku', 'Přezůvky', 'Pití'],
-    dates: ['Čtvrtek 5.10.', 'Čtvrtek 12.10.', 'Čtvrtek 19.10.']
+    dates: ['Čtvrtek 5.10.', 'Pátek 6.10.', 'Čtvrtek 12.10.']
   },
   {
     id: 'club_4',
@@ -297,7 +297,7 @@ const clubsData = [
             Zjistit, co klub obsahuje a jak probíhá
           </summary>
           <div style={{ padding: '0 16px 16px 16px', borderTop: '1px solid rgba(71, 85, 105, 0.1)', marginTop: '4px', paddingTop: '16px', display: 'flex', flexDirection: 'column', gap: '24px', cursor: 'auto' }}>
-            
+
             {/* Pro koho je */}
             <div>
               <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Pro koho to je</h4>
@@ -372,10 +372,10 @@ const EnglishClubPage = () => {
   const [isAdminMode, setIsAdminMode] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState('');
-  const [clubConfig, setClubConfig] = useState({ 
-    club_1: 700, club_2: 700, club_3: 700, club_4: 700, 
-    lockedDates: [], 
-    customDates: { club_1: [], club_2: [], club_3: [], club_4: [] } 
+  const [clubConfig, setClubConfig] = useState({
+    club_1: 700, club_2: 700, club_3: 700, club_4: 700,
+    lockedDates: [],
+    customDates: { club_1: [], club_2: [], club_3: [], club_4: [] }
   });
 
   useEffect(() => {
@@ -431,32 +431,32 @@ const EnglishClubPage = () => {
     // 3 roky dopředu (místo původních 6 měsíců)
     const endDate = new Date(today.getFullYear(), today.getMonth() + 36, today.getDate());
     let currentDate = new Date(today);
-    
+
     while (currentDate <= endDate) {
       const year = currentDate.getFullYear();
       const month = currentDate.getMonth(); // 0 = Leden, 6 = Červenec, 7 = Srpen
       const dayOfWeek = currentDate.getDay(); // 0 is Sunday, 1 is Monday...
       const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(currentDate.getDate()).padStart(2, '0')}`;
-      
+
       // Letní prázdniny v ČR vždy trvají celý červenec a srpen.
       const isSummerHoliday = (month === 6 || month === 7);
-      
+
       let isValid = false;
-      
+
       if (clubId === 'club_1' && dayOfWeek === 5) {
         isValid = !isSummerHoliday; // Pátek, ale ne o prázdninách
       } else if (clubId === 'club_2' && dayOfWeek === 3) {
         isValid = !isSummerHoliday; // Středa, ale ne o prázdninách
-      } else if (clubId === 'club_3' && dayOfWeek === 4) {
-        isValid = !isSummerHoliday; // Čtvrtek, ale ne o prázdninách
+      } else if (clubId === 'club_3' && (dayOfWeek === 4 || dayOfWeek === 5)) {
+        isValid = !isSummerHoliday; // Čtvrtek a Pátek, ale ne o prázdninách
       } else if (clubId === 'club_4' && dayOfWeek === 6) {
         // Zcela zrušeno automatické přidávání první soboty v měsíci.
         // Admin si tyto termíny určuje stoprocentně sám přes "Přidat termín" (+).
-        isValid = false; 
+        isValid = false;
       }
-      
+
       if (isValid) dates.push(dateStr);
-      
+
       currentDate.setDate(currentDate.getDate() + 1);
     }
 
@@ -485,17 +485,17 @@ const EnglishClubPage = () => {
     setClubConfig(prev => {
       const currentCustom = prev.customDates || { club_1: [], club_2: [], club_3: [], club_4: [] };
       const clubDates = currentCustom[clubId] || [];
-      
+
       let newClubDates;
       if (clubDates.includes(dateStr)) {
         newClubDates = clubDates.filter(d => d !== dateStr);
       } else {
         newClubDates = [...clubDates, dateStr];
       }
-      
-      return { 
-        ...prev, 
-        customDates: { ...currentCustom, [clubId]: newClubDates } 
+
+      return {
+        ...prev,
+        customDates: { ...currentCustom, [clubId]: newClubDates }
       };
     });
   };
@@ -504,7 +504,7 @@ const EnglishClubPage = () => {
     switch (clubId) {
       case 'club_1': return 5; // Pátek
       case 'club_2': return 3; // Středa
-      case 'club_3': return 4; // Čtvrtek
+      case 'club_3': return [4, 5]; // Čtvrtek a Pátek
       case 'club_4': return 6; // Sobota
       default: return null;
     }
@@ -581,7 +581,7 @@ const EnglishClubPage = () => {
     if (formData.dates.length === 0) errors.dates = 'Prosím vyberte alespoň jeden termín konání.';
     if (!formData.childName.trim()) errors.childName = 'Prosím vyplňte jméno dítěte.';
     if (!formData.age) errors.age = 'Prosím vyberte věk dítěte.';
-    
+
     if (formData.hasSibling) {
       if (!formData.siblingName.trim()) errors.siblingName = 'Prosím vyplňte jméno sourozence.';
       if (!formData.siblingAge) errors.siblingAge = 'Prosím vyberte věk sourozence.';
@@ -633,15 +633,15 @@ const EnglishClubPage = () => {
       {isAdminMode && (
         <div className="admin-floating-banner">
           <style>{`.navbar { top: var(--navbar-offset, 65px) !important; transition: top 0.4s ease-out !important; }`}</style>
-          
+
           <div className="afb-info">
             <span className="afb-info-role">MASTER ADMIN</span>
             {saveMessage && <span style={{ color: '#1C9C73', fontWeight: 'bold', marginLeft: '10px' }}>{saveMessage}</span>}
           </div>
-          
+
           <div className="afb-actions">
             <Link to="/portal/admin" className="afb-btn-link">
-               <span className="material-symbols-outlined" style={{fontSize:'1rem'}}>settings</span> Zpět do Administrace
+              <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>settings</span> Zpět do Administrace
             </Link>
             <button onClick={handleSaveConfig} className="afb-btn-logout" style={{ background: 'white', color: 'var(--color-primary)' }}>
               {isSaving ? 'Ukládám...' : 'Uložit změny'}
@@ -658,7 +658,7 @@ const EnglishClubPage = () => {
         <div className="eclub-organic-bg"></div>
         <div className="eclub-hero-content">
           <div className="eclub-hero-text">
-            <div className="eclub-badge"><Link to="/portal" style={{ color: 'inherit', textDecoration: 'none' }}>Pro děti 2–12 let</Link></div>
+            <div className="eclub-badge"><Link to="/portal" style={{ color: 'inherit', textDecoration: 'none' }}>Pro děti 2–14 let</Link></div>
             <h1 className="eclub-title">Angličtina, kterou si vaše dítě zamiluje</h1>
             <p className="eclub-subtitle">
               Program, kde se děti učí angličtinu přirozeně, bez stresu a nucení. Nejde o klasickou výuku, ale o prostředí, kde je angličtina součástí každé aktivity během lekce.
@@ -695,7 +695,7 @@ const EnglishClubPage = () => {
                 </div>
                 <div className="ticket-action">
                   <div className="ticket-price">
-                    <strong><EditableField value={clubConfig[club.id] || 700} onChange={v => setClubConfig(prev => ({...prev, [club.id]: v}))} isAdminMode={isAdminMode} /> Kč / den</strong>
+                    <strong><EditableField value={clubConfig[club.id] || 700} onChange={v => setClubConfig(prev => ({ ...prev, [club.id]: v }))} isAdminMode={isAdminMode} /> Kč / den</strong>
                     {club.priceSub && <span>{club.priceSub}</span>}
                   </div>
                   <button className={`btn btn-accent-${club.accent}`} onClick={() => openModal(club)}>
@@ -715,7 +715,7 @@ const EnglishClubPage = () => {
             <div className="eclub-info-item">
               <span className="material-symbols-outlined">location_on</span>
               <h4>Místo konání</h4>
-              <p>SUNRISE place,<br />ul. Jana Palacha 1638, Pardubice</p>
+              <p>SUNRISE Place,<br />ul. Jana Palacha 1638, Pardubice</p>
             </div>
             <div className="eclub-info-item">
               <span className="material-symbols-outlined">card_giftcard</span>
@@ -817,7 +817,7 @@ const EnglishClubPage = () => {
                             </div>
                             <div>
                               <div style={{ fontSize: 'clamp(0.75rem, 2.5vw, 0.85rem)', color: '#888', marginBottom: '2px' }}>Cena</div>
-                              <div style={{ color: '#222', fontWeight: '600', fontSize: 'clamp(0.9rem, 3vw, 1rem)' }}><EditableField value={clubConfig[activeModal.id] || 700} onChange={v => setClubConfig(prev => ({...prev, [activeModal.id]: v}))} isAdminMode={isAdminMode} /> Kč / den</div>
+                              <div style={{ color: '#222', fontWeight: '600', fontSize: 'clamp(0.9rem, 3vw, 1rem)' }}><EditableField value={clubConfig[activeModal.id] || 700} onChange={v => setClubConfig(prev => ({ ...prev, [activeModal.id]: v }))} isAdminMode={isAdminMode} /> Kč / den</div>
                               <div style={{ fontSize: '0.8rem', color: '#888', marginTop: '4px' }}>(Sourozenec 50 % sleva)</div>
                             </div>
                           </div>
@@ -850,9 +850,9 @@ const EnglishClubPage = () => {
                           Vybrat můžete jeden nebo více termínů na půl roku dopředu.
                         </p>
                         <div style={{ marginBottom: '20px', background: 'white', borderRadius: '16px', padding: '16px', border: '1px solid #eaeaea', boxShadow: '0 4px 15px rgba(0,0,0,0.03)' }}>
-                          <CalendarPicker 
-                            selectedDate={formData.dates} 
-                            onDateSelect={handleDateChange} 
+                          <CalendarPicker
+                            selectedDate={formData.dates}
+                            onDateSelect={handleDateChange}
                             highlightedDates={getValidDates(activeModal.id)}
                             disablePastDates={true}
                             disablePastMonths={true}
@@ -867,7 +867,7 @@ const EnglishClubPage = () => {
                             allowedDayOfWeek={getAllowedDayOfWeek(activeModal.id)}
                           />
                         </div>
-                        
+
                         {formData.dates.length > 0 && (
                           <div style={{ marginBottom: '20px' }}>
                             <div style={{ fontSize: '0.85rem', fontWeight: '600', color: '#888', marginBottom: '8px', textTransform: 'uppercase' }}>Vybrané termíny:</div>
@@ -884,7 +884,7 @@ const EnglishClubPage = () => {
                             </div>
                           </div>
                         )}
-                        
+
                         {formErrors.dates && <div className="custom-form-error" style={{ color: '#d32f2f', fontSize: '0.85rem', marginTop: '4px', marginBottom: '12px' }}>{formErrors.dates}</div>}
                       </div>
 
@@ -962,11 +962,11 @@ const EnglishClubPage = () => {
                             <label>Poznámka (např. alergie, specifika)</label>
                             <textarea name="note" value={formData.note} onChange={handleChange} rows="3" placeholder="Volitelná poznámka..." style={{ marginBottom: 0 }}></textarea>
                           </div>
-                          
+
                           <div className="form-group checkbox-group" style={{ marginTop: '-22px', marginBottom: '20px' }}>
                             <label style={{ display: 'flex', alignItems: 'center', gap: '12px', margin: 0, fontWeight: '600', color: '#334155', cursor: 'pointer', padding: '14px 16px', border: formData.hasSibling ? '2px solid var(--tp-pink)' : '1px solid #e2e8f0', borderRadius: '12px', background: formData.hasSibling ? 'rgba(239, 103, 165, 0.05)' : '#f8fafc', transition: 'all 0.2s' }}>
                               <input type="checkbox" name="hasSibling" checked={formData.hasSibling} onChange={handleChange} style={{ width: '22px', height: '22px', accentColor: 'var(--tp-pink)', cursor: 'pointer' }} />
-                              <span style={{flex: 1, lineHeight: '1.3'}}>Chci přihlásit i sourozence <span style={{color: 'var(--tp-pink)', fontWeight: '700', whiteSpace: 'nowrap'}}>(50% sleva)</span></span>
+                              <span style={{ flex: 1, lineHeight: '1.3' }}>Chci přihlásit i sourozence <span style={{ color: 'var(--tp-pink)', fontWeight: '700', whiteSpace: 'nowrap' }}>(50% sleva)</span></span>
                             </label>
                           </div>
                         </div>

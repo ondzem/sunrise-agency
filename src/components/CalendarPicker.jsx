@@ -47,7 +47,7 @@ const CalendarPicker = ({ selectedDate, onDateSelect, highlightedDates = [], dis
       const isToday = dateStr === new Date().toISOString().split('T')[0];
 
       const dateDayOfWeek = new Date(year, month, d).getDay();
-      const isAllowedDay = allowedDayOfWeek === null || allowedDayOfWeek === dateDayOfWeek;
+      const isAllowedDay = allowedDayOfWeek === null || (Array.isArray(allowedDayOfWeek) ? allowedDayOfWeek.includes(dateDayOfWeek) : allowedDayOfWeek === dateDayOfWeek);
       const isLocked = lockedDates.includes(dateStr);
       const isCustom = customDates.includes(dateStr);
 

@@ -47,8 +47,8 @@ export default async (req, context) => {
           subject: `Nová individuální poptávka výuky - ${customerName}`,
           html: `
             <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
-              <h2 style="color: #1C9C73;">Ahoj ${lektorName},</h2>
-              <p>Z tvého profilu na webu přišla nová zpráva ohledně <strong>individuální domluvy</strong>.</p>
+              <h2 style="color: #1C9C73;">Dobrý den, ${lektorName},</h2>
+              <p>Z vašeho profilu na webu přišla nová zpráva ohledně <strong>individuální domluvy</strong>.</p>
               
               <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
                 <p style="margin: 0 0 5px 0;"><strong>Zákazník:</strong> ${customerName}</p>
@@ -60,7 +60,7 @@ export default async (req, context) => {
               <p style="white-space: pre-wrap;">${message || 'Žádná zpráva'}</p>
               
               <div style="border-left: 4px solid #EF67A5; padding-left: 15px; margin-top: 20px;">
-                <p style="margin: 0;">Tato poptávka byla zaslána pouze tobě. Spoj se prosím se zákazníkem (odpovědí na tento email nebo telefonicky) a domluvte se na formátu a detailech výuky přímo.</p>
+                <p style="margin: 0;">Tato poptávka byla zaslána pouze vám. Spojte se prosím se zákazníkem (odpovědí na tento e-mail nebo telefonicky) a domluvte se na formátu a detailech výuky přímo.</p>
               </div>
             </div>
           `
@@ -114,8 +114,8 @@ export default async (req, context) => {
           subject: `Nová objednávka online kurzů`,
           html: `
             <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
-              <h2 style="color: #1C9C73;">Ahoj ${lektorName},</h2>
-              <p>Přes tvůj profil na webu přišla nová předběžná rezervace na službu <strong>${serviceName}</strong>.</p>
+              <h2 style="color: #1C9C73;">Dobrý den, ${lektorName},</h2>
+              <p>Přes váš profil na webu přišla nová předběžná rezervace na službu <strong>${serviceName}</strong>.</p>
               
               <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
                 <p style="margin: 0 0 5px 0;"><strong>Zákazník:</strong> ${customerName}</p>
@@ -129,7 +129,7 @@ export default async (req, context) => {
               
               <div style="border-left: 4px solid #EF67A5; padding-left: 15px; margin-top: 20px;">
                 <p style="margin: 0;"><strong>DŮLEŽITÉ:</strong><br/>
-                Prosím, s tímto termínem zatím předběžně počítej. Nyní se zákazníkem řeším platbu. Jakmile bude rezervace úspěšně uhrazena, obdržíš finální potvrzení a termín se stane plně závazným.</p>
+                Prosím, s tímto termínem zatím předběžně počítejte. Nyní se zákazníkem řeším platbu. Jakmile bude rezervace úspěšně uhrazena, obdržíte finální potvrzení a termín se stane plně závazným.</p>
               </div>
             </div>
           `,

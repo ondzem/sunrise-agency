@@ -78,7 +78,7 @@ const SunriseOnline = () => {
             </h2>
 
             <p className="flecto-desc">
-              Online kurzy angličtiny a dalších jazyků — odkudkoliv v ČR, s lektory které si sami vyberete. Konec s hodinami které nesedí do rozvrhu. Učení se přizpůsobí vašemu životu, ne naopak.
+              Online kurzy angličtiny a dalších jazyků — odkudkoliv, s lektory, které si sami vyberete. Konec s hodinami, které nesedí do rozvrhu. Učení se přizpůsobí vašemu životu, ne naopak.
             </p>
           </div>
 

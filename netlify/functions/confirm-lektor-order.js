@@ -98,8 +98,8 @@ export default async (req, context) => {
       subject: `Potvrzení platby a termínu: ${serviceName}`,
       html: `
         <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
-          <h2 style="color: #1C9C73;">Ahoj ${tutorName},</h2>
-          <p>platba za kurz od zákazníka <strong>${customerName}</strong> právě dorazila na náš účet. Tímto ti <strong>závazně potvrzuji termín!</strong></p>
+          <h2 style="color: #1C9C73;">Dobrý den, ${tutorName},</h2>
+          <p>platba za kurz od zákazníka <strong>${customerName}</strong> právě dorazila na náš účet. Tímto vám <strong>závazně potvrzuji termín!</strong></p>
           
           <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
             <h3 style="margin-top: 0; color: #EF67A5;">Shrnutí termínu:</h3>
@@ -118,8 +118,8 @@ export default async (req, context) => {
           <p style="background: #fafafa; padding: 10px; border-radius: 6px;">${message}</p>
           
           <div style="text-align: center; margin: 35px 0; padding: 25px; background: #e6fcf5; border-radius: 12px; border: 2px dashed #1C9C73;">
-            <h3 style="margin-top: 0; color: #107a51;">Vytvoř a odešli odkaz na schůzku</h3>
-            <p style="margin-bottom: 20px; font-size: 14px;">Zákazník zatím nedostal finální potvrzení. Vygeneruj prosím odkaz (Zoom/Meet), klikni na tlačítko a pošli ho zákazníkovi.</p>
+            <h3 style="margin-top: 0; color: #107a51;">Vytvořte a odešlete odkaz na schůzku</h3>
+            <p style="margin-bottom: 20px; font-size: 14px;">Zákazník zatím nedostal finální potvrzení. Vygenerujte prosím odkaz (Zoom/Meet), klikněte na tlačítko a pošlete ho zákazníkovi.</p>
             <a href="${sendZoomUrl}" style="background-color: #EF67A5; color: white; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-weight: bold; display: inline-block;">KROK 3: Odeslat odkaz na schůzku</a>
           </div>
 
