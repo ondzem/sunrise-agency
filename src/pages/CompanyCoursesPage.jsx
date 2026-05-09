@@ -49,7 +49,7 @@ const CompanyCoursesPage = () => {
         "-=1.0"
       );
 
-    // 3. Vlnová animace pro sekci "Co váš tým naučíme"
+    // 3. Vlnová animace pro sekci "Co Váš tým naučíme"
     const catSection = document.querySelector('.corp-bg-mint');
     if (catSection) {
       const waveElements = catSection.querySelectorAll('.corp-section-header, .corp-list-row');
@@ -117,7 +117,7 @@ const CompanyCoursesPage = () => {
         "-=0.2"
       );
 
-      // DESKTOP: Přizpůsobíme se vám (Formáty)
+      // DESKTOP: Přizpůsobíme se Vám (Formáty)
       if (formatSection && formatCards.length >= 3) {
         const formatsTl = gsap.timeline({
           scrollTrigger: { trigger: '.corp-premium-formats-grid', start: 'top 75%' }
@@ -187,7 +187,7 @@ const CompanyCoursesPage = () => {
         "-=0.2"
       );
 
-      // MOBILE: Přizpůsobíme se vám (Formáty)
+      // MOBILE: Přizpůsobíme se Vám (Formáty)
       if (formatSection && formatCards.length >= 3) {
         const formatsTl = gsap.timeline({
           scrollTrigger: { trigger: '.corp-premium-formats-grid', start: 'top 80%' }
@@ -271,7 +271,7 @@ const CompanyCoursesPage = () => {
     {
       id: 'cat4',
       title: 'Slovní zásoba a gramatika',
-      desc: 'Pevný základ bez mezer — odborná slovní zásoba pro váš konkrétní obor.',
+      desc: 'Pevný základ bez mezer — odborná slovní zásoba pro Váš konkrétní obor.',
       list: ['oborová terminologie', 'nejčastější chyby', 'přirozené fráze', 'výslovnost', 'testování']
     },
     {
@@ -316,11 +316,11 @@ const CompanyCoursesPage = () => {
                 <Link to="/portal" style={{ color: 'inherit', textDecoration: 'none' }}>Pro firmy a týmy</Link>
               </div>
               <h1 className="corp-title">
-                Jazyková bariéra vás stojí zakázky.<br />
+                Jazyková bariéra Vás stojí zakázky.<br />
                 Vyřešme to spolu.
               </h1>
               <p className="corp-subtitle" style={{ margin: '0 auto 2.5rem', maxWidth: '650px', color: '#666' }}>
-                Firemní jazykové kurzy sestavené na míru pro váš tým — ne podle šablony, ale podle toho, co vaši lidé skutečně potřebují.
+                Firemní jazykové kurzy sestavené na míru pro Váš tým — ne podle šablony, ale podle toho, co Vaši lidé skutečně potřebují.
               </p>
               <div className="corp-hero-actions">
                 <a href="#jak-to-funguje" className="btn btn-primary corp-primary-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
@@ -347,7 +347,7 @@ const CompanyCoursesPage = () => {
                 <div className="corp-step-num">01</div>
                 <h3 className="corp-step-title">Vstupní konzultace zdarma</h3>
                 <p className="corp-step-text">
-                  Ozveme se do 48 hodin. Zavoláme si nebo se potkáme online — zjistíme, co váš tým potřebuje, na jaké úrovni jsou zaměstnanci a kam chcete dojít. Bez závazku, bez papírování.
+                  Ozveme se do 48 hodin. Zavoláme si nebo se potkáme online — zjistíme, co Váš tým potřebuje, na jaké úrovni jsou zaměstnanci a kam chcete dojít. Bez závazku, bez papírování.
                 </p>
               </div>
               <div className="corp-step-connector"></div>
@@ -355,7 +355,7 @@ const CompanyCoursesPage = () => {
                 <div className="corp-step-num">02</div>
                 <h3 className="corp-step-title">Kurz sestavený na míru</h3>
                 <p className="corp-step-text">
-                  Žádná šablona. Na základě vstupního testu sestavíme kurz přesně pro váš tým — obsah, tempo i termíny. Lektor přijede za vámi nebo se potkáte online.
+                  Žádná šablona. Na základě vstupního testu sestavíme kurz přesně pro Váš tým — obsah, tempo i termíny. Lektor přijede za Vámi nebo se potkáte online.
                 </p>
               </div>
               <div className="corp-step-connector"></div>
@@ -379,7 +379,7 @@ const CompanyCoursesPage = () => {
       <section className="corp-section corp-bg-mint">
         <div className="corp-container">
           <div className="corp-section-header">
-            <h2>Co váš tým naučíme</h2>
+            <h2>Co Váš tým naučíme</h2>
           </div>
           <div className="corp-list-container">
             {categories.map((cat, index) => {
@@ -425,7 +425,7 @@ const CompanyCoursesPage = () => {
       <section className="corp-section corp-bg-light corp-formats-section">
         <div className="corp-container">
           <div className="corp-section-header">
-            <h2>Přizpůsobíme se vám</h2>
+            <h2>Přizpůsobíme se Vám</h2>
           </div>
           <div className="corp-premium-formats-grid">
             {/* KARTA 1 */}
@@ -433,8 +433,8 @@ const CompanyCoursesPage = () => {
               <div className="corp-premium-card-top">
                 <span className="corp-premium-number">01</span>
               </div>
-              <h3 className="corp-premium-title">Ve vaší firmě</h3>
-              <p className="corp-premium-text">Lektor přijede přímo k vám. Výuka probíhá bez přerušení pracovního rytmu vašeho týmu.</p>
+              <h3 className="corp-premium-title">Ve Vaší firmě</h3>
+              <p className="corp-premium-text">Lektor přijede přímo k Vám. Výuka probíhá bez přerušení pracovního rytmu Vašeho týmu.</p>
             </div>
 
             {/* KARTA 2 */}
@@ -505,7 +505,7 @@ const CompanyCoursesPage = () => {
       {/* SEKCE 7 — REFERENCE FIREM */}
       <div className="corp-testimonials-wrapper">
         <Testimonials
-          title="Co říkají firmy z Pardubic"
+          title="Co o nás říkají firmy?"
           showOrganicBg={true}
           disableAnimations={true}
           tableName="company_testimonials"
@@ -517,9 +517,9 @@ const CompanyCoursesPage = () => {
         <div className="corp-container">
           <div className="corp-cta-inner">
             <div className="corp-cta-left">
-              <h2 className="corp-cta-title">Není vám něco jasné?</h2>
+              <h2 className="corp-cta-title">Není Vám něco jasné?</h2>
               <p className="corp-cta-text">
-                Napište nám. Můžeme si domluvit schůzku a probrat, co by bylo pro vaši firmu to nejlepší.
+                Napište nám. Můžeme si domluvit schůzku a probrat, co by bylo pro Vaši firmu to nejlepší.
               </p>
             </div>
             <div className="corp-cta-right">

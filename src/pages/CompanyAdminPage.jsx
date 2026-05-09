@@ -6,7 +6,7 @@ import './HomepageAdmin.css';
 
 const CompanyAdminPage = () => {
   const navigate = useNavigate();
-  const MASTER_ADMIN_EMAIL = 'ondra.zeman05@gmail.com';
+  const MASTER_ADMIN_EMAIL = 'info@sunrise-la.cz';
   
   const [loading, setLoading] = useState(true);
   const [testimonials, setTestimonials] = useState([]);

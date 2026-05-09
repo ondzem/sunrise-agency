@@ -24,7 +24,7 @@ const AdminGeneratorPage = () => {
   });
 
   // HARDCODED MASTER ADMIN EMAIL ZÁMEK 
-  const MASTER_ADMIN_EMAIL = 'ondra.zeman05@gmail.com';
+  const MASTER_ADMIN_EMAIL = 'info@sunrise-la.cz';
 
   useEffect(() => {
     checkAdminAccess();
@@ -93,7 +93,7 @@ const AdminGeneratorPage = () => {
         // Nechceme vyhodit chybu, abychom nezablokovali flow, ale zalogujeme to.
       }
 
-      setStatusMsg({ text: `Účet ${fullEmail} úspěšně vytvořen! Systém vás z bezpečnostních důvodů odhlašuje...`, type: 'success' });
+      setStatusMsg({ text: `Účet ${fullEmail} úspěšně vytvořen! Systém Vás z bezpečnostních důvodů odhlašuje...`, type: 'success' });
       setEmailPrefix('');
       setPassword('');
       

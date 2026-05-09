@@ -210,7 +210,7 @@ const TutorProfilePage = () => {
           throw new Error('E-mailový server vrátil chybu.');
         }
 
-        setModal({ isOpen: true, title: 'Úspěšně odesláno', message: 'Váš vzkaz byl úspěšně odeslán! Brzy se vám ozveme.', type: 'success' });
+        setModal({ isOpen: true, title: 'Úspěšně odesláno', message: 'Váš vzkaz byl úspěšně odeslán! Brzy se Vám ozveme.', type: 'success' });
         setContactMessage(''); setContactName(''); setContactEmail(''); setContactPhone('');
       } catch (err) {
         console.error("Failed to send email", err);
@@ -325,7 +325,7 @@ const TutorProfilePage = () => {
                   : <span style={{ color: '#e74c3c' }}>Nepřijímá nové studenty</span>
                 }
               </p>
-              <p className="tp-motto">"{profileData.short_reason || 'Ráda s vámi najdu tu správnou cestu'}"</p>
+              <p className="tp-motto">"{profileData.short_reason || 'Ráda s Vámi najdu tu správnou cestu'}"</p>
             </div>
 
             {/* INTEGRATED SPECS GRID */}
@@ -452,7 +452,7 @@ const TutorProfilePage = () => {
                         }
                       `}</style>
                       <p className="service-price">
-                        {svc.price} {svc.minutes ? <span style={{ fontSize: '0.65em', color: '#888', fontWeight: '500' }}>/ {svc.minutes} min.</span> : ''}
+                        {svc.price}{!svc.price.toLowerCase().includes('kč') && !svc.price.toLowerCase().includes('zdarma') ? ' Kč' : ''} {svc.minutes ? <span style={{ fontSize: '0.65em', color: '#888', fontWeight: '500' }}>/ {svc.minutes} min.</span> : ''}
                       </p>
 
                       {parseInt(svc.lessons_count || '1', 10) > 1 && (
@@ -604,7 +604,7 @@ const TutorProfilePage = () => {
                   <label className="form-label">Zpráva *</label>
                   <textarea
                     className={`form-textarea ${contactErrors.contactMessage ? 'input-error' : ''}`}
-                    placeholder="Např. kdy se vám hodí lekce nebo co se chcete naučit..."
+                    placeholder="Např. kdy se Vám hodí lekce nebo co se chcete naučit..."
                     value={contactMessage}
                     onChange={(e) => { setContactMessage(e.target.value); if (contactErrors.contactMessage) setContactErrors({ ...contactErrors, contactMessage: null }); }}
                   ></textarea>

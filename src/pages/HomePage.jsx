@@ -17,7 +17,7 @@ const HomePage = () => {
       <Suspense fallback={<div style={{ minHeight: '100vh' }}></div>}>
         <Services />
         <SunriseOnline />
-        <Team />
+        {/* <Team />  - Skryto na přání klienta */}
         <Sponsors />
         <SummerCamps />
         <Testimonials />

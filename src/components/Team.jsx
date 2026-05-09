@@ -32,7 +32,7 @@ const Team = () => {
       name: "Martina Pešková",
       qualifications: "Pedagogická fakulta — Univerzita Hradec Králové",
       image_url: "/martina portret.jpeg",
-      description: "S úsměvem dokáže z každé gramatiky udělat srozumitelný příběh. Připraví vás k maturitě i na nejvyšší jazykovou úroveň — trpělivě a bez zbytečného stresu.",
+      description: "S úsměvem dokáže z každé gramatiky udělat srozumitelný příběh. Připraví Vás k maturitě i na nejvyšší jazykovou úroveň — trpělivě a bez zbytečného stresu.",
       teaching_focus: "Angličtina, Francouzština"
     },
     {
@@ -40,7 +40,7 @@ const Team = () => {
       name: "Marek Thompson",
       qualifications: "John F. Kennedy High School, Los Angeles",
       image_url: "/marek portret.jpeg",
-      description: "Rodilý mluvčí který mluví plynně česky. Odbourá vaše bloky při mluvení rychleji než kdokoliv jiný — a ještě vás u toho pobaví.",
+      description: "Rodilý mluvčí který mluví plynně česky. Odbourá Vaše bloky při mluvení rychleji než kdokoliv jiný — a ještě Vás u toho pobaví.",
       teaching_focus: "Angličtina"
     },
     {

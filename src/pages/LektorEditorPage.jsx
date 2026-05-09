@@ -88,7 +88,7 @@ const LektorEditorPage = () => {
     // Zjisti jestli editujeme cizi kartu jako Master Admin
     const queryParams = new URLSearchParams(window.location.search);
     const editId = queryParams.get('editId');
-    const targetId = (session.user.email === 'ondra.zeman05@gmail.com' && editId) ? editId : session.user.id;
+    const targetId = (session.user.email === 'info@sunrise-la.cz' && editId) ? editId : session.user.id;
 
     const { data: profile } = await supabase
       .from('tutors')
@@ -256,7 +256,7 @@ const LektorEditorPage = () => {
     
     const queryParams = new URLSearchParams(window.location.search);
     const editId = queryParams.get('editId');
-    const targetId = (user.email === 'ondra.zeman05@gmail.com' && editId) ? editId : user.id;
+    const targetId = (user.email === 'info@sunrise-la.cz' && editId) ? editId : user.id;
 
     const { error } = await supabase
       .from('tutors')
@@ -288,7 +288,7 @@ const LektorEditorPage = () => {
         isOpen: true, 
         title: formData.is_visible ? 'Úspěšně publikováno' : 'Uloženo (zatím skryto)', 
         message: formData.is_visible 
-          ? 'Všechny úpravy byly nahrány a vaše karta je nyní veřejně viditelná pro všechny návštěvníky webu.'
+          ? 'Všechny úpravy byly nahrány a Vaše karta je nyní veřejně viditelná pro všechny návštěvníky webu.'
           : 'Vaše úpravy byly uloženy, ale karta zůstává před veřejností skrytá. Kdykoliv ji můžete zapnout, až budete chtít být vidět.', 
         type: 'success' 
       });
@@ -299,7 +299,7 @@ const LektorEditorPage = () => {
     setModal({
       isOpen: true,
       title: 'Zamaskovat a smazat profil?',
-      message: 'FATÁLNÍ KROK! Jste si jistí? Tohle úplně vymaže vaši kartu z databáze lektorů a klienti vás nenajdou. Zítra si tu popřípadě můžete založit novou.',
+      message: 'FATÁLNÍ KROK! Jste si jistí? Tohle úplně vymaže Vaši kartu z databáze lektorů a klienti Vás nenajdou. Zítra si tu popřípadě můžete založit novou.',
       type: 'danger',
       confirmText: 'Ano, smazat kartu',
       onConfirm: executeResetProfile
@@ -311,7 +311,7 @@ const LektorEditorPage = () => {
     
     const queryParams = new URLSearchParams(window.location.search);
     const editId = queryParams.get('editId');
-    const targetId = (user.email === 'ondra.zeman05@gmail.com' && editId) ? editId : user.id;
+    const targetId = (user.email === 'info@sunrise-la.cz' && editId) ? editId : user.id;
 
     // Kompletní výmaz karty i autentizačního profilu
     const { error } = await supabase.rpc('delete_user_safe', { target_uuid: targetId });
@@ -335,14 +335,14 @@ const LektorEditorPage = () => {
     navigate('/online');
   };
 
-  if (loading) return <div style={{padding: '5rem', textAlign: 'center'}}>Načítám váš profil...</div>;
+  if (loading) return <div style={{padding: '5rem', textAlign: 'center'}}>Načítám Váš profil...</div>;
 
   return (
     <div className="editor-wrapper">
       <header className="editor-header">
         <div className="editor-title">
           <h1>Upravit můj profil lektora</h1>
-          <p>Tento panel vidíte pouze Vy. Vše co zde napíšete buduje vaši osobní stránku.</p>
+          <p>Tento panel vidíte pouze Vy. Vše co zde napíšete buduje Vaši osobní stránku.</p>
         </div>
         <button onClick={handleGoBack} className="logout-btn" style={{border: 'none', cursor: 'pointer'}}>
           <span className="material-symbols-outlined">arrow_back</span> Zpět do režimu prohlížení
@@ -358,7 +358,7 @@ const LektorEditorPage = () => {
             <h3 className="editor-section-title">1. Základní identifikace</h3>
 
             <div className="form-group" style={{ background: 'var(--color-primary, #000)', padding: '1.5rem', borderRadius: '12px', color: 'white', marginBottom: '2rem', boxShadow: '0 4px 15px rgba(0,0,0,0.1)' }}>
-              <label style={{ color: 'white', fontSize: '1.1rem', marginBottom: '1rem', display: 'block' }}>Viditelnost vaší karty na webu</label>
+              <label style={{ color: 'white', fontSize: '1.1rem', marginBottom: '1rem', display: 'block' }}>Viditelnost Vaší karty na webu</label>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', cursor: 'pointer', fontWeight: 'bold', fontSize: '1.1rem' }}>
                   <div className="toggle-switch">
@@ -369,7 +369,7 @@ const LektorEditorPage = () => {
                     />
                     <span className="toggle-slider"></span>
                   </div>
-                  {formData.is_visible ? 'Karta je ZAPNUTÁ (Viditelná všem)' : 'Karta je SKRYTÁ (Vidíte ji jen vy)'}
+                  {formData.is_visible ? 'Karta je ZAPNUTÁ (Viditelná všem)' : 'Karta je SKRYTÁ (Vidíte ji jen Vy)'}
                 </label>
               </div>
               <p style={{ fontSize: '0.85rem', opacity: 0.85, marginTop: '0.8rem', marginBottom: 0, lineHeight: 1.4 }}>
@@ -380,10 +380,21 @@ const LektorEditorPage = () => {
             <div className="form-group">
               <label>Profilová fotka obličeje</label>
               <div style={{display:'flex', alignItems:'center', gap:'1rem', flexWrap:'wrap'}}>
-                <input type="file" accept="image/*" onChange={onFileChange} style={{border:'1px dashed #ccc', padding:'1rem', borderRadius:'8px', cursor:'pointer'}}/>
-                {formData.photoUrl && <span style={{color:'green', fontWeight:'bold', fontSize:'0.8rem'}}>✓ Nahráno & Oříznuto</span>}
+                {!formData.photoUrl ? (
+                  <input type="file" accept="image/*" onChange={onFileChange} style={{border:'1px dashed #ccc', padding:'1rem', borderRadius:'8px', cursor:'pointer'}}/>
+                ) : (
+                  <div style={{display: 'flex', alignItems: 'center', gap: '1rem'}}>
+                    <img src={formData.photoUrl} alt="Náhled" style={{width: '60px', height: '60px', borderRadius: '50%', objectFit: 'cover', border: '2px solid var(--tp-pink)'}} />
+                    <button type="button" onClick={() => { setImageSrc(formData.photoUrl); setIsCropModalOpen(true); }} style={{background: 'var(--tp-pink)', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold'}}>
+                      <span className="material-symbols-outlined" style={{fontSize: '1.2rem'}}>crop</span> Upravit ořez
+                    </button>
+                    <button type="button" onClick={() => setFormData({...formData, photoUrl: ''})} style={{background: 'red', color: 'white', border: 'none', padding: '0.5rem 1rem', borderRadius: '6px', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 'bold'}}>
+                      <span className="material-symbols-outlined" style={{fontSize: '1.2rem'}}>delete</span> Smazat
+                    </button>
+                  </div>
+                )}
               </div>
-              <p style={{fontSize:'0.7rem', color:'#888', marginTop:'0.5rem'}}>Vyberte fotku ze složky počítače. Otevře se vám ořezávačka ve stylu Instagramu.</p>
+              <p style={{fontSize:'0.7rem', color:'#888', marginTop:'0.5rem'}}>Vyberte fotku ze složky počítače. Otevře se Vám ořezávačka ve stylu Instagramu.</p>
             </div>
 
             <div className="form-group">
@@ -412,7 +423,7 @@ const LektorEditorPage = () => {
 
             <div className="form-group">
               <label>Krátký citát (1 věta pod jméno)</label>
-              <textarea name="reason" value={formData.reason} onChange={handleChange} style={{minHeight: '80px'}} placeholder="Jedna stručná věta, která vás vystihuje..." />
+              <textarea name="reason" value={formData.reason} onChange={handleChange} style={{minHeight: '80px'}} placeholder="Jedna stručná věta, která Vás vystihuje..." />
             </div>
 
             <h3 className="editor-section-title" style={{marginTop:'3rem'}}>2. Detailní specifikace</h3>
@@ -596,7 +607,7 @@ const LektorEditorPage = () => {
         <div className="editor-preview-col">
           <div className="preview-label">
             <span className="material-symbols-outlined shrink-0 text-[18px]">visibility</span>
-            Vzhled vaší malé karty
+            Vzhled Vaší malé karty
           </div>
           
           <div className="preview-card">
@@ -618,7 +629,7 @@ const LektorEditorPage = () => {
                         {formData.services[0].price}
                       </>
                     ) : (
-                      `${formData.services[0].price} / ${formData.services[0].minutes || 60} min.`
+                      <>{formData.services[0].price}{!formData.services[0].price.toLowerCase().includes('kč') ? ' Kč' : ''} {formData.services[0].lessons_count && parseInt(formData.services[0].lessons_count, 10) > 1 ? `/ ${formData.services[0].lessons_count} lekcí` : `/ ${formData.services[0].minutes || 60} min.`}</>
                     )
                   ) : (
                     'Cena neuvedena'

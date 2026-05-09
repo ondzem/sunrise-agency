@@ -116,12 +116,12 @@ const Hero = () => {
           </div>
 
           <h1 className="hero-heading">
-            <span className="reveal-mask"><span className="gsap-reveal-text" style={{ display: 'block' }}>Tady vás&nbsp;</span></span>
+            <span className="reveal-mask"><span className="gsap-reveal-text" style={{ display: 'block' }}>Tady Vás&nbsp;</span></span>
             <span className="reveal-mask"><span className="italic-text gsap-reveal-text" style={{ display: 'block' }}>rozmluvíme</span></span>
           </h1>
 
           <p className="hero-description-new gsap-desc">
-            Jazyková škola v centru Pardubic pro děti, dospělé i firmy. Od roku 2012, 700+ spokojených studentů a tým lektorů, kteří vás znají jménem — ne jako číslo v seznamu.
+            Jazyková škola v centru Pardubic pro děti, dospělé i firmy. Od roku 2012, 700+ spokojených studentů a tým lektorů, kteří Vás znají jménem — ne jako číslo v seznamu.
           </p>
 
           <div className="hero-button-group">

@@ -78,7 +78,7 @@ const OnlinePage = () => {
     if (data) {
       // Filtrace: Admin vidí vše. Běžný uživatel/lektor vidí jen ZAPNUTÉ karty, 
       // ale lektor zároveň vždycky vidí svoji VLASTNÍ kartu (i když je skrytá).
-      const isAdmin = session?.user?.email === 'ondra.zeman05@gmail.com';
+      const isAdmin = session?.user?.email === 'info@sunrise-la.cz';
       const myId = session?.user?.id;
 
       const filteredData = data.filter(t => {
@@ -234,11 +234,11 @@ const OnlinePage = () => {
           <style>{`.navbar { top: var(--navbar-offset, 65px) !important; transition: top 0.4s ease-out !important; }`}</style>
 
           <div className="afb-info">
-            <span className="afb-info-role">{sessionUser.email === 'ondra.zeman05@gmail.com' ? 'MASTER ADMIN' : 'Lektorský režim zapnut'}</span>
+            <span className="afb-info-role">{sessionUser.email === 'info@sunrise-la.cz' ? 'MASTER ADMIN' : 'Lektorský režim zapnut'}</span>
           </div>
 
           <div className="afb-actions">
-            {sessionUser.email === 'ondra.zeman05@gmail.com' && (
+            {sessionUser.email === 'info@sunrise-la.cz' && (
               <Link to="/portal/admin" className="afb-btn-link">
                 <span className="material-symbols-outlined" style={{ fontSize: '1rem' }}>settings</span> Zpět do Administrace
               </Link>
@@ -258,7 +258,7 @@ const OnlinePage = () => {
             <Link to="/portal" className="online-hero-badge" style={{ textDecoration: 'none', cursor: 'pointer', color: 'var(--tp-green)' }} title="Vstup pro lektory">Online výuka</Link>
             <h1 className="online-hero-title">Učte se kdykoliv,<br />odkudkoliv.</h1>
             <p className="online-hero-desc">
-              Vyberte si lektora, který vám sedí, domluvte hodinu podle svého rozvrhu — a učte se odkudkoliv, bez zbytečného dojíždění.
+              Vyberte si lektora, který Vám sedí, domluvte hodinu podle svého rozvrhu — a učte se odkudkoliv, bez zbytečného dojíždění.
             </p>
             <div className="btn btn-primary online-scroll-indicator" onClick={() => window.scrollBy({ top: window.innerHeight * 0.7, behavior: 'smooth' })}>
               <span>Prohlédnout lektory</span>
@@ -277,7 +277,7 @@ const OnlinePage = () => {
         <div className="online-teachers-grid">
 
           {/* Obrovské tlačítko na vytvoření pro Lektora, který ještě NÁMÁ kartu */}
-          {sessionUser && sessionUser.email !== 'ondra.zeman05@gmail.com' && !myCardExists && !loading && (
+          {sessionUser && sessionUser.email !== 'info@sunrise-la.cz' && !myCardExists && !loading && (
             <div style={{
               gridColumn: '1 / -1',
               background: 'rgba(239, 103, 165, 0.05)',
@@ -307,7 +307,7 @@ const OnlinePage = () => {
               }>
 
                 {/* OVLÁDÁNÍ POŘADÍ PRO ADMINA */}
-                {sessionUser?.email === 'ondra.zeman05@gmail.com' && (
+                {sessionUser?.email === 'info@sunrise-la.cz' && (
                   <div style={{ display: 'flex', justifyContent: 'space-between', background: '#222', padding: '0.5rem 1rem', borderTopLeftRadius: '14px', borderTopRightRadius: '14px' }}>
                     <span style={{ color: '#bbb', fontSize: '0.7rem', fontWeight: 'bold', textTransform: 'uppercase', margin: 'auto 0' }}>Pořadí karet</span>
                     <div style={{ display: 'flex', gap: '0.5rem' }}>
@@ -329,7 +329,7 @@ const OnlinePage = () => {
 
                 {/* Označení "Moje Karta" */}
                 {sessionUser && sessionUser.id === teacher.id && (
-                  <div style={{ background: 'var(--color-magenta)', color: 'white', textAlign: 'center', padding: '0.4rem', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', borderTopLeftRadius: sessionUser?.email === 'ondra.zeman05@gmail.com' ? '0' : '14px', borderTopRightRadius: sessionUser?.email === 'ondra.zeman05@gmail.com' ? '0' : '14px' }}>
+                  <div style={{ background: 'var(--color-magenta)', color: 'white', textAlign: 'center', padding: '0.4rem', fontSize: '0.8rem', fontWeight: 'bold', textTransform: 'uppercase', letterSpacing: '1px', borderTopLeftRadius: sessionUser?.email === 'info@sunrise-la.cz' ? '0' : '14px', borderTopRightRadius: sessionUser?.email === 'info@sunrise-la.cz' ? '0' : '14px' }}>
                     Vaše vizitka
                   </div>
                 )}
@@ -357,7 +357,7 @@ const OnlinePage = () => {
                         ) : (
                           <>
                             <span className="material-symbols-outlined otc-badge-icon">payments</span>
-                            {teacher.services[0].price} / {teacher.services[0].minutes || 60} min.
+                            {teacher.services[0].price}{!teacher.services[0].price.toLowerCase().includes('kč') ? ' Kč' : ''} {teacher.services[0].lessons_count && parseInt(teacher.services[0].lessons_count, 10) > 1 ? `/ ${teacher.services[0].lessons_count} lekcí` : `/ ${teacher.services[0].minutes || 60} min.`}
                           </>
                         )
                       ) : (
@@ -389,9 +389,9 @@ const OnlinePage = () => {
                   </div>
 
                   {/* Tlačítka se mění podle toho, jestli je to moje karta nebo cizí (Nebo Master Admin) */}
-                  {sessionUser && (sessionUser.id === teacher.id || sessionUser.email === 'ondra.zeman05@gmail.com') ? (
-                    <Link to={`/portal/editor${sessionUser.email === 'ondra.zeman05@gmail.com' ? `?editId=${teacher.id}` : ''}`} className="btn-primary otc-profile-btn" style={{ textDecoration: 'none', textAlign: 'center', background: sessionUser.email === 'ondra.zeman05@gmail.com' ? 'var(--color-primary)' : '' }}>
-                      {sessionUser.email === 'ondra.zeman05@gmail.com' ? 'Upravit profil (Admin)' : 'Upravit profil'}
+                  {sessionUser && (sessionUser.id === teacher.id || sessionUser.email === 'info@sunrise-la.cz') ? (
+                    <Link to={`/portal/editor${sessionUser.email === 'info@sunrise-la.cz' ? `?editId=${teacher.id}` : ''}`} className="btn-primary otc-profile-btn" style={{ textDecoration: 'none', textAlign: 'center', background: sessionUser.email === 'info@sunrise-la.cz' ? 'var(--color-primary)' : '' }}>
+                      {sessionUser.email === 'info@sunrise-la.cz' ? 'Upravit profil (Admin)' : 'Upravit profil'}
                     </Link>
                   ) : (
                     <Link to={`/lektor/${teacher.id}`} className="btn-primary otc-profile-btn" style={{ textDecoration: 'none', textAlign: 'center' }}>

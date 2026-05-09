@@ -78,7 +78,7 @@ const SunriseOnline = () => {
             </h2>
 
             <p className="flecto-desc">
-              Online kurzy angličtiny a dalších jazyků — odkudkoliv, s lektory, které si sami vyberete. Konec s hodinami, které nesedí do rozvrhu. Učení se přizpůsobí vašemu životu, ne naopak.
+              Online kurzy angličtiny a dalších jazyků — odkudkoliv, s lektory, které si sami vyberete. Konec s hodinami, které nesedí do rozvrhu. Učení se přizpůsobí Vašemu životu, ne naopak.
             </p>
           </div>
 
@@ -95,7 +95,7 @@ const SunriseOnline = () => {
                 <div className="flecto-note-text">
                   <span className="note-title">Zvolte si lektora i čas!</span>
                   <span className="note-body">
-                    Vyberte si lektora podle stylu výuky a domluvte hodinu, kdy vám to opravdu sedí.
+                    Vyberte si lektora podle stylu výuky a domluvte hodinu, kdy Vám to opravdu sedí.
                   </span>
                   <Link to="/online#lektori" className="note-link">Vybrat lektora</Link>
                 </div>

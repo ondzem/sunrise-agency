@@ -35,7 +35,7 @@ const LoginPage = () => {
       setErrorMsg('Špatný e-mail nebo heslo. Pokuste se znovu.');
     } else if (data.session) {
       // Úspěšně přihlášen - Roztřídění cest
-      if (email.toLowerCase() === 'ondra.zeman05@gmail.com') {
+      if (email.toLowerCase() === 'info@sunrise-la.cz') {
         navigate('/portal/admin');
       } else {
         navigate('/online');

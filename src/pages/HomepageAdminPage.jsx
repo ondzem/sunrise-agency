@@ -8,7 +8,7 @@ import './HomepageAdmin.css';
 
 const HomepageAdminPage = () => {
   const navigate = useNavigate();
-  const MASTER_ADMIN_EMAIL = 'ondra.zeman05@gmail.com';
+  const MASTER_ADMIN_EMAIL = 'info@sunrise-la.cz';
   
   const [loading, setLoading] = useState(true);
   const [team, setTeam] = useState([]);
@@ -37,6 +37,7 @@ const HomepageAdminPage = () => {
   const [zoom, setZoom] = useState(1);
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);
+  const [cropTarget, setCropTarget] = useState(null); // 'news' or 'team'
 
   const [modal, setModal] = useState({ isOpen: false, title: '', message: '', type: 'info', onConfirm: null });
 
@@ -78,20 +79,33 @@ const HomepageAdminPage = () => {
   };
 
   // --- TEAM LOGIC ---
-  const handleTeamImageDrop = (e) => {
+  const readFile = (file) => {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.addEventListener('load', () => resolve(reader.result), false);
+      reader.readAsDataURL(file);
+    });
+  };
+
+  const handleTeamImageDrop = async (e) => {
     e.preventDefault();
     setIsDragging(false);
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const file = e.dataTransfer.files[0];
-      setTeamImageFile(file);
-      setTeamImagePreview(URL.createObjectURL(file));
+      let imageDataUrl = await readFile(file);
+      setImageSrc(imageDataUrl);
+      setCropTarget('team');
+      setIsCropModalOpen(true);
     }
   };
-  const handleTeamImageSelect = (e) => {
+  const handleTeamImageSelect = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
       const file = e.target.files[0];
-      setTeamImageFile(file);
-      setTeamImagePreview(URL.createObjectURL(file));
+      let imageDataUrl = await readFile(file);
+      setImageSrc(imageDataUrl);
+      setCropTarget('team');
+      setIsCropModalOpen(true);
+      e.target.value = null;
     }
   };
 
@@ -165,14 +179,6 @@ const HomepageAdminPage = () => {
   };
 
   // --- NEWS LOGIC ---
-  const readFile = (file) => {
-    return new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.addEventListener('load', () => resolve(reader.result), false);
-      reader.readAsDataURL(file);
-    });
-  };
-
   const handleNewsImageDrop = async (e) => {
     e.preventDefault();
     setIsNewsDragging(false);
@@ -180,6 +186,7 @@ const HomepageAdminPage = () => {
       const file = e.dataTransfer.files[0];
       let imageDataUrl = await readFile(file);
       setImageSrc(imageDataUrl);
+      setCropTarget('news');
       setIsCropModalOpen(true);
     }
   };
@@ -189,6 +196,7 @@ const HomepageAdminPage = () => {
       const file = e.target.files[0];
       let imageDataUrl = await readFile(file);
       setImageSrc(imageDataUrl);
+      setCropTarget('news');
       setIsCropModalOpen(true);
       e.target.value = null; // reset
     }
@@ -200,11 +208,19 @@ const HomepageAdminPage = () => {
       
       const res = await fetch(croppedImageBase64);
       const blob = await res.blob();
-      const file = new File([blob], "cropped_news.jpg", { type: "image/jpeg" });
       
-      setNewsImageFile(file);
-      setNewsImagePreview(croppedImageBase64);
+      if (cropTarget === 'news') {
+        const file = new File([blob], "cropped_news.jpg", { type: "image/jpeg" });
+        setNewsImageFile(file);
+        setNewsImagePreview(croppedImageBase64);
+      } else if (cropTarget === 'team') {
+        const file = new File([blob], "cropped_team.jpg", { type: "image/jpeg" });
+        setTeamImageFile(file);
+        setTeamImagePreview(croppedImageBase64);
+      }
+      
       setIsCropModalOpen(false);
+      setCropTarget(null);
     } catch (e) {
       console.error(e);
       setModal({ isOpen: true, title: 'Chyba', message: 'Chyba při ořezávání obrázku.', type: 'danger' });
@@ -497,7 +513,7 @@ const HomepageAdminPage = () => {
       </section>
 
       {/* SECTION TEAM */}
-      <section className="admin-section">
+      <section className="admin-section" style={{ display: 'none' }}>
         <h2><span className="material-symbols-outlined">school</span> Sekce: Naši lektoři</h2>
         <div className="admin-grid-layout">
           <form className="admin-form" onSubmit={saveTeamMember}>
@@ -649,8 +665,8 @@ const HomepageAdminPage = () => {
               image={imageSrc}
               crop={crop}
               zoom={zoom}
-              aspect={3/4}
-              cropShape="rect"
+              aspect={cropTarget === 'team' ? 1/1 : 3/4}
+              cropShape={cropTarget === 'team' ? "round" : "rect"}
               onCropChange={setCrop}
               onCropComplete={(cA, cAP) => setCroppedAreaPixels(cAP)}
               onZoomChange={setZoom}
@@ -660,7 +676,7 @@ const HomepageAdminPage = () => {
             <label style={{fontSize:'0.8rem', fontWeight:'bold', color:'#333'}}>Přiblížení (Zoom)</label>
             <input type="range" value={zoom} min={1} max={3} step={0.1} onChange={(e) => setZoom(e.target.value)} style={{width:'100%', margin:'0.5rem 0 1.5rem'}} />
             <button onClick={showCroppedImage} style={{padding:'1rem', width:'100%', background:'var(--color-primary)', color:'white', border:'none', borderRadius:'8px', fontWeight:'800', cursor:'pointer', textTransform:'uppercase'}}>Vyříznout a uložit</button>
-            <button onClick={() => setIsCropModalOpen(false)} style={{padding:'0.5rem 1rem', width:'100%', background:'transparent', color:'#888', border:'none', cursor:'pointer', marginTop:'0.5rem', fontWeight:'bold'}}>Zrušit</button>
+            <button onClick={() => { setIsCropModalOpen(false); setCropTarget(null); }} style={{padding:'0.5rem 1rem', width:'100%', background:'transparent', color:'#888', border:'none', cursor:'pointer', marginTop:'0.5rem', fontWeight:'bold'}}>Zrušit</button>
           </div>
         </div>
       )}

@@ -83,7 +83,7 @@ const SummerProgramPage = () => {
   useEffect(() => {
     const initAdmin = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (isAdminUrl && session?.user?.email === 'ondra.zeman05@gmail.com') {
+      if (isAdminUrl && session?.user?.email === 'info@sunrise-la.cz') {
         setIsAdminMode(true);
       }
       
@@ -320,7 +320,7 @@ const SummerProgramPage = () => {
     e.preventDefault();
     const errors = {};
     if (!adultForm.course) errors.course = 'Vyberte prosím kurz.';
-    if (!adultForm.name.trim()) errors.name = 'Zadejte vaše jméno.';
+    if (!adultForm.name.trim()) errors.name = 'Zadejte Vaše jméno.';
     if (!adultForm.phone.trim()) errors.phone = 'Zadejte telefonní číslo.';
     if (!adultForm.email.trim()) errors.email = 'Zadejte e-mail.';
     if (!adultForm.gdpr) errors.gdpr = 'Musíte souhlasit se zpracováním údajů.';
@@ -626,9 +626,9 @@ const SummerProgramPage = () => {
         <div className="summer-container">
           <div className="summer-cta-inner">
             <div className="summer-cta-left">
-              <h2 className="summer-cta-title">Není vám něco jasné?</h2>
+              <h2 className="summer-cta-title">Není Vám něco jasné?</h2>
               <p className="summer-cta-text">
-                Rádi vám zodpovíme každý dotaz. Neváhejte nás kontaktovat.
+                Rádi Vám zodpovíme každý dotaz. Neváhejte nás kontaktovat.
               </p>
             </div>
             <div className="summer-cta-right">
@@ -1198,7 +1198,7 @@ const SummerProgramPage = () => {
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
                   <p style={{ margin: 0 }}>
                     <strong>Angličtina na cesty</strong><br />
-                    Praktický kurz zaměřený na situace, které vás čekají při cestování do zahraničí. Během tří večerů získáte jistotu v komunikaci a zvládnete se domluvit v běžných situacích bez stresu.
+                    Praktický kurz zaměřený na situace, které Vás čekají při cestování do zahraničí. Během tří večerů získáte jistotu v komunikaci a zvládnete se domluvit v běžných situacích bez stresu.
                   </p>
 
                   <details style={{ background: bgTheme, borderRadius: '8px', border: `1px solid ${borderTheme}`, cursor: 'pointer' }}>
@@ -1242,7 +1242,7 @@ const SummerProgramPage = () => {
                         <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Metodika výuky</h4>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
                           {[
-                            { title: 'Modelové situace', desc: 'Simulace reálných situací, které vás na cestách potkají' },
+                            { title: 'Modelové situace', desc: 'Simulace reálných situací, které Vás na cestách potkají' },
                             { title: 'Okamžitá praxe', desc: 'Minimum teorie, důraz na okamžité použití jazyka' },
                             { title: 'Užitečné fráze', desc: 'Základní fráze a otázky pro cestování' },
                             { title: 'Komunikační jistota', desc: 'Naučíte se vést dialog a reagovat na otázky' }
@@ -1480,7 +1480,7 @@ const SummerProgramPage = () => {
                 </div>
                 <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>Přihláška odeslána!</h2>
                 <p style={{ fontSize: '1.1rem', color: '#555', marginBottom: '30px' }}>
-                  Děkujeme za přihlášení. Během několika minut vám zašleme potvrzovací e-mail s platebními údaji.
+                  Děkujeme za přihlášení. Během několika minut Vám zašleme potvrzovací e-mail s platebními údaji.
                 </p>
                 <button className="btn btn-primary" onClick={closeAdultModal} style={{ width: '100%', backgroundColor: 'var(--tp-pink)', border: 'none' }}>Zavřít</button>
               </div>

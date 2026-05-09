@@ -1,7 +1,7 @@
 .sponsors-section {
   background-color: transparent; /* Aby negativní margin neschoval fotky lektorů, pokud by bylo bílé pozadí natvrdo */
   padding: 0 0 8rem 0; 
-  margin-top: -6rem; /* Extrémní posun do sekce lektorů */
+  margin-top: 2rem; /* Změněno z -6rem na kladnou hodnotu, protože sekce Lektorů je skrytá */
   overflow: hidden;
   position: relative;
   width: 100%;
@@ -91,7 +91,7 @@
 @media screen and (max-width: 767px) {
   .sponsors-section {
     padding: 0 0 4rem 0; /* Zmenšený prostor pod logy (původně 6rem) */
-    margin-top: 0rem; /* Zvětšený prostor nad logy (zrušení záporného posunu -2.5rem) */
+    margin-top: 1rem; /* Zvětšený prostor nad logy */
   }
   
   .sponsor-logo-container {
@@ -113,7 +113,7 @@
 @media screen and (max-width: 480px) {
   .sponsors-section {
     padding: 0 0 4rem 0;
-    margin-top: -1.5rem; /* Jemně posunuto níže (původně -3rem) */
+    margin-top: 1rem; /* Posunuto dolů (původně -1.5rem kvůli lektorům) */
   }
 
   .sponsor-logo-container {

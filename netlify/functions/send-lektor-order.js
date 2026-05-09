@@ -68,7 +68,7 @@ export default async (req, context) => {
                 Zákazník zatím nemá vybraný přesný balíček a cenu. Spojte se s ním (nebo se s ním spojí lektor) a domluvte detaily. Jakmile budete vědět cenu, můžete mu následně odeslat platební údaje kliknutím níže.</p>
               ` : `
                 <p style="margin: 0 0 15px 0;"><strong>⚠️ Krok 1: Odeslat platební údaje zákazníkovi</strong><br/>
-                Kliknutím na modré tlačítko se vám otevře předepsaný e-mail pro zákazníka. Nezapomeňte do něj vložit částku a QR kód!</p>
+                Kliknutím na modré tlačítko se Vám otevře předepsaný e-mail pro zákazníka. Nezapomeňte do něj vložit částku a QR kód!</p>
               `}
               
               <a href="${paymentInfoUrl}" style="display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">📧 Odeslat pokyny k platbě zákazníkovi</a>
@@ -91,7 +91,7 @@ export default async (req, context) => {
           html: `
             <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
               <h2 style="color: #1C9C73;">Dobrý den, ${lektorName},</h2>
-              <p>Přes váš profil na webu přišla nová předběžná rezervace na službu <strong>${serviceName}</strong>.</p>
+              <p>Přes Váš profil na webu přišla nová předběžná rezervace na službu <strong>${serviceName}</strong>.</p>
               
               <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
                 <p style="margin: 0 0 5px 0;"><strong>Zákazník:</strong> ${customerName}</p>

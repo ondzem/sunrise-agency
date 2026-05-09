@@ -232,7 +232,7 @@ const ContactPage = () => {
 
                 <div className="form-group full-width">
                   <label>VAŠE ZPRÁVA *</label>
-                  <textarea name="message" value={formData.message} onChange={handleInputChange} rows="6" placeholder="Jak vám můžeme pomoci?" required onInvalid={(e) => e.target.setCustomValidity('Vyplňte prosím toto pole.')} onInput={(e) => e.target.setCustomValidity('')}></textarea>
+                  <textarea name="message" value={formData.message} onChange={handleInputChange} rows="6" placeholder="Jak Vám můžeme pomoci?" required onInvalid={(e) => e.target.setCustomValidity('Vyplňte prosím toto pole.')} onInput={(e) => e.target.setCustomValidity('')}></textarea>
                 </div>
 
                 <div className="form-group checkbox-group full-width" style={{ marginTop: '-8px', marginBottom: '24px' }}>
@@ -244,7 +244,7 @@ const ContactPage = () => {
 
                 {submitStatus === 'success' && (
                   <div style={{ padding: '15px', backgroundColor: '#e6f4ea', color: '#1C9C73', borderRadius: '8px', marginBottom: '20px', fontWeight: '500' }}>
-                    Zpráva byla úspěšně odeslána. Brzy se vám ozveme!
+                    Zpráva byla úspěšně odeslána. Brzy se Vám ozveme!
                   </div>
                 )}
                 {submitStatus === 'error' && (

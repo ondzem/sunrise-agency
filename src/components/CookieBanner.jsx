@@ -45,9 +45,9 @@ const CookieBanner = () => {
               <span className="material-symbols-outlined">cookie</span>
             </div>
             <div className="cookie-text">
-              <h4>Respektujeme vaše soukromí</h4>
+              <h4>Respektujeme Vaše soukromí</h4>
               <p>
-                Pro správné fungování webu, analýzu návštěvnosti a případnou personalizaci obsahu potřebujeme váš souhlas s využitím cookies.
+                Pro správné fungování webu, analýzu návštěvnosti a případnou personalizaci obsahu potřebujeme Váš souhlas s využitím cookies.
               </p>
             </div>
           </div>
@@ -94,7 +94,7 @@ const CookieBanner = () => {
               <div className="cookie-option">
                 <div className="cookie-option-info">
                   <label>Analytické cookies</label>
-                  <span>Pomáhají nám pochopit, co vás na webu zajímá nejvíce, abychom ho mohli neustále zlepšovat (např. Google Analytics).</span>
+                  <span>Pomáhají nám pochopit, co Vás na webu zajímá nejvíce, abychom ho mohli neustále zlepšovat (např. Google Analytics).</span>
                 </div>
                 <label className="cookie-toggle" style={{ cursor: 'pointer' }}>
                   <input type="checkbox" checked={preferences.analytics} onChange={e => setPreferences({...preferences, analytics: e.target.checked})} />
@@ -105,7 +105,7 @@ const CookieBanner = () => {
               <div className="cookie-option">
                 <div className="cookie-option-info">
                   <label>Marketingové cookies</label>
-                  <span>Slouží k zobrazení relevantních reklam a měření jejich účinnosti, abychom vás neobtěžovali nesmysly (např. Facebook Pixel).</span>
+                  <span>Slouží k zobrazení relevantních reklam a měření jejich účinnosti, abychom Vás neobtěžovali nesmysly (např. Facebook Pixel).</span>
                 </div>
                 <label className="cookie-toggle" style={{ cursor: 'pointer' }}>
                   <input type="checkbox" checked={preferences.marketing} onChange={e => setPreferences({...preferences, marketing: e.target.checked})} />

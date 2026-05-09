@@ -71,7 +71,7 @@ const createAdultsDesc = (perex, jakVyukaProbiha, coSeNauci, vysledek) => (
         )}
         {coSeNauci && (
           <div>
-            <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Co vás čeká</h4>
+            <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Co Vás čeká</h4>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '10px' }}>
               {coSeNauci.map((item, idx) => (
                 <div key={idx} style={{ background: '#ffffff', padding: '12px 16px', borderRadius: '10px', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.04)', display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
@@ -230,7 +230,7 @@ const coursesData = [
     desc: 'Komplexní výuka gramatiky a slovní zásoby i konverzace pro všechny úrovně.',
     options: [
       { id: 'opt_18', title: 'Angličtina s učebnicí (mírně pokročilí) (SUNRISE Place)', time: 'St 18:00–19:00', price: '3 750 Kč', isOnline: false, desc: createAdultsDesc(
-        <><span style={{fontWeight:'700'}}>Komplexní kurz</span>, který vás provede angličtinou od základů až po pokročilejší úroveň.</>,
+        <><span style={{fontWeight:'700'}}>Komplexní kurz</span>, který Vás provede angličtinou od základů až po pokročilejší úroveň.</>,
         'Lekce mají jasnou strukturu – kombinují gramatiku, poslech, čtení i konverzaci. Vše si postupně vysvětlíme a ihned procvičíme v praxi.',
         ['přehledná a srozumitelná gramatika', 'poslechy a práce s reálnými situacemi', 'rozšiřování slovní zásoby', 'mluvení v bezpečném prostředí'],
         'Budete rozumět, mluvit i psát s větší jistotou a bez zbytečných chyb.'
@@ -813,7 +813,7 @@ const CoursesPage = () => {
   useEffect(() => {
     const initAdmin = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (isAdminUrl && session?.user?.email === 'ondra.zeman05@gmail.com') {
+      if (isAdminUrl && session?.user?.email === 'info@sunrise-la.cz') {
         setIsAdminMode(true);
       }
       
@@ -996,7 +996,7 @@ const CoursesPage = () => {
               <div className="course-cta-left">
                 <h2 className="course-cta-title">Nenašli jste kurz?</h2>
                 <p className="course-cta-text">
-                  Jsme tu pro vás. Napište nám své požadavky a společně vymyslíme individuální plán výuky na míru.
+                  Jsme tu pro Vás. Napište nám své požadavky a společně vymyslíme individuální plán výuky na míru.
                 </p>
               </div>
               <div className="course-cta-right">

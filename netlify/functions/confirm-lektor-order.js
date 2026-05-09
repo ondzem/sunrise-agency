@@ -99,7 +99,7 @@ export default async (req, context) => {
       html: `
         <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
           <h2 style="color: #1C9C73;">Dobrý den, ${tutorName},</h2>
-          <p>platba za kurz od zákazníka <strong>${customerName}</strong> právě dorazila na náš účet. Tímto vám <strong>závazně potvrzuji termín!</strong></p>
+          <p>platba za kurz od zákazníka <strong>${customerName}</strong> právě dorazila na náš účet. Tímto Vám <strong>závazně potvrzuji termín!</strong></p>
           
           <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0; border: 1px solid #eee;">
             <h3 style="margin-top: 0; color: #EF67A5;">Shrnutí termínu:</h3>

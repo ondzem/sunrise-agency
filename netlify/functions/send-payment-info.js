@@ -29,6 +29,7 @@ export default async (req, context) => {
               button { background-color: #007bff; color: white; border: none; padding: 14px 20px; font-size: 16px; font-weight: bold; border-radius: 6px; cursor: pointer; width: 100%; margin-top: 25px; transition: background 0.2s; }
               button:hover { background-color: #0056b3; }
               .info { background: #e9f5ff; padding: 15px; border-radius: 6px; font-size: 14px; color: #0056b3; margin-bottom: 20px; border-left: 4px solid #007bff; }
+              .file-input { background: #fdfdfd; padding: 10px; border: 1px dashed #ccc; border-radius: 6px; margin-bottom: 15px; cursor: pointer; }
             </style>
           </head>
           <body>
@@ -36,7 +37,7 @@ export default async (req, context) => {
               <h1>📧 Odeslat pokyny k platbě</h1>
               <div class="info">Zkontrolujte údaje níže, doplňte částku nebo upravte text podle potřeby a klikněte na Odeslat. E-mail se odešle z adresy info@sunrise-la.cz zákazníkovi.</div>
               
-              <form method="POST" action="/api/send-payment-info">
+              <form method="POST" action="/api/send-payment-info" enctype="multipart/form-data">
                 <label>E-mail zákazníka:</label>
                 <input type="email" name="customerEmail" value="${customerEmail}" required readonly style="background: #f9f9f9;">
                 
@@ -50,16 +51,19 @@ děkujeme za Váš zájem o službu "${serviceName}".
 
 Váš preferovaný termín (${date} v ${time}) jsme předběžně rezervovali u lektora (${tutorName}).
 
-Pro závazné potvrzení rezervace prosím proveďte platbu na náš bankovní účet:
+Pro závazné potvrzení rezervace, prosím, proveďte platbu na náš bankovní účet:
 Číslo účtu: [DOPLŇTE ČÍSLO ÚČTU]
 Částka: [DOPLŇTE ČÁSTKU] Kč
-Do poznámky prosím uveďte své jméno.
+Do poznámky, prosím, uveďte své jméno.
 
 Jakmile platba dorazí, Váš lektor Vám na tento e-mail zašle finální potvrzení a odkaz na připojení k online schůzce.
 
 S pozdravem,
-Lucie Tomková
-SUNRISE Agency</textarea>
+Mgr. Lucie Tomková
+SUNRISE Language Agency, s.r.o.</textarea>
+
+                <label>QR kód pro platbu (nepovinné):</label>
+                <input type="file" name="qrCode" accept="image/*" class="file-input" />
 
                 <button type="submit">Odeslat e-mail s pokyny</button>
               </form>
@@ -78,6 +82,7 @@ SUNRISE Agency</textarea>
       const customerEmail = formData.get('customerEmail');
       const subject = formData.get('subject');
       const message = formData.get('message');
+      const qrCodeFile = formData.get('qrCode');
 
       if (!customerEmail || !message) {
         return new Response('Chyba: Chybí e-mail nebo zpráva.', { status: 400 });
@@ -96,16 +101,30 @@ SUNRISE Agency</textarea>
       // Zpráva se pošle jako čistý text, který jsme zadali do textarea, ale obalíme ho do HTML, aby vypadal hezky
       const htmlMessage = message.replace(/\n/g, '<br/>');
 
-      await transporter.sendMail({
+      const mailOptions = {
         from: `"Jazyková škola SUNRISE" <${process.env.SMTP_USER}>`,
         to: customerEmail,
+        replyTo: 'info@sunrise-la.cz',
         subject: subject,
         html: `
           <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6; color: #333;">
             ${htmlMessage}
           </div>
         `,
-      });
+        attachments: []
+      };
+
+      if (qrCodeFile && qrCodeFile.size > 0) {
+        const arrayBuffer = await qrCodeFile.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        mailOptions.attachments.push({
+          filename: qrCodeFile.name || 'qrcode.png',
+          content: buffer,
+          contentType: qrCodeFile.type || 'image/png'
+        });
+      }
+
+      await transporter.sendMail(mailOptions);
 
       return new Response(`
         <html>

@@ -111,12 +111,12 @@ const Testimonials = ({
     {
       author: "Jakub",
       role: "Mise naděje",
-      text: "Sunrise Language Agency je jazyková škola na vysoké úrovni naučí vás mluvit plynule Jsem rád, že jejich prakticky zaměřené kurzy prinasejí dovednosti, které se dají okamžitě použít v každodenním Zivoté, při cestování i v práci. Učite se mluvit, lektorka Martina Přibylová je v tomto oboru velice zkušená naucí vás rozvijet věty, mluvit plynule, a taky se nestydět udělat chybu, z mých osobní zkušeností doporučuji všem kdo se chtěj začít učit anglicky na vysoké úrovni",
+      text: "Sunrise Language Agency je jazyková škola na vysoké úrovni naučí Vás mluvit plynule Jsem rád, že jejich prakticky zaměřené kurzy prinasejí dovednosti, které se dají okamžitě použít v každodenním Zivoté, při cestování i v práci. Učite se mluvit, lektorka Martina Přibylová je v tomto oboru velice zkušená naucí Vás rozvijet věty, mluvit plynule, a taky se nestydět udělat chybu, z mých osobní zkušeností doporučuji všem kdo se chtěj začít učit anglicky na vysoké úrovni",
     },
     {
       author: "Martina Podstavcová",
       role: "English club",
-      text: "Holky se k vám vždy strašně moc těší, díky moc za vaši péči, skvělý přístup a parádní program pro dětičky",
+      text: "Holky se k Vám vždy strašně moc těší, díky moc za Vaši péči, skvělý přístup a parádní program pro dětičky",
     },
     {
       author: "Eva Em Urbanová",

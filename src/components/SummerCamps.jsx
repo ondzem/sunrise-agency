@@ -10,7 +10,7 @@ gsap.registerPlugin(ScrollTrigger);
 const SummerCamps = () => {
   const container = useRef(null);
 
-  // Pole fotek obsahující vaši zadanou reálnou fotografii a pak sérii velkých lifestylových placeholders na vyplnění řádků
+  // Pole fotek obsahující Vaši zadanou reálnou fotografii a pak sérii velkých lifestylových placeholders na vyplnění řádků
   const galleryImages = [
     "/Upraveny klucina se smoulou.webp",      // Původní 3. nyní 1.
     "/Tabor zabavne uceni.webp",           // Původní 10. nyní 2.

@@ -394,7 +394,7 @@ const EnglishClubPage = () => {
 
   const handleAdminLogin = async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (user && user.email === 'ondra.zeman05@gmail.com') {
+    if (user && user.email === 'info@sunrise-la.cz') {
       setIsAdminMode(true);
     } else {
       alert("Nejste přihlášen jako administrátor nebo nemáte dostatečná oprávnění.");
@@ -659,7 +659,7 @@ const EnglishClubPage = () => {
         <div className="eclub-hero-content">
           <div className="eclub-hero-text">
             <div className="eclub-badge"><Link to="/portal" style={{ color: 'inherit', textDecoration: 'none' }}>Pro děti 2–14 let</Link></div>
-            <h1 className="eclub-title">Angličtina, kterou si vaše dítě zamiluje</h1>
+            <h1 className="eclub-title">Angličtina, kterou si Vaše dítě zamiluje</h1>
             <p className="eclub-subtitle">
               Program, kde se děti učí angličtinu přirozeně, bez stresu a nucení. Nejde o klasickou výuku, ale o prostředí, kde je angličtina součástí každé aktivity během lekce.
             </p>
@@ -720,7 +720,7 @@ const EnglishClubPage = () => {
             <div className="eclub-info-item">
               <span className="material-symbols-outlined">card_giftcard</span>
               <h4>První lekce</h4>
-              <p>První lekce vašeho dítěte u nás je zdarma.</p>
+              <p>První lekce Vašeho dítěte u nás je zdarma.</p>
             </div>
             <div className="eclub-info-item">
               <span className="material-symbols-outlined">family_restroom</span>
@@ -743,7 +743,7 @@ const EnglishClubPage = () => {
             <div className="eclub-cta-left">
               <h2 className="eclub-cta-title">Máte nějaký dotaz?</h2>
               <p className="eclub-cta-text">
-                Rádi vám zodpovíme každý dotaz. Neváhejte nás kontaktovat.
+                Rádi Vám zodpovíme každý dotaz. Neváhejte nás kontaktovat.
               </p>
             </div>
             <div className="eclub-cta-right">
