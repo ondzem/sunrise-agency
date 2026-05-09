@@ -217,7 +217,8 @@ const clubsData = [
             <div>
               <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Jak výuka probíhá</h4>
               <div style={{ background: '#ffffff', padding: '16px', borderRadius: '10px', fontSize: '0.9rem', color: '#334155', lineHeight: '1.5', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.04)' }}>
-                Stejně jako u mladších dětí začíná lekce hledáním knížky pomocí jazykové hry. Následně se pracuje s náročnějšími materiály.
+                Stejně jako u mladších dětí, každá lekce začíná hravým rituálem – hledáním knížky (např. musí vyluštit rébus, podle kterého knížku najdou). Následně se ale pracuje s náročnějšími materiály.<br /><br />
+                <strong style={{ color: '#0284C7' }}>👉 Už tímto způsobem se učí jazyk přirozeně a zábavně hned od začátku.</strong>
               </div>
             </div>
 
@@ -324,13 +325,7 @@ const clubsData = [
               </div>
             </div>
 
-            {/* Další benefit */}
-            <div>
-              <h4 style={{ fontSize: '0.85rem', fontWeight: '700', color: '#888', letterSpacing: '1px', textTransform: 'uppercase', marginBottom: '12px' }}>Zdravá strava v ceně</h4>
-              <div style={{ background: '#ffffff', padding: '16px', borderRadius: '10px', fontSize: '0.9rem', color: '#334155', lineHeight: '1.5', boxShadow: '0 2px 4px rgba(0,0,0,0.02)', border: '1px solid rgba(0,0,0,0.04)' }}>
-                Děti mají během celého dopoledne zajištěno kvalitní a zdravé stravování z partnerského bistra Sarasin.
-              </div>
-            </div>
+
 
             {/* Výsledek */}
             <div style={{ background: 'rgba(71, 85, 105, 0.05)', padding: '16px', borderRadius: '10px', borderLeft: '4px solid #475569', marginTop: '8px' }}>
