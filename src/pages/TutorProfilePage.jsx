@@ -131,18 +131,18 @@ const TutorProfilePage = () => {
   const handleSlotClick = (e, day, from, to) => {
     e.preventDefault();
 
+    if (!selectedService) {
+      setModal({ isOpen: true, title: 'Vyberte si službu', message: 'Pro rezervaci konkrétního termínu si prosím nejdříve vyberte jednu z nabízených služeb (výše nad kalendářem).', type: 'warning' });
+      return;
+    }
+
     let prefill = '';
+    const isPackage = parseInt(selectedService.lessons_count || '1', 10) > 1;
 
-    if (selectedService) {
-      const isPackage = parseInt(selectedService.lessons_count || '1', 10) > 1;
-
-      if (isPackage) {
-        prefill = `Dobrý den,\nobjednávám si výhodný balíček ${selectedService.lessons_count} lekcí ("${selectedService.title}") v ceně ${selectedService.price}.\n\nNíže uvádím mnou vybraný termín pro naši PRVNÍ lekci:\n🕒 ${day} od ${from} do ${to}\n\nBeru na vědomí, že na zbylých termínech se společně domluvíme v rámci naší první hodiny a že pro závazné potvrzení této první lekce je nutné vyčkat na e-mail s platebními údaji a provést platbu. Děkuji a těším se na spolupráci.`;
-      } else {
-        prefill = `Dobrý den,\nměl(a) bych zájem o nabízenou službu "${selectedService.title}" v ceně ${selectedService.price}.\n\nJako termín jsem si vybral(a):\n🕒 ${day} od ${from} do ${to}\n\nBeru na vědomí, že pro závazné potvrzení termínu je nutné vyčkat na e-mail s platebními údaji a provést platbu. Děkuji a těším se na odpověď.`;
-      }
+    if (isPackage) {
+      prefill = `Dobrý den,\nobjednávám si výhodný balíček ${selectedService.lessons_count} lekcí ("${selectedService.title}") v ceně ${selectedService.price}.\n\nNíže uvádím mnou vybraný termín pro naši PRVNÍ lekci:\n🕒 ${day} od ${from} do ${to}\n\nBeru na vědomí, že na zbylých termínech se společně domluvíme v rámci naší první hodiny a že pro závazné potvrzení této první lekce je nutné vyčkat na e-mail s platebními údaji a provést platbu. Děkuji a těším se na spolupráci.`;
     } else {
-      prefill = `Dobrý den,\nměl(a) bych zájem o lekci ve Vašem volném termínu:\n🕒 ${day} od ${from} do ${to}\n\nBeru na vědomí, že pro závazné potvrzení termínu je nutné vyčkat na e-mail s platebními údaji a provést platbu. Děkuji a těším se na odpověď.`;
+      prefill = `Dobrý den,\nměl(a) bych zájem o nabízenou službu "${selectedService.title}" v ceně ${selectedService.price}.\n\nJako termín jsem si vybral(a):\n🕒 ${day} od ${from} do ${to}\n\nBeru na vědomí, že pro závazné potvrzení termínu je nutné vyčkat na e-mail s platebními údaji a provést platbu. Děkuji a těším se na odpověď.`;
     }
 
     setContactMessage(prefill);
@@ -500,7 +500,7 @@ const TutorProfilePage = () => {
             <span className="section-line"></span>
           </div>
 
-          {selectedService && (
+          {selectedService ? (
             <div style={{ background: 'var(--tp-green-light)', color: 'var(--tp-green)', padding: '16px 24px', borderRadius: 'var(--tp-radius-md)', marginBottom: '32px', fontWeight: '700', fontSize: '15px', border: '1px solid #b7e4d5', display: 'flex', alignItems: 'center', gap: '12px' }}>
               <span style={{ fontSize: '20px' }}>✓</span>
               {parseInt(selectedService.lessons_count || '1', 10) > 1 ? (
@@ -508,6 +508,11 @@ const TutorProfilePage = () => {
               ) : (
                 <span>Vybrali jste službu: <strong>{selectedService.title}</strong>. Nyní prosím klikněte na termín, který se Vám hodí nejvíce.</span>
               )}
+            </div>
+          ) : (
+            <div style={{ background: '#fff3cd', color: '#856404', padding: '16px 24px', borderRadius: 'var(--tp-radius-md)', marginBottom: '32px', fontWeight: '700', fontSize: '15px', border: '1px solid #ffe69c', display: 'flex', alignItems: 'center', gap: '12px' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '24px' }}>info</span>
+              <span>Pro zobrazení a výběr volných termínů si prosím <strong>nejdříve vyberte jednu z nabízených služeb</strong> výše.</span>
             </div>
           )}
 
@@ -546,7 +551,7 @@ const TutorProfilePage = () => {
                             );
                           }
                           return (
-                            <div key={slot.id || i} onClick={(e) => handleSlotClick(e, displayDateStr, slot.from, slot.to)} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--tp-bg-warm)', borderRadius: '8px', cursor: 'pointer', border: '1px solid var(--tp-border-strong)', transition: 'all 0.2s ease' }} onMouseEnter={e => { e.currentTarget.style.background = 'var(--tp-pink)'; e.currentTarget.style.color = 'white'; e.currentTarget.querySelector('.ts-action').style.color = 'white'; }} onMouseLeave={e => { e.currentTarget.style.background = 'var(--tp-bg-warm)'; e.currentTarget.style.color = 'var(--tp-dark)'; e.currentTarget.querySelector('.ts-action').style.color = 'var(--tp-pink)'; }}>
+                            <div key={slot.id || i} onClick={(e) => handleSlotClick(e, displayDateStr, slot.from, slot.to)} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: 'var(--tp-bg-warm)', borderRadius: '8px', cursor: selectedService ? 'pointer' : 'not-allowed', border: '1px solid var(--tp-border-strong)', transition: 'all 0.2s ease', opacity: selectedService ? 1 : 0.6 }} onMouseEnter={e => { if(selectedService){ e.currentTarget.style.background = 'var(--tp-pink)'; e.currentTarget.style.color = 'white'; e.currentTarget.querySelector('.ts-action').style.color = 'white'; } }} onMouseLeave={e => { if(selectedService){ e.currentTarget.style.background = 'var(--tp-bg-warm)'; e.currentTarget.style.color = 'var(--tp-dark)'; e.currentTarget.querySelector('.ts-action').style.color = 'var(--tp-pink)'; } }}>
                               <span style={{ fontWeight: 'bold' }}>{slot.from} - {slot.to}</span>
                               <span className="ts-action" style={{ color: 'var(--tp-pink)', fontWeight: 'bold' }}>Vybrat termín</span>
                             </div>

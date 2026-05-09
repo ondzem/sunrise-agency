@@ -37,39 +37,10 @@ export default async (req, context) => {
     // Odkaz pro tlačítko "Potvrdit termín lektorovi" volající novou funkci (Krok 2)
     const confirmUrl = `${baseUrl}/api/confirm-lektor-order?tutorId=${encodeURIComponent(lektorId || '')}&tutorEmail=${encodeURIComponent(lektorEmail || '')}&tutorName=${encodeURIComponent(lektorName || '')}&customerName=${encodeURIComponent(customerName || '')}&customerEmail=${encodeURIComponent(customerEmail || '')}&customerPhone=${encodeURIComponent(customerPhone || '')}&serviceName=${encodeURIComponent(serviceName || '')}&date=${encodeURIComponent(date || '')}&time=${encodeURIComponent(time || '')}&message=${encodeURIComponent(message || '')}`;
 
-    // Pokud jde o individuální domluvu (žádná vybraná služba s cenou), posíláme POUZE lektorovi
-    if (serviceName === 'Individuální domluva') {
-      if (lektorEmail) {
-        await transporter.sendMail({
-          from: `"Poptávka na míru SUNRISE" <${process.env.SMTP_USER}>`,
-          to: lektorEmail,
-          replyTo: customerEmail,
-          subject: `Nová individuální poptávka výuky - ${customerName}`,
-          html: `
-            <div style="font-family: sans-serif; padding: 20px; max-width: 600px; line-height: 1.6;">
-              <h2 style="color: #1C9C73;">Dobrý den, ${lektorName},</h2>
-              <p>Z vašeho profilu na webu přišla nová zpráva ohledně <strong>individuální domluvy</strong>.</p>
-              
-              <div style="background-color: #f9f9f9; padding: 15px; border-radius: 8px; margin: 20px 0;">
-                <p style="margin: 0 0 5px 0;"><strong>Zákazník:</strong> ${customerName}</p>
-                <p style="margin: 0 0 5px 0;"><strong>E-mail:</strong> <a href="mailto:${customerEmail}">${customerEmail}</a></p>
-                <p style="margin: 0 0 5px 0;"><strong>Telefon:</strong> ${customerPhone || 'Neuveden'}</p>
-              </div>
-
-              <h3 style="border-bottom: 1px solid #eaeaea; padding-bottom: 5px;">Zpráva od zákazníka:</h3>
-              <p style="white-space: pre-wrap;">${message || 'Žádná zpráva'}</p>
-              
-              <div style="border-left: 4px solid #EF67A5; padding-left: 15px; margin-top: 20px;">
-                <p style="margin: 0;">Tato poptávka byla zaslána pouze vám. Spojte se prosím se zákazníkem (odpovědí na tento e-mail nebo telefonicky) a domluvte se na formátu a detailech výuky přímo.</p>
-              </div>
-            </div>
-          `
-        });
-      }
-    } else {
-      // STANDARDNÍ OBJEDNÁVKA (Info mail adminovi + předběžné potvrzení lektorovi)
+    // Odesíláme všechny poptávky (včetně Individuální domluvy) do info e-mailu i lektorovi
+    // STANDARDNÍ OBJEDNÁVKA (Info mail adminovi + předběžné potvrzení lektorovi)
       
-      // 1. E-MAIL PRO MAJITELKU
+    // 1. E-MAIL PRO MAJITELKU
       await transporter.sendMail({
         from: `"Nová objednávka Lektora" <${process.env.SMTP_USER}>`,
         to: 'info@sunrise-la.cz',
@@ -92,8 +63,13 @@ export default async (req, context) => {
             <p><strong>Zpráva od zákazníka:</strong><br /> ${message || 'Žádná zpráva'}</p>
             
             <div style="background-color: #fff3cd; color: #856404; padding: 15px; border-radius: 8px; margin-top: 30px;">
-              <p style="margin: 0 0 15px 0;"><strong>⚠️ Krok 1: Odeslat platební údaje zákazníkovi</strong><br/>
-              Kliknutím na modré tlačítko se vám otevře předepsaný e-mail pro zákazníka. Nezapomeňte do něj vložit částku a QR kód!</p>
+              ${serviceName === 'Individuální domluva' ? `
+                <p style="margin: 0 0 15px 0;"><strong>⚠️ Jedná se o individuální domluvu.</strong><br/>
+                Zákazník zatím nemá vybraný přesný balíček a cenu. Spojte se s ním (nebo se s ním spojí lektor) a domluvte detaily. Jakmile budete vědět cenu, můžete mu následně odeslat platební údaje kliknutím níže.</p>
+              ` : `
+                <p style="margin: 0 0 15px 0;"><strong>⚠️ Krok 1: Odeslat platební údaje zákazníkovi</strong><br/>
+                Kliknutím na modré tlačítko se vám otevře předepsaný e-mail pro zákazníka. Nezapomeňte do něj vložit částku a QR kód!</p>
+              `}
               
               <a href="${paymentInfoUrl}" style="display: inline-block; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-bottom: 20px;">📧 Odeslat pokyny k platbě zákazníkovi</a>
 
@@ -135,7 +111,6 @@ export default async (req, context) => {
           `,
         });
       }
-    }
 
     return new Response(JSON.stringify({ success: true, message: 'Objednávka úspěšně odeslána na oba e-maily.' }), {
       status: 200,
