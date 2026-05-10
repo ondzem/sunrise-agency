@@ -253,37 +253,37 @@ const CompanyCoursesPage = () => {
     {
       id: 'cat1',
       title: 'Obchodní komunikace',
-      desc: 'Jak mluvit se zákazníky, partnery a kolegy — sebevědomě a přirozeně.',
+      desc: 'Jak mluvit se zákazníky, partnery a kolegy — sebevědomě a přirozeně',
       list: ['small talk', 'představení firmy', 'telefonáty', 'jednání s klienty', 'vyjednávání', 'cross-cultural komunikace']
     },
     {
       id: 'cat2',
       title: 'Písemná komunikace',
-      desc: 'Profesionální psaní v angličtině — rychle, jasně a bez překladače.',
+      desc: 'Profesionální psaní v angličtině — rychle, jasně a bez překladače',
       list: ['obchodní emaily', 'formální zprávy', 'nabídky', 'LinkedIn komunikace', 'šablony a vzory']
     },
     {
       id: 'cat3',
       title: 'Prezentace a vystupování',
-      desc: 'Jak prezentovat produkty a výsledky před zahraničními partnery.',
+      desc: 'Jak prezentovat produkty a výsledky před zahraničními partnery',
       list: ['struktura prezentace', 'výslovnost a jistota', 'popis výrobku', 'reakce na otázky', 'online prezentace']
     },
     {
       id: 'cat4',
       title: 'Slovní zásoba a gramatika',
-      desc: 'Pevný základ bez mezer — odborná slovní zásoba pro Váš konkrétní obor.',
+      desc: 'Pevný základ bez mezer — odborná slovní zásoba pro Váš konkrétní obor',
       list: ['oborová terminologie', 'nejčastější chyby', 'přirozené fráze', 'výslovnost', 'testování']
     },
     {
       id: 'cat5',
       title: 'Porozumění a reakce',
-      desc: 'Rozumět rychle mluvenému jazyku a umět reagovat bez váhání.',
+      desc: 'Rozumět rychle mluvenému jazyku a umět reagovat bez váhání',
       list: ['poslech rodilých mluvčích', 'rychlá reakce', 'práce se zahraničními materiály', 'různé přízvuky']
     },
     {
       id: 'cat6',
       title: 'Interaktivní výuka',
-      desc: 'Výuka, která baví — zaměstnanci se víc naučí, když se při lekci pobaví.',
+      desc: 'Výuka, která baví — zaměstnanci se víc naučí, když se při lekci pobaví',
       list: ['jazykové hry a pexeso', 'Kahoot, Quizlet a Wordwall', 'simulace pracovních situací', 'poslech a doplňování textů písní']
     }
   ];

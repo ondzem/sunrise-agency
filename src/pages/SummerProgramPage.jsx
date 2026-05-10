@@ -519,7 +519,7 @@ const SummerProgramPage = () => {
         <div className="summer-container">
           <div className="summer-program-header">
             <h2>Intenzivní kurzy pro studenty a dospělé</h2>
-            <p>Nejrychlejší způsob jak se v angličtině skutečně posunout — intenzivní výuka v malé skupině s důrazem na zlepšení za co nejkratší dobu</p>
+            <p>Nejrychlejší způsob, jak se v angličtině skutečně posunout — intenzivní výuka v malé skupině s důrazem na zlepšení za co nejkratší dobu</p>
           </div>
 
           <div className="summer-tickets-list">
@@ -1275,8 +1275,8 @@ const SummerProgramPage = () => {
               const desc = (isDay || isEvening) ? intensiveDesc : travelDesc;
 
               const scheduleMain = isDay ? 'po – pá, 9–12 a 13–15 hod' :
-                isEvening ? 'po – pá, 16–19 hod' :
-                  '3 večery (po, st, pá), 17–19 hod';
+                isEvening ? 'po – pá, 17–20 hod' :
+                  '3 večery (ne, út, st), 19–21 hod';
 
               const scheduleSub = isDay ? 'celkem 25 lekcí' :
                 isEvening ? 'celkem 15 lekcí' :
