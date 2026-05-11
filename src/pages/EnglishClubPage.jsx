@@ -892,11 +892,20 @@ const EnglishClubPage = () => {
                             setFormErrors({ dates: 'Prosím vyberte alespoň jeden termín konání.' });
                           } else {
                             setFormErrors({});
-                            setStep(3);
+                            closeModal();
+                            navigate('/pokladna', {
+                              state: {
+                                source: 'english_club',
+                                title: activeModal.title,
+                                term: formData.dates.join(', '),
+                                priceText: `${(clubConfig[activeModal.id] || 700) * formData.dates.length} Kč`,
+                                details: `${formData.dates.length} vybraných dní`
+                              }
+                            });
                           }
                         }} className={`btn btn-accent-${activeModal.accent}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flex: 1 }}>
-                          Pokračovat k přihlášce
-                          <span className="material-symbols-outlined">arrow_forward</span>
+                          Přejít k objednávce a platbě
+                          <span className="material-symbols-outlined">shopping_cart_checkout</span>
                         </button>
                       </div>
                     </div>

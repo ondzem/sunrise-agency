@@ -369,6 +369,7 @@ const coursesData = [
 
 const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigChange }) => {
   const courseModalRef = useRef(null);
+  const navigate = useNavigate();
   const [step, setStep] = useState(1); // 1 = Výběr kurzu (Termínu), 2 = Informace o kurzu, 3 = Formulář, 4 = Success
   const [selectedOpt, setSelectedOpt] = useState(null);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', note: '', gdpr: false });
@@ -392,19 +393,44 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
   const stepTermin = isTermFirst ? 1 : 2;
   const stepInfo = isTermFirst ? 2 : 1;
 
+  const handleProceedToCheckout = () => {
+    const activeIsOnline = selectedOpt?.isOnline !== undefined ? selectedOpt.isOnline : course.isOnline;
+    const getOptTime = (opt) => configOverrides[opt.id]?.time !== undefined ? configOverrides[opt.id].time : opt.time;
+    const getOptPrice = (opt) => configOverrides[opt.id]?.price !== undefined ? configOverrides[opt.id].price : opt.price;
+
+    onClose();
+    navigate('/pokladna', {
+      state: {
+        source: 'courses',
+        title: `${course.title} - ${selectedOpt.title}`,
+        term: getOptTime(selectedOpt),
+        priceText: getOptPrice(selectedOpt),
+        details: activeIsOnline ? 'Online výuka' : 'Prezenční výuka'
+      }
+    });
+  };
+
   const handleNextTermin = () => {
     if (selectedOpt) {
       setFormErrors({});
-      setStep(isTermFirst ? 2 : 3);
-      courseModalRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+      if (isTermFirst) {
+        setStep(2);
+        courseModalRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        handleProceedToCheckout();
+      }
     } else {
       setFormErrors({ term: 'Vyberte si prosím jednu z možností.' });
     }
   };
 
   const handleNextInfo = () => {
-    setStep(isTermFirst ? 3 : 2);
-    courseModalRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    if (isTermFirst) {
+      handleProceedToCheckout();
+    } else {
+      setStep(2);
+      courseModalRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleFormChange = (e) => {
@@ -629,8 +655,8 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
                       </button>
                     )}
                     <button type="button" onClick={handleNextTermin} className={`btn btn-${themeClass}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flex: 1 }}>
-                      Pokračovat
-                      <span className="material-symbols-outlined">arrow_forward</span>
+                      {isTermFirst ? 'Pokračovat' : 'Přejít k objednávce a platbě'}
+                      <span className="material-symbols-outlined">{isTermFirst ? 'arrow_forward' : 'shopping_cart_checkout'}</span>
                     </button>
                   </div>
                 </div>
@@ -705,8 +731,8 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
                       </button>
                     )}
                     <button type="button" onClick={handleNextInfo} className={`btn btn-${themeClass}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flex: 1 }}>
-                      {isTermFirst ? 'Chci se přihlásit' : 'Pokračovat k výběru termínu'}
-                      <span className="material-symbols-outlined">arrow_forward</span>
+                      {isTermFirst ? 'Přejít k objednávce a platbě' : 'Pokračovat k výběru termínu'}
+                      <span className="material-symbols-outlined">{isTermFirst ? 'shopping_cart_checkout' : 'arrow_forward'}</span>
                     </button>
                   </div>
                 </div>

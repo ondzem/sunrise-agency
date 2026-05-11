@@ -337,14 +337,43 @@ const SummerProgramPage = () => {
     }, 1500);
   };
 
-  const handleNextStep2 = () => {
+  const handleProceedToCheckoutAdult = () => {
     if (!adultForm.term) {
       setAdultFormErrors({ term: 'Vyberte prosím termín konání.' });
       return;
     }
-    setAdultFormErrors({});
-    setAdultStep(3);
-    adultModalRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    const isDay = adultForm.course === 'Intenzivní kurz denní';
+    const isEvening = adultForm.course === 'Intenzivní kurz večerní';
+    const priceText = isDay ? '5 800 Kč' : isEvening ? '3 800 Kč' : '1 954 Kč';
+    
+    closeAdultModal();
+    navigate('/pokladna', {
+      state: {
+        source: 'summer_adults',
+        title: adultForm.course,
+        term: adultForm.term,
+        priceText: priceText,
+        details: isDay || isEvening ? 'Max. 8 studentů' : 'Max. 10 studentů'
+      }
+    });
+  };
+
+  const handleProceedToCheckoutChild = () => {
+    const isTerm1 = childForm.term === 'Termín 1';
+    const termDate = isTerm1 ? kidsConfig.term1.date : kidsConfig.term2.date;
+    const priceText = isTerm1 ? kidsConfig.term1.price : kidsConfig.term2.price;
+    
+    closeChildModal();
+    navigate('/pokladna', {
+      state: {
+        source: 'summer_kids',
+        title: `Letní tábor: ${childForm.term}`,
+        term: termDate,
+        priceText: priceText,
+        details: kidsConfig.global.groupSize
+      }
+    });
   };
 
   const openAdultModal = (course) => {
@@ -925,9 +954,9 @@ const SummerProgramPage = () => {
                         </div>
                       </div>
 
-                      <button type="button" onClick={() => { setChildStep(2); childModalRef.current?.scrollTo({ top: 0, behavior: 'smooth' }); }} className={`btn btn-accent-${childForm.term === 'Termín 1' ? 'mint' : 'navy'}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', marginTop: '45px' }}>
-                        Pokračovat k přihlášce
-                        <span className="material-symbols-outlined">arrow_forward</span>
+                      <button type="button" onClick={handleProceedToCheckoutChild} className={`btn btn-accent-${childForm.term === 'Termín 1' ? 'mint' : 'navy'}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', width: '100%', marginTop: '45px' }}>
+                        Přejít k objednávce a platbě
+                        <span className="material-symbols-outlined">shopping_cart_checkout</span>
                       </button>
                     </div>
                   )}
@@ -1398,9 +1427,9 @@ const SummerProgramPage = () => {
                           <button type="button" onClick={() => { setAdultStep(1); adultModalRef.current?.scrollTo({ top: 0, behavior: 'smooth' }); }} className="btn" style={{ background: '#f1f1f1', color: '#333', padding: '14px', flex: '0 0 auto' }}>
                             <span className="material-symbols-outlined" style={{ margin: 0 }}>arrow_back</span>
                           </button>
-                          <button type="button" onClick={handleNextStep2} className={`btn btn-accent-${activeAdultModal.course === 'Intenzivní kurz denní' ? 'navy' : activeAdultModal.course === 'Intenzivní kurz večerní' ? 'gray' : 'mint'}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flex: 1 }}>
-                            Pokračovat
-                            <span className="material-symbols-outlined">arrow_forward</span>
+                          <button type="button" onClick={handleProceedToCheckoutAdult} className={`btn btn-accent-${activeAdultModal.course === 'Intenzivní kurz denní' ? 'navy' : activeAdultModal.course === 'Intenzivní kurz večerní' ? 'gray' : 'mint'}`} style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', flex: 1 }}>
+                            Přejít k objednávce a platbě
+                            <span className="material-symbols-outlined">shopping_cart_checkout</span>
                           </button>
                         </div>
                       </div>

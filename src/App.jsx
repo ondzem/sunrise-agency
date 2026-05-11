@@ -13,6 +13,7 @@ import NewsPage from './pages/NewsPage';
 import ErrorPage from './pages/ErrorPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
+import CheckoutPage from './pages/CheckoutPage';
 import ScrollToTop from './components/ScrollToTop';
 import NewsBanner from './components/NewsBanner';
 import CookieBanner from './components/CookieBanner';
@@ -80,6 +81,7 @@ function App() {
           <Route path="/aktuality" element={<GlobalLayout><NewsPage /></GlobalLayout>} />
           <Route path="/obchodni-podminky" element={<GlobalLayout><TermsPage /></GlobalLayout>} />
           <Route path="/ochrana-osobnich-udaju" element={<GlobalLayout><PrivacyPage /></GlobalLayout>} />
+          <Route path="/pokladna" element={<GlobalLayout><CheckoutPage /></GlobalLayout>} />
 
           {/* ADMIN CMS PORTÁL ZE ZÁKULISÍ */}
           <Route path="/portal" element={<LoginPage />} />
