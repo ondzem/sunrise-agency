@@ -541,7 +541,14 @@ const TutorProfilePage = () => {
 
                     {selectedScheduleDay && selectedScheduleDay.slots && selectedScheduleDay.slots.length > 0 ? (
                       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-                        {selectedScheduleDay.slots.map((slot, i) => {
+                        {[...selectedScheduleDay.slots].sort((a, b) => {
+                          const parseTime = (timeStr) => {
+                            if (!timeStr) return 0;
+                            const parts = timeStr.split(':');
+                            return parseInt(parts[0], 10) * 60 + parseInt(parts[1] || '0', 10);
+                          };
+                          return parseTime(a.from) - parseTime(b.from);
+                        }).map((slot, i) => {
                           if (slot.isBooked) {
                             return (
                               <div key={slot.id || i} style={{ display: 'flex', justifyContent: 'space-between', padding: '12px 16px', background: '#f5f5f5', borderRadius: '8px', opacity: 0.5, cursor: 'not-allowed' }} title="Tento termín je již obsazen">

@@ -330,6 +330,14 @@ const CheckoutPage = () => {
                 <span>{priceText}</span>
               </div>
 
+              <div style={{ marginTop: '15px', padding: '12px', background: 'rgba(16, 143, 102, 0.05)', borderRadius: '8px', border: '1px solid rgba(16, 143, 102, 0.1)', fontSize: '0.85rem', color: '#555', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
+                <span className="material-symbols-outlined" style={{ color: '#108F66', fontSize: '18px', marginTop: '2px' }}>mark_email_read</span>
+                <p style={{ margin: 0, lineHeight: 1.4 }}>
+                  <strong>Shrnutí do e-mailu</strong><br />
+                  Po úspěšné platbě vám obratem zašleme potvrzení objednávky včetně veškerých instrukcí na váš e-mail.
+                </p>
+              </div>
+
               {/* Způsob platby (odstraněn podle přání klienta, protože je pouze 1 možnost) */}
 
               <div className="form-group checkbox-group" style={{ marginTop: '30px', marginBottom: '24px' }}>

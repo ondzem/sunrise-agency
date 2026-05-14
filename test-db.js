@@ -1,22 +1,22 @@
+import fs from 'fs';
 import { createClient } from '@supabase/supabase-js';
-import dotenv from 'dotenv';
-import path from 'path';
-import { fileURLToPath } from 'url';
 
-dotenv.config({ path: path.resolve(process.cwd(), '.env.local') });
+const envFile = fs.readFileSync('.env', 'utf-8');
+const env = {};
+envFile.split('\n').forEach(line => {
+  if (line.includes('=')) {
+    const [key, ...rest] = line.split('=');
+    env[key.trim()] = rest.join('=').trim();
+  }
+});
 
-const supabaseUrl = process.env.VITE_SUPABASE_URL;
-const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
+const supabaseUrl = env['VITE_SUPABASE_URL'] || env['REACT_APP_SUPABASE_URL'] || env['SUPABASE_URL'];
+const supabaseKey = env['VITE_SUPABASE_ANON_KEY'] || env['REACT_APP_SUPABASE_ANON_KEY'] || env['SUPABASE_ANON_KEY'];
+
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-async function check() {
-  const { data, error } = await supabase.from('tutors').select('*').limit(3);
-  if (error) {
-    console.error("ERROR:", error);
-  } else {
-    console.log("DATA:");
-    console.dir(data, { depth: null });
-  }
+async function run() {
+  const { data, error } = await supabase.from('courses_config').select('*');
+  console.log(JSON.stringify(data, null, 2));
 }
-
-check();
+run();

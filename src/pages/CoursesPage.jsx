@@ -395,8 +395,6 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
 
   const handleProceedToCheckout = () => {
     const activeIsOnline = selectedOpt?.isOnline !== undefined ? selectedOpt.isOnline : course.isOnline;
-    const getOptTime = (opt) => configOverrides[opt.id]?.time !== undefined ? configOverrides[opt.id].time : opt.time;
-    const getOptPrice = (opt) => configOverrides[opt.id]?.price !== undefined ? configOverrides[opt.id].price : opt.price;
 
     onClose();
     navigate('/pokladna', {
@@ -477,11 +475,55 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
   const activeIsOnline = selectedOpt?.isOnline !== undefined ? selectedOpt.isOnline : course.isOnline;
   const activeDesc = selectedOpt?.desc || course.modalDesc || course.desc;
   
-  const getOptTime = (opt) => configOverrides[opt.id]?.time !== undefined ? configOverrides[opt.id].time : opt.time;
-  const getOptPrice = (opt) => configOverrides[opt.id]?.price !== undefined ? configOverrides[opt.id].price : opt.price;
+  const getOptTime = (opt) => configOverrides[opt.id]?.time ? configOverrides[opt.id].time : opt.time;
+  const getBasePrice = (opt) => configOverrides[opt.id]?.price ? configOverrides[opt.id].price : opt.price;
   const getOptLocked = (opt) => configOverrides[opt.id]?.is_locked || false;
 
-  const activePrice = selectedOpt ? getOptPrice(selectedOpt) : course.price;
+  const getOptPrice = (opt) => {
+    const basePriceStr = getBasePrice(opt);
+    const discountKey = course.category === 'Pro děti a teens' ? 'discount_kids' : 'discount_adults';
+    const discountStr = configOverrides[discountKey]?.price || '0';
+    const discount = parseInt(discountStr, 10) || 0;
+    
+    if (discount > 0) {
+      const numPrice = parseInt(basePriceStr.replace(/\D/g, ''), 10);
+      if (!isNaN(numPrice) && numPrice > 0) {
+        const newPrice = Math.round(numPrice * (1 - discount / 100));
+        return `${newPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč`;
+      }
+    }
+    return basePriceStr;
+  };
+
+  const getCourseBasePrice = () => {
+    if (selectedOpt) return getOptPrice(selectedOpt);
+    
+    // Pokud má kurz jen jednu možnost a je to první krok (info), chceme zobrazit její cenu
+    if (course.options.length === 1) {
+      return getOptPrice(course.options[0]);
+    }
+    
+    // Jinak najdeme nejmenší cenu ze všech možností (s ohledem na admin overrides)
+    const prices = course.options.map(opt => {
+      const priceText = getOptPrice(opt);
+      const numPrice = parseInt(priceText.replace(/\D/g, ''), 10);
+      return { text: priceText, num: isNaN(numPrice) ? 0 : numPrice };
+    });
+    
+    // Pokud jsou všechny ceny stejné, vrátíme rovnou tu cenu
+    const allSame = prices.every(p => p.text === prices[0].text);
+    if (allSame) return prices[0].text;
+    
+    // Jinak vrátíme "Od nejnižší ceny"
+    const minPrice = Math.min(...prices.map(p => p.num).filter(n => n > 0));
+    if (minPrice && minPrice !== Infinity) {
+      return `Od ${minPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč`;
+    }
+    
+    return course.price; // Fallback
+  };
+
+  const activePrice = getCourseBasePrice();
   
   let locationText = 'Kombinovaná výuka';
   if (activeIsOnline === true) locationText = 'Online výuka';
@@ -637,8 +679,8 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
                                   <input type="text" value={getOptTime(opt)} onChange={(e) => onConfigChange(opt.id, 'time', e.target.value)} style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
                                 </div>
                                 <div style={{ flex: 1, minWidth: '150px' }}>
-                                  <label style={{ fontSize: '0.8rem', color: '#666' }}>Cena (např. 3 650 Kč)</label>
-                                  <input type="text" value={getOptPrice(opt)} onChange={(e) => onConfigChange(opt.id, 'price', e.target.value)} style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
+                                  <label style={{ fontSize: '0.8rem', color: '#666' }}>Základní cena (např. 3 650 Kč)</label>
+                                  <input type="text" value={getBasePrice(opt)} onChange={(e) => onConfigChange(opt.id, 'price', e.target.value)} style={{ width: '100%', padding: '8px', borderRadius: '6px', border: '1px solid #ccc' }} />
                                 </div>
                               </div>
                             </div>
@@ -835,6 +877,8 @@ const CoursesPage = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [modal, setModal] = useState({ isOpen: false, title: '', message: '', type: 'info' });
   const [bulkStartDate, setBulkStartDate] = useState('');
+  const [kidsDiscount, setKidsDiscount] = useState('');
+  const [adultsDiscount, setAdultsDiscount] = useState('');
 
   useEffect(() => {
     const initAdmin = async () => {
@@ -850,6 +894,9 @@ const CoursesPage = () => {
           map[item.option_id] = { time: item.time, price: item.price, is_locked: item.is_locked, start_date: item.start_date };
         });
         setConfigOverrides(map);
+        
+        if (map['discount_kids']?.price) setKidsDiscount(map['discount_kids'].price);
+        if (map['discount_adults']?.price) setAdultsDiscount(map['discount_adults'].price);
       }
     };
     initAdmin();
@@ -889,12 +936,39 @@ const CoursesPage = () => {
     }
   };
 
+  const handleResetDefaults = async () => {
+    if (window.confirm('Opravdu chcete vymazat všechny vlastní úpravy z databáze a obnovit původní výchozí ceny a časy u všech kurzů?')) {
+      setIsSaving(true);
+      try {
+        const { error } = await supabase.from('courses_config').delete().neq('option_id', 'dummy_value_to_delete_all');
+        if (error) throw error;
+        setConfigOverrides({});
+        setModal({ isOpen: true, title: 'Úspěch', message: 'Všechny kurzy byly úspěšně obnoveny do původního stavu!', type: 'success' });
+      } catch (err) {
+        console.error(err);
+        setModal({ isOpen: true, title: 'Chyba', message: 'Chyba při obnově: ' + err.message, type: 'danger' });
+      } finally {
+        setIsSaving(false);
+      }
+    }
+  };
+
   const handleBulkApplyStartDate = () => {
     if (!bulkStartDate) return;
     coursesData.forEach(c => {
       handleConfigChange(c.id, 'start_date', bulkStartDate);
     });
     setModal({ isOpen: true, title: 'Hromadná úprava', message: 'Datum bylo lokálně nastaveno u všech kurzů. Pro propsání na web nezapomeňte Uložit změny.', type: 'success' });
+  };
+
+  const handleApplyDiscount = (category, discountStr) => {
+    const isKids = category === 'kids';
+    const discountKey = isKids ? 'discount_kids' : 'discount_adults';
+    const discountPercent = parseInt(discountStr, 10) || 0;
+    
+    handleConfigChange(discountKey, 'price', discountPercent.toString());
+    
+    setModal({ isOpen: true, title: 'Úspěch', message: `Sleva ${discountPercent}% pro kategorii ${isKids ? 'Děti a teens' : 'Dospělí'} je připravena. Nezapomeňte kliknout na Uložit změny!`, type: 'success' });
   };
 
   const kidsCourses = coursesData.filter(c => c.category === 'Pro děti a teens');
@@ -961,7 +1035,27 @@ const CoursesPage = () => {
         
         {/* SEKCE DĚTI A TEENS */}
         <section className="course-category-section">
-          <h2 className="category-title">Pro děti a teens</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'clamp(20px, 4vw, 30px)', flexWrap: 'wrap', gap: '15px' }}>
+            <h2 className="category-title" style={{ margin: 0 }}>Pro děti a teens</h2>
+            {isAdminMode && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f1f5f9', padding: '6px 12px', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: '#64748b' }}>sell</span>
+                <span style={{ fontSize: '0.85rem', fontWeight: '600', color: '#475569' }}>Hromadná sleva:</span>
+                <div style={{ display: 'flex', alignItems: 'center', background: 'white', borderRadius: '4px', border: '1px solid #cbd5e1', overflow: 'hidden' }}>
+                  <input 
+                    type="number" min="0" max="100" 
+                    value={kidsDiscount} onChange={e => setKidsDiscount(e.target.value)} 
+                    placeholder="Např. 10" 
+                    style={{ width: '60px', border: 'none', padding: '4px 8px', fontSize: '0.85rem', outline: 'none' }} 
+                  />
+                  <span style={{ padding: '4px 8px 4px 0', fontSize: '0.85rem', color: '#64748b', background: 'white' }}>%</span>
+                </div>
+                <button onClick={() => handleApplyDiscount('kids', kidsDiscount)} style={{ background: 'var(--color-primary)', color: 'white', border: 'none', padding: '4px 12px', borderRadius: '4px', fontSize: '0.85rem', fontWeight: '600', cursor: 'pointer' }}>
+                  Aplikovat
+                </button>
+              </div>
+            )}
+          </div>
           <div className="courses-list-container">
             {kidsCourses.map((course, index) => (
               <div key={course.id} className="course-list-row" onClick={() => {
@@ -993,7 +1087,27 @@ const CoursesPage = () => {
         {/* SEKCE DOSPĚLÍ */}
         <section className="course-category-section">
           <div className="courses-organic-bg-adults"></div>
-          <h2 className="category-title">Pro dospělé</h2>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'clamp(20px, 4vw, 30px)', flexWrap: 'wrap', gap: '15px' }}>
+            <h2 className="category-title" style={{ margin: 0 }}>Pro dospělé</h2>
+            {isAdminMode && (
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', background: '#f1f5f9', padding: '6px 12px', borderRadius: '8px', border: '1px solid #e2e8f0', zIndex: 1, position: 'relative' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px', color: '#64748b' }}>sell</span>
+                <span style={{ fontSize: '0.85rem', fontWeight: '600', color: '#475569' }}>Hromadná sleva:</span>
+                <div style={{ display: 'flex', alignItems: 'center', background: 'white', borderRadius: '4px', border: '1px solid #cbd5e1', overflow: 'hidden' }}>
+                  <input 
+                    type="number" min="0" max="100" 
+                    value={adultsDiscount} onChange={e => setAdultsDiscount(e.target.value)} 
+                    placeholder="Např. 10" 
+                    style={{ width: '60px', border: 'none', padding: '4px 8px', fontSize: '0.85rem', outline: 'none' }} 
+                  />
+                  <span style={{ padding: '4px 8px 4px 0', fontSize: '0.85rem', color: '#64748b', background: 'white' }}>%</span>
+                </div>
+                <button onClick={() => handleApplyDiscount('adults', adultsDiscount)} style={{ background: 'var(--color-primary)', color: 'white', border: 'none', padding: '4px 12px', borderRadius: '4px', fontSize: '0.85rem', fontWeight: '600', cursor: 'pointer' }}>
+                  Aplikovat
+                </button>
+              </div>
+            )}
+          </div>
           <div className="courses-list-container">
             {adultCourses.map((course, index) => (
               <div key={course.id} className="course-list-row" onClick={() => setActiveModal(course)}>
@@ -1071,6 +1185,10 @@ const CoursesPage = () => {
             <Link to="/portal/admin" className="afb-btn-link">
                <span className="material-symbols-outlined" style={{fontSize:'1rem'}}>settings</span> Zpět do Administrace
             </Link>
+            <button onClick={handleResetDefaults} disabled={isSaving} className="afb-btn-logout" style={{ background: '#d32f2f', color: 'white', border: 'none', marginLeft: 'auto' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>restart_alt</span>
+              Obnovit původní data
+            </button>
             <button onClick={async () => { await supabase.auth.signOut(); navigate('/'); }} className="afb-btn-logout" style={{ border: '1px solid rgba(255,255,255,0.5)', background: 'transparent' }}>
               Odhlásit se a zavřít režim
             </button>

@@ -1,35 +1,27 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
+import { supabase } from '../supabaseClient';
 import './Hero.css';
 
 const Hero = () => {
   const container = useRef(null);
   const navigate = useNavigate();
+  
+  const [badgeData, setBadgeData] = useState({ top: 'Letní Program', bottom: 'Načítám...' });
 
-  const calculateNearestCampDate = () => {
-    // Termíny začátků letního tábora (odpovídající SummerProgramPage.jsx)
-    const campDates = [
-      { start: new Date('2026-08-10'), label: '10. Srpna 2026' },
-      { start: new Date('2026-08-24'), label: '24. Srpna 2026' }
-    ];
-
-    const now = new Date();
-    // Vzít jen ty, které ještě nezačaly (odstraníme staré)
-    const upcoming = campDates.filter(d => d.start >= now);
-
-    if (upcoming.length > 0) {
-      // Seřadit, abychom měli ten nejbližší první
-      upcoming.sort((a, b) => a.start - b.start);
-      return upcoming[0].label;
-    }
-
-    // Pokud už oba tábory v roce 2026 proběhly, vrátíme první jako default
-    return campDates[0].label;
-  };
-
-  const nearestDate = calculateNearestCampDate();
+  useEffect(() => {
+    const fetchBadge = async () => {
+      const { data } = await supabase.from('courses_config').select('*').eq('option_id', 'homepage_badge').single();
+      if (data) {
+        setBadgeData({ top: data.price || 'Letní Program', bottom: data.time || '' });
+      } else {
+        setBadgeData({ top: 'Letní Program', bottom: '10. srpna 2026' });
+      }
+    };
+    fetchBadge();
+  }, []);
 
   useGSAP(() => {
     // Definice Master Timeline pro sekvenční průběh
@@ -171,8 +163,8 @@ const Hero = () => {
                 <span className="material-symbols-outlined symbol-filled">menu_book</span>
               </div>
               <div className="accent-text-box">
-                <p className="accent-label">Letní Program</p>
-                <p className="accent-date">{nearestDate}</p>
+                <p className="accent-label">{badgeData.top}</p>
+                <p className="accent-date">{badgeData.bottom}</p>
               </div>
             </div>
           </Link>

@@ -39,6 +39,10 @@ const HomepageAdminPage = () => {
   const [isCropModalOpen, setIsCropModalOpen] = useState(false);
   const [cropTarget, setCropTarget] = useState(null); // 'news' or 'team'
 
+  const [badgeTop, setBadgeTop] = useState('Letní Program');
+  const [badgeBottom, setBadgeBottom] = useState('10. srpna 2026');
+  const [isSavingBadge, setIsSavingBadge] = useState(false);
+
   const [modal, setModal] = useState({ isOpen: false, title: '', message: '', type: 'info', onConfirm: null });
 
   useEffect(() => {
@@ -55,6 +59,7 @@ const HomepageAdminPage = () => {
     await fetchTeam();
     await fetchTestimonials();
     await fetchNews();
+    await fetchBadge();
     setLoading(false);
   };
 
@@ -76,6 +81,33 @@ const HomepageAdminPage = () => {
   const fetchNews = async () => {
     const { data } = await supabase.from('news').select('*').order('created_at', { ascending: false });
     if (data) setNews(data);
+  };
+
+  const fetchBadge = async () => {
+    const { data } = await supabase.from('courses_config').select('*').eq('option_id', 'homepage_badge').single();
+    if (data) {
+      if (data.price) setBadgeTop(data.price);
+      if (data.time) setBadgeBottom(data.time);
+    }
+  };
+
+  const saveBadge = async (e) => {
+    e.preventDefault();
+    setIsSavingBadge(true);
+    try {
+      const payload = {
+        option_id: 'homepage_badge',
+        price: badgeTop,
+        time: badgeBottom
+      };
+      const { error } = await supabase.from('courses_config').upsert(payload);
+      if (error) throw error;
+      setModal({ isOpen: true, title: 'Úspěch', message: 'Štítek byl úspěšně uložen.', type: 'success' });
+    } catch (err) {
+      setModal({ isOpen: true, title: 'Chyba', message: 'Chyba: ' + err.message, type: 'danger' });
+    } finally {
+      setIsSavingBadge(false);
+    }
   };
 
   // --- TEAM LOGIC ---
@@ -387,6 +419,28 @@ const HomepageAdminPage = () => {
           </button>
         </div>
       </header>
+
+      {/* SECTION HERO BADGE */}
+      <section className="admin-section" style={{ marginBottom: '40px' }}>
+        <h2><span className="material-symbols-outlined" style={{ color: '#EF67A5' }}>edit_attributes</span> Sekce: Úvodní Štítek (Plovoucí karta)</h2>
+        <form className="admin-form full-width" onSubmit={saveBadge} style={{ background: '#f9fafb', padding: '30px', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '25px', background: 'white', padding: '20px', borderRadius: '8px', border: '1px solid #eee' }}>
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <label style={{ fontWeight: '700' }}>Horní text</label>
+              <input type="text" value={badgeTop} onChange={e => setBadgeTop(e.target.value)} placeholder="Např. Letní Program" style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '6px', width: '100%' }} />
+            </div>
+            <div className="form-group" style={{ marginBottom: 0 }}>
+              <label style={{ fontWeight: '700' }}>Spodní text (Datum/Popis)</label>
+              <input type="text" value={badgeBottom} onChange={e => setBadgeBottom(e.target.value)} placeholder="Např. 10. srpna - 15. srpna" style={{ padding: '12px', border: '1px solid #ddd', borderRadius: '6px', width: '100%' }} />
+            </div>
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <button type="submit" className="btn-primary" disabled={isSavingBadge} style={{ background: 'var(--color-primary)', padding: '12px 32px', borderRadius: '8px', border: 'none', color: 'white', fontWeight: 'bold', cursor: 'pointer' }}>
+              {isSavingBadge ? 'Ukládám...' : 'Uložit štítek'}
+            </button>
+          </div>
+        </form>
+      </section>
 
       {/* SECTION NEWS */}
       <section className="admin-section" style={{ marginBottom: '40px' }}>
