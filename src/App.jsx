@@ -13,6 +13,7 @@ import NewsPage from './pages/NewsPage';
 import ErrorPage from './pages/ErrorPage';
 import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
+import PaymentMethodsPage from './pages/PaymentMethodsPage';
 import CheckoutPage from './pages/CheckoutPage';
 import ScrollToTop from './components/ScrollToTop';
 import NewsBanner from './components/NewsBanner';
@@ -41,6 +42,7 @@ const GlobalLayout = ({ children }) => {
       '/aktuality': 'Sunrise Language Agency | Aktuality',
       '/obchodni-podminky': 'Sunrise Language Agency | Obchodní podmínky',
       '/ochrana-osobnich-udaju': 'Sunrise Language Agency | Ochrana osobních údajů',
+      '/zpusoby-platby': 'Sunrise Language Agency | Způsoby platby',
     };
 
     let title = titles[location.pathname];
@@ -81,6 +83,7 @@ function App() {
           <Route path="/aktuality" element={<GlobalLayout><NewsPage /></GlobalLayout>} />
           <Route path="/obchodni-podminky" element={<GlobalLayout><TermsPage /></GlobalLayout>} />
           <Route path="/ochrana-osobnich-udaju" element={<GlobalLayout><PrivacyPage /></GlobalLayout>} />
+          <Route path="/zpusoby-platby" element={<GlobalLayout><PaymentMethodsPage /></GlobalLayout>} />
           <Route path="/pokladna" element={<GlobalLayout><CheckoutPage /></GlobalLayout>} />
 
           {/* ADMIN CMS PORTÁL ZE ZÁKULISÍ */}

@@ -91,12 +91,19 @@ const FooterCTA = () => {
                     </svg>
                   </a>
                 </div>
+                {/* Platební loga - Tablet (768px - 1023px) */}
+                <div className="payment-logos-tablet">
+                  <Link to="/zpusoby-platby" onClick={() => window.scrollTo(0, 0)}>
+                    <img src="/comgate-logos.png" alt="Platby zajišťuje ComGate" />
+                  </Link>
+                </div>
               </div>
 
               {/* Sloupec 4: Právní informace */}
               <div className="info-col extra-gap">
                 <h4 className="info-title">Právní informace</h4>
                 <p className="info-text">
+                  <Link to="/zpusoby-platby" onClick={() => window.scrollTo(0, 0)} style={{ color: 'inherit', textDecoration: 'none' }} className="legal-link-hover">Doprava a platba</Link><br />
                   <Link to="/obchodni-podminky" onClick={() => window.scrollTo(0, 0)} style={{ color: 'inherit', textDecoration: 'none' }} className="legal-link-hover">Obchodní podmínky</Link><br />
                   <Link to="/ochrana-osobnich-udaju" onClick={() => window.scrollTo(0, 0)} style={{ color: 'inherit', textDecoration: 'none' }} className="legal-link-hover">Ochrana osobních údajů</Link><br />
                   <span className="cookie-settings" style={{ cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '0.25rem' }}>
@@ -104,6 +111,12 @@ const FooterCTA = () => {
                     Nastavení cookies
                   </span>
                 </p>
+                {/* Platební loga - Mobil (< 1024px) */}
+                <div className="payment-logos-mobile">
+                  <Link to="/zpusoby-platby" onClick={() => window.scrollTo(0, 0)}>
+                    <img src="/comgate-logos.png" alt="Platby zajišťuje ComGate" />
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
@@ -112,6 +125,13 @@ const FooterCTA = () => {
           <div className="footer-bottom-rail">
             <div className="footer-credits-row">
               <span className="copyright-text">© {new Date().getFullYear()} All Rights Reserved.</span>
+
+              {/* ComGate a platební loga - Desktop (>= 1300px) */}
+              <div className="payment-logos-desktop">
+                <Link to="/zpusoby-platby" onClick={() => window.scrollTo(0, 0)}>
+                  <img src="/comgate-logos.png" alt="Platby zajišťuje ComGate" />
+                </Link>
+              </div>
 
               {/* Design By kredit (ozeman.cz) */}
               <div className="credits-right">

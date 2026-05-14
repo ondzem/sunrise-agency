@@ -97,18 +97,50 @@ const CheckoutPage = () => {
     setIsSubmitting(true);
 
     try {
-      // 1. Zde později pošleme data do Netlify Function přes fetch('/.netlify/functions/create-comgate-payment')
-      // const response = await fetch('/.netlify/functions/create-comgate-payment', { method: 'POST', body: JSON.stringify({...}) });
-      // const data = await response.json();
-      // window.location.href = data.redirectUrl; // Přesměrování na Comgate bránu
+      // Extrakce číselné hodnoty z textu ceny (např. "4 500 Kč" -> 4500)
+      const numericPrice = parseInt(priceText.replace(/\\D/g, ''), 10);
+      const userEmail = (source === 'summer_kids' || source === 'english_club') ? formData.parentEmail : formData.email;
+
+      const response = await fetch('/.netlify/functions/create-comgate-payment', { 
+        method: 'POST', 
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: title,
+          price: numericPrice,
+          email: userEmail,
+          firstName: formData.firstName,
+          lastName: formData.lastName
+        }) 
+      });
       
-      // Simulace načítání pro "beta" verzi
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      alert('V produkční verzi budete nyní přesměrováni na platební bránu Comgate.');
+      let data;
+      const textResponse = await response.text();
+      try {
+        data = JSON.parse(textResponse);
+      } catch (e) {
+        console.error("Odpověď ze serveru nebyla ve formátu JSON:", textResponse);
+        throw new Error('Chyba serveru: ' + (textResponse || 'Prázdná odpověď'));
+      }
+
+      if (response.ok && data.redirectUrl) {
+        // Uložíme data do localStorage pro případné odeslání potvrzovacího e-mailu po úspěšném návratu
+        localStorage.setItem('pendingOrder', JSON.stringify({
+          orderId: data.orderId,
+          formData: formData,
+          orderInfo: state
+        }));
+
+        // Přesměrování na platební bránu Comgate
+        window.location.href = data.redirectUrl;
+      } else {
+        throw new Error(data.error || 'Nepodařilo se spojit s platební bránou.');
+      }
       
     } catch (err) {
       console.error('Chyba při vytvoření platby:', err);
-      alert('Omlouváme se, při vytváření platby došlo k chybě. Zkuste to prosím znovu.');
+      alert('Omlouváme se, při vytváření platby došlo k chybě. Zkuste to prosím znovu.\\nDetail: ' + err.message);
     } finally {
       setIsSubmitting(false);
     }
