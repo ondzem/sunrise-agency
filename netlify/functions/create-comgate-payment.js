@@ -66,7 +66,24 @@ exports.handler = async (event, context) => {
 
     if (resultParams.get('code') === '0') {
       const transId = resultParams.get('transId');
-      const finalRedirectUrl = `https://payments.comgate.cz/v1.0/step?transId=${transId}`;
+      
+      // Správně vytažená URL bezpečně (aby z null nevzniklo "null")
+      let finalRedirectUrl = '';
+      if (resultParams.has('redirect')) {
+        finalRedirectUrl = decodeURIComponent(resultParams.get('redirect'));
+      } else if (resultParams.has('redirectUrl')) {
+        finalRedirectUrl = decodeURIComponent(resultParams.get('redirectUrl'));
+      } else {
+        // Pokud nám nedají URL, vyhodíme chybu i s textem od ComGatu, ať víme, co přesně poslali
+        console.error("Chybí redirect URL v odpovědi:", resultText);
+        return {
+          statusCode: 400,
+          body: JSON.stringify({ 
+            error: 'ComGate neposlal přesměrovávací URL.',
+            details: resultText 
+          })
+        };
+      }
 
       return {
         statusCode: 200,
