@@ -85,7 +85,7 @@ const SummerCamps = () => {
           <div className="camps-gallery-grid">
             {galleryImages.map((src, index) => (
               <div key={index} className="gallery-item">
-                <img src={src} alt={`Momentka z letního programu Sunrise ${index + 1}`} loading="lazy" />
+                <img src={src} alt={`Momentka z letního programu Sunrise ${index + 1}`} decoding="async" />
               </div>
             ))}
           </div>
