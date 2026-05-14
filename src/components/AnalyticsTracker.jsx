@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import ReactGA from 'react-ga4';
 
 // ZDE DOPLNÍŠ SVÉ MĚŘICÍ ID Z GOOGLE ANALYTICS
-const TRACKING_ID = "G-XXXXXXXXXX"; 
+const TRACKING_ID = "G-F082292T4E"; 
 
 const AnalyticsTracker = () => {
   const location = useLocation();
