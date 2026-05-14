@@ -899,6 +899,7 @@ const EnglishClubPage = () => {
                                 title: activeModal.title,
                                 term: formData.dates.join(', '),
                                 priceText: `${(clubConfig[activeModal.id] || 700) * formData.dates.length} Kč`,
+                                siblingPriceText: `${((clubConfig[activeModal.id] || 700) * formData.dates.length) * 0.5} Kč`,
                                 details: `${formData.dates.length} vybraných dní`
                               }
                             });

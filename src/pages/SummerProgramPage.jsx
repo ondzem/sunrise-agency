@@ -363,6 +363,7 @@ const SummerProgramPage = () => {
     const isTerm1 = childForm.term === 'Termín 1';
     const termDate = isTerm1 ? kidsConfig.term1.date : kidsConfig.term2.date;
     const priceText = isTerm1 ? kidsConfig.term1.price : kidsConfig.term2.price;
+    const siblingPriceText = isTerm1 ? kidsConfig.term1.siblingPrice : kidsConfig.term2.siblingPrice;
     
     closeChildModal();
     navigate('/pokladna', {
@@ -371,6 +372,7 @@ const SummerProgramPage = () => {
         title: `Letní tábor: ${childForm.term}`,
         term: termDate,
         priceText: priceText,
+        siblingPriceText: siblingPriceText,
         details: kidsConfig.global.groupSize
       }
     });

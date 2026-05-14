@@ -8,7 +8,7 @@ const CheckoutPage = () => {
   const state = location.state || {};
   
   // State from previous page
-  const { source, title, priceText, details, term } = state;
+  const { source, title, priceText, details, term, siblingPriceText } = state;
 
   const [formData, setFormData] = useState({
     // Společné
@@ -98,7 +98,10 @@ const CheckoutPage = () => {
 
     try {
       // Extrakce číselné hodnoty z textu ceny (např. "4 500 Kč" -> 4500)
-      const numericPrice = parseInt(priceText.replace(/\D/g, ''), 10);
+      let numericPrice = parseInt(priceText.replace(/\D/g, ''), 10);
+      if (formData.hasSibling && siblingPriceText) {
+        numericPrice += parseInt(siblingPriceText.replace(/\D/g, ''), 10);
+      }
       const userEmail = (source === 'summer_kids' || source === 'english_club') ? formData.parentEmail : formData.email;
 
       const response = await fetch('/.netlify/functions/create-comgate-payment', { 
@@ -299,6 +302,16 @@ const CheckoutPage = () => {
                 <div className="summary-item-name">{title}</div>
                 <div className="summary-item-price">{priceText}</div>
               </div>
+
+              {formData.hasSibling && siblingPriceText && (
+                <div className="summary-item" style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', fontSize: '0.95rem', color: '#555' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span className="material-symbols-outlined" style={{ fontSize: '18px', color: 'var(--color-primary)' }}>person_add</span>
+                    Sourozenec
+                  </div>
+                  <div style={{ fontWeight: 600, color: '#333' }}>+ {siblingPriceText}</div>
+                </div>
+              )}
               
               {term && (
                 <div className="summary-item-detail">
@@ -327,7 +340,11 @@ const CheckoutPage = () => {
               {/* Cena celkem */}
               <div className="summary-total">
                 <span>Celkem k úhradě</span>
-                <span>{priceText}</span>
+                <span>
+                  {formData.hasSibling && siblingPriceText ? 
+                    `${(parseInt(priceText.replace(/\D/g, ''), 10) + parseInt(siblingPriceText.replace(/\D/g, ''), 10)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč`
+                    : priceText}
+                </span>
               </div>
 
               <div style={{ marginTop: '15px', padding: '12px', background: 'rgba(16, 143, 102, 0.05)', borderRadius: '8px', border: '1px solid rgba(16, 143, 102, 0.1)', fontSize: '0.85rem', color: '#555', display: 'flex', gap: '10px', alignItems: 'flex-start' }}>
