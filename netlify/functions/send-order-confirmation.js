@@ -49,11 +49,12 @@ export default async (req, context) => {
       `;
     }
 
-    // Odeslání e-mailu zákazníkovi
+    // Odeslání e-mailu zákazníkovi (s kopií do školy)
     await transporter.sendMail({
       from: `"Jazyková škola SUNRISE" <${process.env.SMTP_USER}>`,
       to: customerEmail,
-      replyTo: 'info@sunrise-la.cz',
+      bcc: process.env.SMTP_USER, // Kopie pro majitelku
+      replyTo: process.env.SMTP_USER,
       subject: `Potvrzení platby a rezervace: ${serviceName}`,
       html: `
         <div style="font-family: sans-serif; padding: 20px; max-width: 600px; color: #333; line-height: 1.6;">

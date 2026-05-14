@@ -79,7 +79,7 @@ const SuccessPage = () => {
                 Pokud e-mail nenajdete v doručené poště, zkontrolujte prosím i složku Hromadné nebo Spam.
               </p>
             </div>
-            <Link to="/" className="hero-cta btn-primary" style={{ display: 'inline-block' }}>
+            <Link to="/" className="btn btn-primary" style={{ padding: '16px 32px', fontSize: '1.1rem', display: 'inline-block' }}>
               Zpět na hlavní stránku
             </Link>
           </div>
