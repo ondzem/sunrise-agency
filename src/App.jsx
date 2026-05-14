@@ -15,6 +15,7 @@ import TermsPage from './pages/TermsPage';
 import PrivacyPage from './pages/PrivacyPage';
 import PaymentMethodsPage from './pages/PaymentMethodsPage';
 import CheckoutPage from './pages/CheckoutPage';
+import SuccessPage from './pages/SuccessPage';
 import ScrollToTop from './components/ScrollToTop';
 import NewsBanner from './components/NewsBanner';
 import CookieBanner from './components/CookieBanner';
@@ -85,6 +86,7 @@ function App() {
           <Route path="/ochrana-osobnich-udaju" element={<GlobalLayout><PrivacyPage /></GlobalLayout>} />
           <Route path="/zpusoby-platby" element={<GlobalLayout><PaymentMethodsPage /></GlobalLayout>} />
           <Route path="/pokladna" element={<GlobalLayout><CheckoutPage /></GlobalLayout>} />
+          <Route path="/dekujeme-za-platbu" element={<GlobalLayout><SuccessPage /></GlobalLayout>} />
 
           {/* ADMIN CMS PORTÁL ZE ZÁKULISÍ */}
           <Route path="/portal" element={<LoginPage />} />
