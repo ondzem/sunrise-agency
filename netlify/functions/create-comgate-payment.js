@@ -66,11 +66,7 @@ exports.handler = async (event, context) => {
 
     if (resultParams.get('code') === '0') {
       const transId = resultParams.get('transId');
-      // Comgate někdy vrací URL v 'redirect', někdy nevrací vůbec a my si ji musíme složit
-      const redirectParam = resultParams.get('redirect') || resultParams.get('redirectUrl');
-      const finalRedirectUrl = redirectParam 
-        ? decodeURIComponent(redirectParam) 
-        : `https://payments.comgate.cz/v1.0/step?transId=${transId}`;
+      const finalRedirectUrl = `https://payments.comgate.cz/v1.0/step?transId=${transId}`;
 
       return {
         statusCode: 200,
