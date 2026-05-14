@@ -19,6 +19,7 @@ import SuccessPage from './pages/SuccessPage';
 import ScrollToTop from './components/ScrollToTop';
 import NewsBanner from './components/NewsBanner';
 import CookieBanner from './components/CookieBanner';
+import AnalyticsTracker from './components/AnalyticsTracker';
 
 /* CMS Portal Stránky (Bez Navbaru a Patičky) */
 import LoginPage from './pages/LoginPage';
@@ -69,6 +70,7 @@ const GlobalLayout = ({ children }) => {
 function App() {
   return (
     <Router>
+      <AnalyticsTracker />
       <ScrollToTop />
       <div style={{ position: 'relative' }}>
         <Routes>

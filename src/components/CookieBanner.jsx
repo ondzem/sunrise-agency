@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ReactGA from 'react-ga4';
 import './CookieBanner.css';
 
 const CookieBanner = () => {
@@ -24,7 +25,16 @@ const CookieBanner = () => {
 
   const saveConsent = (choice) => {
     localStorage.setItem('sunrise_cookie_consent', JSON.stringify(choice));
-    // Zde bychom v budoucnu spustili Google Analytics (dataLayer.push atd.) podle voleb
+    
+    // Pokud uživatel právě povolil analytiku, můžeme zkusit Analytics rovnou načíst
+    // Mějte na paměti, že Measurement ID je pevně dané v AnalyticsTracker.jsx
+    // Můžeme ho buď načítat z env nebo hardcodovat
+    // Zde necháme inicializaci primárně na AnalyticsTracker, ale pro jistotu:
+    if (choice.analytics) {
+      // Reload stránky nebo odeslání eventu
+      window.dispatchEvent(new Event('cookie_consent_updated'));
+    }
+    
     setIsVisible(false);
     setShowSettings(false);
   };
