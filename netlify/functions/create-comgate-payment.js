@@ -32,6 +32,7 @@ exports.handler = async (event, context) => {
     params.append('label', title.substring(0, 50)); // Popis platby (max 50 znaků)
     params.append('refId', orderId); // Naše referenční číslo
     params.append('email', email);
+    params.append('method', 'ALL'); // Povolit všechny dostupné metody platby (karta, převod, Apple Pay...)
     params.append('prepareOnly', 'true'); // Jen založí platbu a vrátí URL pro přesměrování
     
     // Můžeme poslat i jméno
