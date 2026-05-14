@@ -98,7 +98,7 @@ const CheckoutPage = () => {
 
     try {
       // Extrakce číselné hodnoty z textu ceny (např. "4 500 Kč" -> 4500)
-      const numericPrice = parseInt(priceText.replace(/\\D/g, ''), 10);
+      const numericPrice = parseInt(priceText.replace(/\D/g, ''), 10);
       const userEmail = (source === 'summer_kids' || source === 'english_club') ? formData.parentEmail : formData.email;
 
       const response = await fetch('/.netlify/functions/create-comgate-payment', { 
