@@ -242,22 +242,23 @@ const TutorProfilePage = () => {
     const initials = reviewName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase();
     const newReview = { id: Date.now(), author: reviewName, role: reviewSummary, text: reviewText, initials: initials };
 
-    // Pokusíme se updatovat lektorovo "reviews" pole. 
-    // Pokud je aktivní tvrdé RLS zamezující zápis nepřihlášeným uživatelům, tohle spadne.
-    const updatedReviews = [...(profileData.reviews || []), newReview];
+    // Novou recenzi dáme na ZAČÁTEK pole, aby byla v karuselu hned vidět jako první
+    const updatedReviews = [newReview, ...(profileData.reviews || [])];
 
-    const { error } = await supabase
+    const { data, error } = await supabase
       .from('tutors')
       .update({ reviews: updatedReviews })
-      .eq('id', profileData.id);
+      .eq('id', profileData.id)
+      .select();
 
     setIsSubmittingReview(false);
-    if (!error) {
+    // Pokud update prošel (není error) a vrátila se nám aktualizovaná data (byla povolená práva RLS)
+    if (!error && data && data.length > 0) {
       setProfileData({ ...profileData, reviews: updatedReviews });
-      setModal({ isOpen: true, title: 'Hodnocení přidáno & publikováno', message: 'Děkujeme! Vaše recenze byla úspěšně přidána a hned se zobrazí na kartě.', type: 'success' });
+      setModal({ isOpen: true, title: 'Hodnocení přidáno', message: 'Děkujeme! Vaše recenze byla úspěšně přidána a je viditelná hned jako první.', type: 'success' });
       setReviewName(''); setReviewSummary(''); setReviewText('');
     } else {
-      setModal({ isOpen: true, title: 'Server zamítl uložení', message: 'Vypršel časový limit nebo bezpečnostní pravidla (RLS) blokují editaci bez přihlášení.', type: 'danger' });
+      setModal({ isOpen: true, title: 'Nepodařilo se uložit', message: 'Databáze zamítla uložení. Pravděpodobně nemáte oprávnění (nastavení RLS na Supabase) upravovat profil tohoto lektora bez přihlášení.', type: 'danger' });
     }
   };
 
