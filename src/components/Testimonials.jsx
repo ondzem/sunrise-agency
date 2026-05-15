@@ -211,7 +211,8 @@ const Testimonials = ({
 
       {/* Navigace levá a pravá pod karouselem podle vzoru */}
       <div className="testimonials-nav-container">
-        <div className="nav-buttons-group">
+        {/* Pokud máme prefixTitle, posuneme tlačítka doprava o 52px (32px šířka čísla + 20px gap), aby lícovala s nadpisem */}
+        <div className="nav-buttons-group" style={prefixTitle ? { marginLeft: '52px' } : {}}>
           <button onClick={() => slide('left')} className="testimonial-nav-btn" aria-label="Zpět">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
