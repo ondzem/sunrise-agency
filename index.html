@@ -20,12 +20,43 @@
   <meta name="twitter:title" content="Sunrise Language Agency" />
   <meta name="twitter:description" content="Jazyková škola v centru Pardubic. Tady vás rozmluvíme!" />
   <meta name="twitter:image" content="https://sunrise-la.cz/SLG%20bez%20textu%20logo.webp" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+  
+  <!-- Local SEO Structured Data (JSON-LD) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "EducationalOrganization",
+    "name": "Sunrise Language Agency",
+    "description": "Jazyková škola v centru Pardubic pro děti, dospělé i firmy. Od roku 2012 pomáháme studentům rozmluvit se anglicky.",
+    "url": "https://sunrise-la.cz/",
+    "logo": "https://sunrise-la.cz/SLG%20bez%20textu%20logo.webp",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Pardubice",
+      "addressCountry": "CZ"
+    },
+    "knowsAbout": ["Výuka angličtiny", "Firemní kurzy angličtiny", "Angličtina pro děti", "Příměstské tábory"]
+  }
+  </script>
 </head>
 
 <body>
-  <div id="root"></div>
+  <div id="root">
+    <!-- Fallback obsah pro vyhledávače (SEO) a AI roboty bez podpory JavaScriptu -->
+    <div style="display: none;">
+      <h1>Sunrise Language Agency - Jazyková škola Pardubice</h1>
+      <p>Jazyková škola v centru Pardubic pro děti, dospělé i firmy. Od roku 2012, 700+ spokojených studentů a tým lektorů, kteří vás znají jménem. Nabízíme individuální kurzy, firemní výuku, English Club pro nejmenší a letní příměstské tábory s angličtinou.</p>
+      <h2>Naše služby</h2>
+      <ul>
+        <li>Online i prezenční kurzy angličtiny</li>
+        <li>Firemní vzdělávání</li>
+        <li>Angličtina pro děti (English Club)</li>
+        <li>Letní příměstské tábory s rodilým mluvčím</li>
+      </ul>
+      <p>Kontaktujte nás a domluvte si ukázkovou lekci zdarma!</p>
+    </div>
+  </div>
   <script type="module" src="/src/main.jsx"></script>
 </body>
 
