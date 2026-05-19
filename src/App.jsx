@@ -17,6 +17,7 @@ import PaymentMethodsPage from './pages/PaymentMethodsPage';
 import CheckoutPage from './pages/CheckoutPage';
 import SuccessPage from './pages/SuccessPage';
 import ScrollToTop from './components/ScrollToTop';
+import ScrollToTopButton from './components/ScrollToTopButton';
 import NewsBanner from './components/NewsBanner';
 import CookieBanner from './components/CookieBanner';
 import AnalyticsTracker from './components/AnalyticsTracker';
@@ -62,6 +63,7 @@ const GlobalLayout = ({ children }) => {
         <Navbar />
         {children}
         <FooterCTA />
+        <ScrollToTopButton />
       </div>
     </div>
   );
