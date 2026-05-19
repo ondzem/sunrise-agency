@@ -1,23 +1,25 @@
-const { createClient } = require('@supabase/supabase-js');
+import { createClient } from '@supabase/supabase-js';
 
-exports.handler = async (event, context) => {
-  // Podporujeme pouze GET request (kliknutí na odkaz v emailu)
-  if (event.httpMethod !== 'GET') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+export default async (req, context) => {
+  if (req.method !== 'GET') {
+    return new Response('Method Not Allowed', { status: 405 });
   }
 
-  const { id, table, action } = event.queryStringParameters;
+  const url = new URL(req.url);
+  const id = url.searchParams.get('id');
+  const table = url.searchParams.get('table');
+  const action = url.searchParams.get('action');
 
   if (!id || !table || !action) {
-    return { statusCode: 400, body: 'Missing parameters' };
+    return new Response('Missing parameters', { status: 400 });
   }
 
-  // Inicializace Supabase (použijeme proměnné prostředí z Netlify)
+  // Inicializace Supabase
   const supabaseUrl = process.env.VITE_SUPABASE_URL;
   const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY;
   
   if (!supabaseUrl || !supabaseKey) {
-    return { statusCode: 500, body: 'Supabase konfigurace chybí na serveru.' };
+    return new Response('Supabase konfigurace chybí na serveru.', { status: 500 });
   }
 
   const supabase = createClient(supabaseUrl, supabaseKey);
@@ -44,10 +46,9 @@ exports.handler = async (event, context) => {
       resultMessage = '❌ Recenze byla úspěšně zamítnuta a smazána z databáze.';
     } 
     else {
-      return { statusCode: 400, body: 'Invalid action' };
+      return new Response('Invalid action', { status: 400 });
     }
 
-    // Vrátíme hezkou HTML odpověď
     const htmlResponse = `
       <!DOCTYPE html>
       <html>
@@ -73,19 +74,19 @@ exports.handler = async (event, context) => {
       </html>
     `;
 
-    return {
-      statusCode: 200,
+    return new Response(htmlResponse, {
+      status: 200,
       headers: {
         'Content-Type': 'text/html; charset=utf-8'
-      },
-      body: htmlResponse
-    };
+      }
+    });
 
   } catch (error) {
     console.error('Action error:', error);
-    return {
-      statusCode: 500,
-      body: `Chyba při zpracování: ${error.message}`
-    };
+    return new Response(`Chyba při zpracování: ${error.message}`, { status: 500 });
   }
+};
+
+export const config = {
+  path: "/api/review-action"
 };

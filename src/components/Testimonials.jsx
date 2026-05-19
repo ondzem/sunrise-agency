@@ -203,7 +203,7 @@ const Testimonials = ({
       }
 
       // 2. Odeslat schvalovací e-mail adminovi
-      const emailRes = await fetch('/.netlify/functions/send-review-approval', {
+      const emailRes = await fetch('/api/send-review-approval', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -297,7 +297,6 @@ const Testimonials = ({
               borderRadius: 'var(--tp-radius-md)',
               display: 'flex',
               alignItems: 'center',
-              gap: '6px',
               fontFamily: 'inherit',
               fontWeight: 700,
               fontSize: '13px',
@@ -308,7 +307,6 @@ const Testimonials = ({
             onMouseOver={(e) => e.currentTarget.style.background = 'var(--tp-bg-warm)'}
             onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>rate_review</span>
             Napsat recenzi
           </button>
         )}

@@ -1,29 +1,30 @@
-const nodemailer = require('nodemailer');
+import nodemailer from 'nodemailer';
 
-exports.handler = async (event, context) => {
-  if (event.httpMethod !== 'POST') {
-    return { statusCode: 405, body: 'Method Not Allowed' };
+export default async (req, context) => {
+  if (req.method !== 'POST') {
+    return new Response(JSON.stringify({ message: 'Method Not Allowed' }), { status: 405 });
   }
 
   try {
-    const data = JSON.parse(event.body);
+    const data = await req.json();
     const { reviewId, tableName, author, role, text } = data;
 
     // Pro účely testování a bezpečí vytvoříme odkazy na druhou funkci pro schválení/zamítnutí
-    // Využijeme dynamickou doménu z hlavičky (např. localhost nebo sunrise-la.cz)
-    const host = event.headers.host || 'sunrise-la.cz';
-    const protocol = host.includes('localhost') ? 'http' : 'https';
-    const baseUrl = `${protocol}://${host}/.netlify/functions/review-action`;
+    // Využijeme url z requestu
+    const url = new URL(req.url);
+    const host = url.host || 'sunrise-la.cz';
+    const protocol = url.protocol || 'https:';
+    const baseUrl = `${protocol}//${host}/api/review-action`;
 
     const approveUrl = `${baseUrl}?id=${reviewId}&table=${tableName}&action=approve`;
     const rejectUrl = `${baseUrl}?id=${reviewId}&table=${tableName}&action=reject`;
 
-    let transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST || 'smtp.wedos.net',
-      port: process.env.SMTP_PORT || 465,
+    const transporter = nodemailer.createTransport({
+      host: 'wes1-smtp2.wedos.net',
+      port: 465,
       secure: true,
       auth: {
-        user: process.env.SMTP_USER || 'info@sunrise-la.cz',
+        user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS
       }
     });
@@ -58,21 +59,25 @@ exports.handler = async (event, context) => {
     `;
 
     await transporter.sendMail({
-      from: '"Sunrise Web" <info@sunrise-la.cz>',
-      to: 'info@sunrise-la.cz',
+      from: '"Sunrise Web" <' + process.env.SMTP_USER + '>',
+      to: process.env.SMTP_USER,
       subject: `Nová recenze ke schválení od ${author} (${pageName})`,
       html: htmlBody
     });
 
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'E-mail odeslán' })
-    };
+    return new Response(JSON.stringify({ message: 'E-mail odeslán' }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' }
+    });
   } catch (error) {
     console.error('Error sending email:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ message: 'Failed to send email', error: error.message })
-    };
+    return new Response(JSON.stringify({ message: 'Failed to send email', error: error.message }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
+};
+
+export const config = {
+  path: "/api/send-review-approval"
 };
