@@ -143,7 +143,10 @@ const Testimonials = ({
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const { data, error } = await supabase.from(tableName).select('*').order('order_index', { ascending: true });
+        const { data, error } = await supabase.from(tableName)
+          .select('*')
+          .eq('approved', true) // Zobrazujeme pouze schválené recenze
+          .order('order_index', { ascending: true });
         if (data && data.length > 0) {
           setDbReviews(data);
         }
@@ -164,6 +167,68 @@ const Testimonials = ({
   };
 
   const reviewsToRender = customReviews !== null ? customReviews : dbReviews;
+
+  const [showReviewForm, setShowReviewForm] = useState(false);
+  const [reviewFormData, setReviewFormData] = useState({ author: '', role: '', text: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitError, setSubmitError] = useState('');
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError('');
+    setSubmitSuccess(false);
+
+    try {
+      // 1. Uložit do Supabase s approved = false
+      const payload = {
+        author: reviewFormData.author,
+        role: reviewFormData.role,
+        text: reviewFormData.text,
+        order_index: 999,
+        // Pokud sloupec approved zatím neexistuje, Supabase by mohl hodit chybu, 
+        // ale my to přidáme přes SQL (viz pokyny)
+        approved: false 
+      };
+
+      const { data, error } = await supabase
+        .from(tableName)
+        .insert([payload])
+        .select();
+
+      if (error) {
+        console.error("Supabase insert error:", error);
+        throw new Error(error.message || 'Nepodařilo se uložit recenzi do databáze.');
+      }
+
+      // 2. Odeslat schvalovací e-mail adminovi
+      const emailRes = await fetch('/.netlify/functions/send-review-approval', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          reviewId: data[0].id,
+          tableName: tableName,
+          author: reviewFormData.author,
+          role: reviewFormData.role,
+          text: reviewFormData.text
+        })
+      });
+
+      if (!emailRes.ok) {
+        console.warn("E-mail pro admina se nepodařilo odeslat, ale recenze je uložena v DB.");
+      }
+
+      setSubmitSuccess(true);
+      setReviewFormData({ author: '', role: '', text: '' });
+      setTimeout(() => setShowReviewForm(false), 5000);
+      
+    } catch (err) {
+      setSubmitError(err.message || 'Něco se pokazilo. Zkuste to prosím znovu.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const sectionClassName = `testimonials-section ${prefixTitle ? "tp-section" : ""} ${invertColors ? "inverted-colors" : ""}`;
 
@@ -210,7 +275,7 @@ const Testimonials = ({
       </div>
 
       {/* Navigace levá a pravá pod karouselem podle vzoru */}
-      <div className="testimonials-nav-container">
+      <div className="testimonials-nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         {/* Pokud máme prefixTitle, posuneme tlačítka doprava o 52px (32px šířka čísla + 20px gap), aby lícovala s nadpisem */}
         <div className="nav-buttons-group" style={prefixTitle ? { marginLeft: '52px' } : {}}>
           <button onClick={() => slide('left')} className="testimonial-nav-btn" aria-label="Zpět">
@@ -220,7 +285,129 @@ const Testimonials = ({
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>
         </div>
+        
+        {/* Tlačítko Napsat recenzi na pravé straně (pouze pro tabulky z domovské stránky / firem, customReviews nevyužívají) */}
+        {!customReviews && (
+          <button 
+            onClick={() => setShowReviewForm(!showReviewForm)} 
+            style={{
+              background: 'transparent',
+              border: '1px solid var(--tp-border-strong)',
+              padding: '10px 18px',
+              borderRadius: 'var(--tp-radius-md)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontFamily: 'inherit',
+              fontWeight: 700,
+              fontSize: '13px',
+              cursor: 'pointer',
+              color: 'var(--tp-dark)',
+              transition: 'all 0.3s ease'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.background = 'var(--tp-bg-warm)'}
+            onMouseOut={(e) => e.currentTarget.style.background = 'transparent'}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>rate_review</span>
+            Napsat recenzi
+          </button>
+        )}
       </div>
+
+      {/* Formulář pro přidání recenze */}
+      {showReviewForm && !customReviews && (
+        <div className={prefixTitle ? "tp-container" : "testimonials-header-container"} style={{ marginTop: '2rem' }}>
+          <div style={{
+            background: 'var(--tp-white)',
+            border: '1px solid var(--tp-border)',
+            borderRadius: 'var(--tp-radius-lg)',
+            padding: '2rem',
+            boxShadow: '0 10px 30px rgba(0,0,0,0.05)',
+            maxWidth: '600px',
+            margin: '0 auto'
+          }}>
+            <h3 style={{ fontSize: '20px', fontWeight: 800, marginBottom: '1.5rem', color: 'var(--tp-dark)' }}>Podělte se o svou zkušenost</h3>
+            
+            {submitSuccess ? (
+              <div style={{ padding: '1.5rem', background: 'rgba(28, 156, 115, 0.1)', color: 'var(--tp-green)', borderRadius: '12px', textAlign: 'center', fontWeight: 600 }}>
+                Děkujeme! Vaše recenze byla odeslána ke schválení.
+              </div>
+            ) : (
+              <form onSubmit={handleReviewSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                {submitError && (
+                  <div style={{ padding: '1rem', background: '#fee2e2', color: '#b91c1c', borderRadius: '8px', fontSize: '14px' }}>
+                    {submitError}
+                  </div>
+                )}
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--tp-light)' }}>Vaše jméno</label>
+                    <input 
+                      type="text" 
+                      required 
+                      value={reviewFormData.author}
+                      onChange={(e) => setReviewFormData({...reviewFormData, author: e.target.value})}
+                      style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--tp-border)', outline: 'none', fontFamily: 'inherit' }}
+                      placeholder="Jan Novák"
+                    />
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                    <label style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--tp-light)' }}>Kontext (Role/Firma)</label>
+                    <input 
+                      type="text" 
+                      required 
+                      value={reviewFormData.role}
+                      onChange={(e) => setReviewFormData({...reviewFormData, role: e.target.value})}
+                      style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--tp-border)', outline: 'none', fontFamily: 'inherit' }}
+                      placeholder={tableName === 'company_testimonials' ? 'Firma XYZ' : 'Student / English Club'}
+                    />
+                  </div>
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <label style={{ fontSize: '12px', fontWeight: 700, textTransform: 'uppercase', color: 'var(--tp-light)' }}>Text recenze</label>
+                  <textarea 
+                    required 
+                    rows={4}
+                    value={reviewFormData.text}
+                    onChange={(e) => setReviewFormData({...reviewFormData, text: e.target.value})}
+                    style={{ padding: '12px', borderRadius: '8px', border: '1px solid var(--tp-border)', outline: 'none', fontFamily: 'inherit', resize: 'vertical' }}
+                    placeholder="Napište nám, jak jste byli spokojeni..."
+                  />
+                </div>
+                
+                <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', marginTop: '1rem' }}>
+                  <button 
+                    type="button" 
+                    onClick={() => setShowReviewForm(false)}
+                    style={{ padding: '12px 20px', background: 'transparent', border: 'none', color: 'var(--tp-mid)', fontWeight: 600, cursor: 'pointer' }}
+                  >
+                    Zrušit
+                  </button>
+                  <button 
+                    type="submit" 
+                    disabled={isSubmitting}
+                    style={{ 
+                      padding: '12px 24px', 
+                      background: 'var(--tp-pink)', 
+                      color: 'white', 
+                      border: 'none', 
+                      borderRadius: '8px', 
+                      fontWeight: 700, 
+                      cursor: isSubmitting ? 'not-allowed' : 'pointer',
+                      opacity: isSubmitting ? 0.7 : 1,
+                      boxShadow: '0 4px 14px rgba(239, 103, 165, 0.4)'
+                    }}
+                  >
+                    {isSubmitting ? 'Odesílám...' : 'Odeslat recenzi'}
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

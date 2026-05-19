@@ -349,7 +349,8 @@ const HomepageAdminPage = () => {
         author: testimForm.author,
         role: testimForm.role,
         text: testimForm.text,
-        order_index: testimForm.order_index
+        order_index: testimForm.order_index,
+        approved: true // Pokud přidává sám admin, tak to schválíme rovnou
       };
 
       if (testimForm.id) {
@@ -686,7 +687,10 @@ const HomepageAdminPage = () => {
                 <div className="item-main-row">
                   <div className="item-avatar" style={{backgroundColor: '#1C9C73'}}>{getInitials(t.author)}</div>
                   <div className="item-info">
-                    <div className="item-title">{t.author} <span style={{fontWeight: 'normal', fontSize: '0.85rem', color: '#888'}}>({t.role})</span></div>
+                    <div className="item-title">
+                      {t.author} <span style={{fontWeight: 'normal', fontSize: '0.85rem', color: '#888'}}>({t.role})</span>
+                      {t.approved === false && <span style={{marginLeft: '10px', background: '#f39c12', color: 'white', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold'}}>Čeká na schválení</span>}
+                    </div>
                     <div className="item-subtitle">{t.text.length > 60 ? t.text.substring(0, 60) + '...' : t.text}</div>
                   </div>
                 </div>

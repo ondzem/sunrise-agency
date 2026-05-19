@@ -48,7 +48,8 @@ const CompanyAdminPage = () => {
         author: testimForm.author,
         role: testimForm.role,
         text: testimForm.text,
-        order_index: testimForm.order_index
+        order_index: testimForm.order_index,
+        approved: true // Pokud přidává sám admin, schválí se rovnou
       };
 
       if (testimForm.id) {
@@ -163,7 +164,10 @@ const CompanyAdminPage = () => {
                 <div className="item-main-row">
                   <div className="item-avatar">{getInitials(t.author)}</div>
                   <div className="item-info">
-                    <div className="item-title">{t.author}</div>
+                    <div className="item-title">
+                      {t.author}
+                      {t.approved === false && <span style={{marginLeft: '10px', background: '#f39c12', color: 'white', padding: '2px 6px', borderRadius: '4px', fontSize: '11px', fontWeight: 'bold'}}>Čeká na schválení</span>}
+                    </div>
                     <div className="item-subtitle">{t.role}</div>
                   </div>
                 </div>
