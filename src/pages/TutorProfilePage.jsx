@@ -314,6 +314,10 @@ const TutorProfilePage = () => {
                 <a href="#sluzby" className="tp-btn secondary" onClick={(e) => scrollToId(e, 'sluzby')}>
                   Služby a Ceník
                 </a>
+                <a href="#pridat-recenzi" className="tp-btn secondary" onClick={(e) => scrollToId(e, 'pridat-recenzi')} style={{ gap: '8px' }}>
+                  <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>rate_review</span>
+                  Napsat recenzi
+                </a>
               </div>
             </div>
 
@@ -360,6 +364,10 @@ const TutorProfilePage = () => {
               </button>
               <a href="#sluzby" className="tp-btn secondary" onClick={(e) => scrollToId(e, 'sluzby')}>
                 Služby a Ceník
+              </a>
+              <a href="#pridat-recenzi" className="tp-btn secondary" onClick={(e) => scrollToId(e, 'pridat-recenzi')} style={{ gap: '8px' }}>
+                <span className="material-symbols-outlined" style={{ fontSize: '18px' }}>rate_review</span>
+                Napsat recenzi
               </a>
             </div>
 
