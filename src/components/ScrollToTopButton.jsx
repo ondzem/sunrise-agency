@@ -53,11 +53,7 @@ const ScrollToTopButton = () => {
     });
   };
 
-  // SVG parametry
-  const radius = 23;
-  const circumference = 2 * Math.PI * radius;
-  // Offset kalkulace (100 = skryto, 0 = plný kruh)
-  const strokeDashoffset = circumference - (scrollProgress / 100) * circumference;
+
 
   return (
     <div 
