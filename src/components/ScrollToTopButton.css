@@ -40,8 +40,8 @@
 }
 
 .progress-ring-fill {
-  transition: stroke-dashoffset 0.1s ease-out;
-  stroke-linecap: round; /* Kulaté konce plnící linky */
+  /* transition removed for buttery smooth JS requestAnimationFrame updates */
+  stroke-linecap: round;
 }
 
 .scroll-btn-inner {
@@ -65,13 +65,12 @@
   transition: transform 0.3s ease;
 }
 
+.scroll-to-top-btn:hover {
+  transform: translateY(-4px) scale(1.02);
+}
+
 .scroll-to-top-btn:hover .scroll-btn-inner {
   background-color: var(--color-primary, #EF67A5);
   color: white;
   box-shadow: 0 6px 20px rgba(239, 103, 165, 0.4);
-  transform: translateY(-2px);
-}
-
-.scroll-to-top-btn:hover .scroll-btn-inner span {
-  transform: translateY(-2px);
 }

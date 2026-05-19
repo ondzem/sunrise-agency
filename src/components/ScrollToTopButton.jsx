@@ -1,35 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './ScrollToTopButton.css';
 
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  
+  // Refy pro přímý zásah do DOMu mimo React render cycle pro 60fps plynulost
+  const circleRef = useRef(null);
+  
+  // SVG parametry
+  const radius = 23;
+  const circumference = 2 * Math.PI * radius;
 
   useEffect(() => {
-    const handleScroll = () => {
+    let ticking = false;
+
+    const updateScrollProgress = () => {
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       const docHeight = document.documentElement.scrollHeight;
       const winHeight = document.documentElement.clientHeight;
       
       const maxScroll = docHeight - winHeight;
-      // Prevent division by zero
       const progress = maxScroll > 0 ? (scrollTop / maxScroll) * 100 : 0;
       
-      setScrollProgress(progress);
+      // Přímá změna CSS vlastnosti (bez záseků)
+      if (circleRef.current) {
+        const offset = circumference - (progress / 100) * circumference;
+        circleRef.current.style.strokeDashoffset = offset;
+      }
 
-      // Zobrazit tlačítko po odscrollování 300px
-      if (scrollTop > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+      // Pro viditelnost stačí React state, mění se jen málokdy
+      setIsVisible(scrollTop > 300);
+      ticking = false;
+    };
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateScrollProgress);
+        ticking = true;
       }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
+    updateScrollProgress();
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [circumference]);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -63,6 +78,7 @@ const ScrollToTopButton = () => {
         />
         {/* Vyplňující se kruh */}
         <circle
+          ref={circleRef}
           className="progress-ring-fill"
           stroke="var(--color-primary, #EF67A5)"
           strokeWidth="3"
@@ -72,7 +88,7 @@ const ScrollToTopButton = () => {
           cy="28"
           style={{
             strokeDasharray: circumference,
-            strokeDashoffset: strokeDashoffset
+            strokeDashoffset: circumference
           }}
         />
       </svg>
