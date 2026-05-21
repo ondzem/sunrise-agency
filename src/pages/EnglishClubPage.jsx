@@ -892,14 +892,18 @@ const EnglishClubPage = () => {
                             setFormErrors({ dates: 'Prosím vyberte alespoň jeden termín konání.' });
                           } else {
                             setFormErrors({});
+                            const baseVal = (parseInt(clubConfig[activeModal.id], 10) || 700) * formData.dates.length;
+                            const sibVal = Math.round(baseVal * 0.5);
                             closeModal();
                             navigate('/pokladna', {
                               state: {
                                 source: 'english_club',
                                 title: activeModal.title,
                                 term: formData.dates.join(', '),
-                                priceText: `${(clubConfig[activeModal.id] || 700) * formData.dates.length} Kč`,
-                                siblingPriceText: `${((clubConfig[activeModal.id] || 700) * formData.dates.length) * 0.5} Kč`,
+                                priceText: `${baseVal.toLocaleString('cs-CZ')} Kč`,
+                                siblingPriceText: `${sibVal.toLocaleString('cs-CZ')} Kč`,
+                                price: baseVal,
+                                siblingPrice: sibVal,
                                 details: `${formData.dates.length} vybraných dní`
                               }
                             });

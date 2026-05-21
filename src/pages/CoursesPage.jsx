@@ -403,6 +403,7 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
         title: `${course.title} - ${selectedOpt.title}`,
         term: getOptTime(selectedOpt),
         priceText: getOptPrice(selectedOpt),
+        price: getOptPriceNum(selectedOpt),
         details: activeIsOnline ? 'Online výuka' : 'Prezenční výuka'
       }
     });
@@ -493,6 +494,19 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
       }
     }
     return basePriceStr;
+  };
+
+  const getOptPriceNum = (opt) => {
+    const basePriceStr = getBasePrice(opt);
+    const discountKey = course.category === 'Pro děti a teens' ? 'discount_kids' : 'discount_adults';
+    const discountStr = configOverrides[discountKey]?.price || '0';
+    const discount = parseInt(discountStr, 10) || 0;
+    const numPrice = parseInt(basePriceStr?.replace(/\D/g, '') || '0', 10);
+    
+    if (discount > 0 && numPrice > 0) {
+      return Math.round(numPrice * (1 - discount / 100));
+    }
+    return numPrice;
   };
 
   const getCourseBasePrice = () => {

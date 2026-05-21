@@ -117,8 +117,8 @@ const Hero = () => {
           </p>
 
           <div className="hero-button-group">
-            <a href="#servis" onClick={(e) => { e.preventDefault(); document.getElementById('servis')?.scrollIntoView({behavior: 'smooth', block: 'start'}); }} className="btn-explore" style={{ textDecoration: 'none' }}>Co nabízíme</a>
-            <Link to="/kontakt" className="link-methods" style={{ textDecoration: 'none' }}>
+            <a href="#servis" onClick={(e) => { e.preventDefault(); document.getElementById('servis')?.scrollIntoView({behavior: 'smooth', block: 'start'}); }} className="btn-explore" style={{ textDecoration: 'none' }} data-track-click="hero_co_nabizime" data-track-category="CTA">Co nabízíme</a>
+            <Link to="/kontakt" className="link-methods" style={{ textDecoration: 'none' }} data-track-click="hero_napiste_nam" data-track-category="CTA">
               Napište nám
               <span className="material-symbols-outlined link-icon">arrow_right_alt</span>
             </Link>

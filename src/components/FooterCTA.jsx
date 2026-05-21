@@ -25,7 +25,7 @@ const FooterCTA = () => {
                 Přidejte se k 700+ studentům,<br />
                 kteří se s námi naučili mluvit
               </h2>
-              <Link to="/kurzy" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cta-button">
+              <Link to="/kurzy" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="cta-button" data-track-click="footer_vybrat_kurz" data-track-category="CTA">
                 VYBRAT KURZ
               </Link>
             </div>

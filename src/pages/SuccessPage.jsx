@@ -1,6 +1,42 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga4';
 import './CheckoutPage.css'; // Můžeme využít stejné styly pro layout
+
+const sendPurchaseEvent = (orderData) => {
+  const consentRaw = localStorage.getItem('sunrise_cookie_consent');
+  if (consentRaw) {
+    try {
+      const consent = JSON.parse(consentRaw);
+      if (consent.analytics) {
+        const priceText = orderData.orderInfo?.priceText || '0';
+        const numericPrice = parseInt(priceText.replace(/\D/g, ''), 10) || 0;
+        const TRACKING_ID = "G-F082292T4E";
+
+        if (!ReactGA.isInitialized) {
+          ReactGA.initialize(TRACKING_ID);
+        }
+
+        ReactGA.event("purchase", {
+          transaction_id: orderData.orderId || `ORD-${Date.now()}`,
+          value: numericPrice,
+          currency: "CZK",
+          items: [
+            {
+              item_id: orderData.orderInfo?.source || "course",
+              item_name: orderData.orderInfo?.title || "Jazykový kurz",
+              price: numericPrice,
+              quantity: 1
+            }
+          ]
+        });
+        console.log('GA4 purchase event sent:', numericPrice);
+      }
+    } catch (e) {
+      console.error('Chyba při odesílání GA4 purchase události:', e);
+    }
+  }
+};
 
 const SuccessPage = () => {
   const navigate = useNavigate();
@@ -38,12 +74,14 @@ const SuccessPage = () => {
         .then(res => res.json())
         .then(data => {
           console.log('E-mail odeslán:', data);
+          sendPurchaseEvent(orderData);
           setStatus('success');
           // Vyčistíme localStorage, aby se e-mail neposlal znovu při refreši
           localStorage.removeItem('pendingOrder');
         })
         .catch(err => {
           console.error('Chyba odesílání e-mailu:', err);
+          sendPurchaseEvent(orderData);
           setStatus('success'); // Přesto ukážeme úspěch platby
           localStorage.removeItem('pendingOrder');
         });

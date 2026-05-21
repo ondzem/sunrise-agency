@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
+import ReactGA from 'react-ga4';
 import './CheckoutPage.css';
 
 const CheckoutPage = () => {
@@ -8,7 +9,10 @@ const CheckoutPage = () => {
   const state = location.state || {};
   
   // State from previous page
-  const { source, title, priceText, details, term, siblingPriceText } = state;
+  const { source, title, priceText, details, term, siblingPriceText, price, siblingPrice } = state;
+
+  const basePrice = typeof price === 'number' ? price : parseInt(priceText?.replace(/\D/g, '') || '0', 10);
+  const sibPrice = typeof siblingPrice === 'number' ? siblingPrice : parseInt(siblingPriceText?.replace(/\D/g, '') || '0', 10);
 
   const [formData, setFormData] = useState({
     // Společné
@@ -46,9 +50,39 @@ const CheckoutPage = () => {
     // Redirect back to home if accessed directly without state
     if (!source || !title) {
       navigate('/');
+      return;
     }
     window.scrollTo(0, 0);
-  }, [source, title, navigate]);
+
+    // Odeslání begin_checkout do GA4
+    const consentRaw = localStorage.getItem('sunrise_cookie_consent');
+    if (consentRaw) {
+      try {
+        const consent = JSON.parse(consentRaw);
+        if (consent.analytics) {
+          const TRACKING_ID = "G-F082292T4E";
+          if (!ReactGA.isInitialized) {
+            ReactGA.initialize(TRACKING_ID);
+          }
+          ReactGA.event("begin_checkout", {
+            value: basePrice,
+            currency: "CZK",
+            items: [
+              {
+                item_id: source || "course",
+                item_name: title || "Jazykový kurz",
+                price: basePrice,
+                quantity: 1
+              }
+            ]
+          });
+          console.log('GA4 begin_checkout event sent:', basePrice);
+        }
+      } catch (e) {
+        console.error('Chyba při odesílání GA4 begin_checkout:', e);
+      }
+    }
+  }, [source, title, navigate, basePrice]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -97,12 +131,36 @@ const CheckoutPage = () => {
     setIsSubmitting(true);
 
     try {
-      // Extrakce číselné hodnoty z textu ceny (např. "4 500 Kč" -> 4500)
-      let numericPrice = parseInt(priceText.replace(/\D/g, ''), 10);
-      if (formData.hasSibling && siblingPriceText) {
-        numericPrice += parseInt(siblingPriceText.replace(/\D/g, ''), 10);
+      let numericPrice = basePrice;
+      if (formData.hasSibling) {
+        numericPrice += sibPrice;
       }
       const userEmail = (source === 'summer_kids' || source === 'english_club') ? formData.parentEmail : formData.email;
+
+      // Odeslání add_shipping_info (krok před platební bránou) do GA4
+      const consentRaw = localStorage.getItem('sunrise_cookie_consent');
+      if (consentRaw) {
+        try {
+          const consent = JSON.parse(consentRaw);
+          if (consent.analytics) {
+            ReactGA.event("add_shipping_info", {
+              value: numericPrice,
+              currency: "CZK",
+              items: [
+                {
+                  item_id: source || "course",
+                  item_name: title || "Jazykový kurz",
+                  price: numericPrice,
+                  quantity: 1
+                }
+              ]
+            });
+            console.log('GA4 add_shipping_info event sent:', numericPrice);
+          }
+        } catch (e) {
+          console.error('Chyba při odesílání GA4 add_shipping_info:', e);
+        }
+      }
 
       const response = await fetch('/.netlify/functions/create-comgate-payment', { 
         method: 'POST', 
@@ -337,12 +395,11 @@ const CheckoutPage = () => {
                 </div>
               )}
 
-              {/* Cena celkem */}
               <div className="summary-total">
                 <span>Celkem k úhradě</span>
                 <span>
-                  {formData.hasSibling && siblingPriceText ? 
-                    `${(parseInt(priceText.replace(/\D/g, ''), 10) + parseInt(siblingPriceText.replace(/\D/g, ''), 10)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč`
+                  {formData.hasSibling ? 
+                    `${(basePrice + sibPrice).toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")} Kč`
                     : priceText}
                 </span>
               </div>

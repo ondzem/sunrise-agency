@@ -346,6 +346,7 @@ const SummerProgramPage = () => {
     const isDay = adultForm.course === 'Intenzivní kurz denní';
     const isEvening = adultForm.course === 'Intenzivní kurz večerní';
     const priceText = isDay ? '5 800 Kč' : isEvening ? '3 800 Kč' : '1 954 Kč';
+    const priceVal = isDay ? 5800 : isEvening ? 3800 : 1954;
     
     closeAdultModal();
     navigate('/pokladna', {
@@ -354,6 +355,7 @@ const SummerProgramPage = () => {
         title: adultForm.course,
         term: adultForm.term,
         priceText: priceText,
+        price: priceVal,
         details: isDay || isEvening ? 'Max. 8 studentů' : 'Max. 10 studentů'
       }
     });
@@ -365,6 +367,9 @@ const SummerProgramPage = () => {
     const priceText = isTerm1 ? kidsConfig.term1.price : kidsConfig.term2.price;
     const siblingPriceText = isTerm1 ? kidsConfig.term1.siblingPrice : kidsConfig.term2.siblingPrice;
     
+    const priceVal = parseInt(priceText?.replace(/\D/g, '') || '0', 10);
+    const siblingPriceVal = parseInt(siblingPriceText?.replace(/\D/g, '') || '0', 10);
+    
     closeChildModal();
     navigate('/pokladna', {
       state: {
@@ -373,6 +378,8 @@ const SummerProgramPage = () => {
         term: termDate,
         priceText: priceText,
         siblingPriceText: siblingPriceText,
+        price: priceVal,
+        siblingPrice: siblingPriceVal,
         details: kidsConfig.global.groupSize
       }
     });

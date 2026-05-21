@@ -55,7 +55,7 @@ const Navbar = () => {
             <li><Link to="/kontakt" className={isActive('/kontakt')} onClick={() => setIsMobileMenuOpen(false)}>Kontakt</Link></li>
           </ul>
           <div className="navbar-actions">
-            <Link to="/kurzy" className="btn btn-primary" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>Nabídka kurzů</Link>
+            <Link to="/kurzy" className="btn btn-primary" onClick={() => setIsMobileMenuOpen(false)} style={{ textDecoration: 'none', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }} data-track-click="navbar_nabidka_kurzu" data-track-category="CTA">Nabídka kurzů</Link>
           </div>
         </div>
       </div>
