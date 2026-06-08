@@ -94,11 +94,50 @@ const Testimonials = ({
     });
   }, { scope: container });
 
+  const intendedIndex = useRef(0);
+  const isManualScroll = useRef(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleUserInteraction = () => {
+      isManualScroll.current = true;
+    };
+
+    el.addEventListener('touchstart', handleUserInteraction, { passive: true });
+    el.addEventListener('wheel', handleUserInteraction, { passive: true });
+    el.addEventListener('mousedown', handleUserInteraction, { passive: true });
+
+    return () => {
+      el.removeEventListener('touchstart', handleUserInteraction);
+      el.removeEventListener('wheel', handleUserInteraction);
+      el.removeEventListener('mousedown', handleUserInteraction);
+    };
+  }, []);
+
   const slide = (direction) => {
     if (scrollRef.current) {
       // Šíře odskoku přizpůsobena velikosti karet
       const scrollAmount = window.innerWidth > 1024 ? 440 : 340;
-      scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+      const maxScroll = scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+      const maxIndex = Math.round(maxScroll / scrollAmount);
+
+      if (isManualScroll.current) {
+        intendedIndex.current = Math.round(scrollRef.current.scrollLeft / scrollAmount);
+        isManualScroll.current = false;
+      }
+
+      if (direction === 'left') {
+        intendedIndex.current = Math.max(0, intendedIndex.current - 1);
+      } else {
+        intendedIndex.current = Math.min(maxIndex, intendedIndex.current + 1);
+      }
+
+      scrollRef.current.scrollTo({
+        left: intendedIndex.current * scrollAmount,
+        behavior: 'smooth'
+      });
     }
   };
 
@@ -276,8 +315,7 @@ const Testimonials = ({
 
       {/* Navigace levá a pravá pod karouselem podle vzoru */}
       <div className="testimonials-nav-container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        {/* Pokud máme prefixTitle, posuneme tlačítka doprava o 52px (32px šířka čísla + 20px gap), aby lícovala s nadpisem */}
-        <div className="nav-buttons-group" style={prefixTitle ? { marginLeft: '52px' } : {}}>
+        <div className="nav-buttons-group">
           <button onClick={() => slide('left')} className="testimonial-nav-btn" aria-label="Zpět">
             <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/></svg>
           </button>

@@ -1151,6 +1151,25 @@
 
 /* ─── ADD REVIEW ─── */
 
+/* --- CUSTOM REQUEST CARD (NEVYBRALI JSTE SI Z NABÍDKY) --- */
+.service-custom-request-card {
+  margin-top: 40px;
+  padding: 40px 24px;
+  background: var(--tp-bg-warm);
+  border-radius: var(--tp-radius-lg);
+  text-align: center;
+  border: 1px dashed var(--tp-border-strong);
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.service-custom-request-card:hover {
+  background: var(--tp-white);
+  border-color: var(--tp-pink);
+  box-shadow: 0 16px 50px rgba(0, 0, 0, 0.04);
+  transform: translateY(-4px);
+}
+
 /* ─── FOOTER PADDING ─── */
 .page-end {
   height: 80px;

@@ -442,7 +442,12 @@ const TutorProfilePage = () => {
           <div className="services-grid">
             {profileData.services && profileData.services.length > 0 ? (
               profileData.services.map(svc => (
-                <div key={svc.id} className={`service-card ${svc.price.toLowerCase().includes('zdarma') ? 'free' : ''}`}>
+                <div 
+                  key={svc.id} 
+                  className={`service-card ${svc.price.toLowerCase().includes('zdarma') ? 'free' : ''}`}
+                  onClick={(e) => handleServiceClick(e, svc)}
+                  style={{ cursor: 'pointer' }}
+                >
                   <div>
                     <span className={`service-badge ${svc.price.toLowerCase().includes('zdarma') ? 'badge-free' : 'badge-individual'}`}>
                       {svc.price.toLowerCase().includes('zdarma')
@@ -470,7 +475,13 @@ const TutorProfilePage = () => {
                         </div>
                       )}
 
-                      <button className={`service-reserve-btn ${svc.price.toLowerCase().includes('zdarma') ? 'green-btn' : ''}`} onClick={(e) => handleServiceClick(e, svc)}>
+                      <button 
+                        className={`service-reserve-btn ${svc.price.toLowerCase().includes('zdarma') ? 'green-btn' : ''}`} 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleServiceClick(e, svc);
+                        }}
+                      >
                         Vybrat termín
                       </button>
                     </div>
@@ -482,7 +493,14 @@ const TutorProfilePage = () => {
             )}
           </div>
 
-          <div style={{ marginTop: '40px', padding: '40px 24px', background: 'var(--tp-bg-warm)', borderRadius: 'var(--tp-radius-lg)', textAlign: 'center', border: '1px dashed var(--tp-border-strong)' }}>
+          <div 
+            className="service-custom-request-card"
+            onClick={(e) => {
+              e.preventDefault();
+              setContactMessage('Dobrý den, nevybral/a jsem si z aktuální nabídky balíčků, ale měl/a bych zájem o individuální domluvu ohledně formátu a počtu lekcí. Můžeme společně probrat možnosti?');
+              scrollToId(e, 'kontakt');
+            }}
+          >
             <h3 style={{ fontSize: '20px', fontWeight: '800', color: 'var(--tp-dark)', marginBottom: '12px' }}>Nevybrali jste si z nabídky?</h3>
             <p style={{ fontSize: '15px', color: 'var(--tp-mid)', marginBottom: '24px', maxWidth: '600px', margin: '0 auto 24px auto', lineHeight: '1.6' }}>
               Máte zájem o jiný počet lekcí, specifický formát výuky nebo individuální domluvu? Neváhejte mi napsat, rádi Vám vyjdeme vstříc.
@@ -490,6 +508,7 @@ const TutorProfilePage = () => {
             <button
               className="tp-btn secondary"
               onClick={(e) => {
+                e.stopPropagation();
                 e.preventDefault();
                 setContactMessage('Dobrý den, nevybral/a jsem si z aktuální nabídky balíčků, ale měl/a bych zájem o individuální domluvu ohledně formátu a počtu lekcí. Můžeme společně probrat možnosti?');
                 scrollToId(e, 'kontakt');

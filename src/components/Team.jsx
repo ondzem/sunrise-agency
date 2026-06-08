@@ -10,11 +10,49 @@ gsap.registerPlugin(ScrollTrigger);
 const Team = () => {
   const container = useRef(null);
   const scrollRef = useRef(null);
+  const intendedIndex = useRef(0);
+  const isManualScroll = useRef(false);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleUserInteraction = () => {
+      isManualScroll.current = true;
+    };
+
+    el.addEventListener('touchstart', handleUserInteraction, { passive: true });
+    el.addEventListener('wheel', handleUserInteraction, { passive: true });
+    el.addEventListener('mousedown', handleUserInteraction, { passive: true });
+
+    return () => {
+      el.removeEventListener('touchstart', handleUserInteraction);
+      el.removeEventListener('wheel', handleUserInteraction);
+      el.removeEventListener('mousedown', handleUserInteraction);
+    };
+  }, []);
 
   const slide = (direction) => {
     if (scrollRef.current) {
       const scrollAmount = window.innerWidth > 1024 ? 360 : 320;
-      scrollRef.current.scrollBy({ left: direction === 'left' ? -scrollAmount : scrollAmount, behavior: 'smooth' });
+      const maxScroll = scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+      const maxIndex = Math.round(maxScroll / scrollAmount);
+
+      if (isManualScroll.current) {
+        intendedIndex.current = Math.round(scrollRef.current.scrollLeft / scrollAmount);
+        isManualScroll.current = false;
+      }
+
+      if (direction === 'left') {
+        intendedIndex.current = Math.max(0, intendedIndex.current - 1);
+      } else {
+        intendedIndex.current = Math.min(maxIndex, intendedIndex.current + 1);
+      }
+
+      scrollRef.current.scrollTo({
+        left: intendedIndex.current * scrollAmount,
+        behavior: 'smooth'
+      });
     }
   };
 
