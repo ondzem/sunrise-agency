@@ -70,6 +70,45 @@ const GlobalLayout = ({ children }) => {
 };
 
 function App() {
+  React.useEffect(() => {
+    const addNoTranslate = (node) => {
+      if (node.nodeType === Node.ELEMENT_NODE) {
+        if (node.classList && (node.classList.contains('material-symbols-outlined') || node.classList.contains('material-icons'))) {
+          node.setAttribute('translate', 'no');
+          node.classList.add('notranslate');
+        }
+        const children = node.querySelectorAll('.material-symbols-outlined, .material-icons');
+        children.forEach(child => {
+          child.setAttribute('translate', 'no');
+          child.classList.add('notranslate');
+        });
+      }
+    };
+
+    // Run once on initial elements
+    const existing = document.querySelectorAll('.material-symbols-outlined, .material-icons');
+    existing.forEach(node => {
+      node.setAttribute('translate', 'no');
+      node.classList.add('notranslate');
+    });
+
+    // Watch for dynamic updates
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        mutation.addedNodes.forEach((node) => {
+          addNoTranslate(node);
+        });
+      });
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <Router>
       <AnalyticsTracker />
