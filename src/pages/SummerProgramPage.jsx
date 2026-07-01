@@ -352,7 +352,7 @@ const SummerProgramPage = () => {
     navigate('/pokladna', {
       state: {
         source: 'summer_adults',
-        title: adultForm.course,
+        title: `${adultForm.course} (${adultForm.term})`,
         term: adultForm.term,
         priceText: priceText,
         price: priceVal,
@@ -374,7 +374,7 @@ const SummerProgramPage = () => {
     navigate('/pokladna', {
       state: {
         source: 'summer_kids',
-        title: `Letní tábor: ${childForm.term}`,
+        title: `Letní tábor: ${childForm.term} (${termDate})`,
         term: termDate,
         priceText: priceText,
         siblingPriceText: siblingPriceText,

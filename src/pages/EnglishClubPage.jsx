@@ -898,7 +898,7 @@ const EnglishClubPage = () => {
                             navigate('/pokladna', {
                               state: {
                                 source: 'english_club',
-                                title: activeModal.title,
+                                title: `${activeModal.title} (${formData.dates.join(', ')})`,
                                 term: formData.dates.join(', '),
                                 priceText: `${baseVal.toLocaleString('cs-CZ')} Kč`,
                                 siblingPriceText: `${sibVal.toLocaleString('cs-CZ')} Kč`,

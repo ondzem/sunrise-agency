@@ -400,7 +400,7 @@ const CourseModal = ({ course, onClose, isAdminMode, configOverrides, onConfigCh
     navigate('/pokladna', {
       state: {
         source: 'courses',
-        title: `${course.title} - ${selectedOpt.title}`,
+        title: `${course.title} - ${selectedOpt.title} (${getOptTime(selectedOpt)})`,
         term: getOptTime(selectedOpt),
         priceText: getOptPrice(selectedOpt),
         price: getOptPriceNum(selectedOpt),

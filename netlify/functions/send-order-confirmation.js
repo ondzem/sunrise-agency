@@ -49,6 +49,11 @@ export default async (req, context) => {
       }
     }
 
+    // Vždy připojit termín do názvu služby pro maximální přehlednost v předmětu a shrnutí
+    if (term && !formattedServiceName.includes(term)) {
+      formattedServiceName = `${formattedServiceName} (${term})`;
+    }
+
     let kidsInfoHtml = '';
     if (isKidsProgram) {
       kidsInfoHtml = `
